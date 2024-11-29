@@ -13,8 +13,6 @@ import { flatMap } from 'lodash';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import { useChatWindowContext, useRefsContext } from '@/context';
-// import camelcaseKeys from 'camelcase-keys';
-// import { messagesListMockdata } from '@/mockdata/messagesListMockdata';
 import { tailwind } from '@/theme';
 import { Message } from '@/types';
 import { useAppKeyboardAnimation } from '@/utils';
@@ -25,7 +23,7 @@ import {
 } from '@/store/conversation/conversationSelectors';
 import { getGroupedMessages } from '@/utils';
 
-import { MessageItem } from './components/MessageItem';
+import { MessageItemContainer } from './components/MessageItemContainer';
 import { conversationActions } from '@/store/conversation/conversationActions';
 import {
   selectIsAllMessagesFetched,
@@ -42,12 +40,6 @@ export type FlashListRenderProps = {
   index: number;
 };
 
-// const MESSAGES_LIST_MOCKDATA = [...messagesListMockdata.payload].reverse();
-
-// const messages = MESSAGES_LIST_MOCKDATA.map(
-//   value => camelcaseKeys(value, { deep: true }) as unknown as Message,
-// );
-
 const PlatformSpecificKeyboardWrapperComponent =
   Platform.OS === 'android' ? Animated.View : KeyboardGestureArea;
 
@@ -63,7 +55,7 @@ export const MessagesList = () => {
   const messages = useAppSelector(state => getMessagesByConversationId(state, { conversationId }));
 
   const handleRender = useCallback(({ item, index }: FlashListRenderProps) => {
-    return <MessageItem {...{ item, index }} />;
+    return <MessageItemContainer {...{ item, index }} />;
   }, []);
 
   const attachments = useAppSelector(selectAttachments);
@@ -73,8 +65,6 @@ export const MessagesList = () => {
   useDeepCompareEffect(() => {
     setAddMenuOptionSheetState(false);
   }, [attachments]);
-
-  // const allMessages = flatMap(chatMessages, section => [...section.data, { date: section.date }]);
 
   const animatedFlashlistStyle = useAnimatedStyle(() => {
     return {
