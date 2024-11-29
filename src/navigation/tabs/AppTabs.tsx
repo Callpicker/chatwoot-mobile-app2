@@ -21,6 +21,7 @@ import { CONVERSATION_PERMISSIONS } from 'constants/permissions';
 
 import { AuthStack, ConversationStack, SettingsStack, InboxStack } from '../stack';
 // import ChatScreen from '@/screens/chat-screen/ChatScreen';
+import ChatScreen from '@/screens/chat-screen/ChatScreen';
 // import ContactDetailsScreen from '@/screens/contact-details/ContactDetailsScreen';
 // import { DashboardScreen } from '@/screens/dashboard';
 
@@ -166,12 +167,12 @@ export const AppTabs = () => {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Tab" component={Tabs} />
-        {/* <Stack.Screen
+        <Stack.Screen
           options={{ animation: 'slide_from_right' }}
           name="ChatScreen"
           component={ChatScreen}
         />
-        <Stack.Screen
+        {/*  <Stack.Screen
           options={{
             presentation: 'formSheet',
             animation: 'slide_from_bottom',

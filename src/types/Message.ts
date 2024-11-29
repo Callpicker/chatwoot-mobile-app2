@@ -63,5 +63,5 @@ export interface Message {
   status: MessageStatus;
   lastNonActivityMessage: Message | null;
   conversation?: Conversation | null;
-  shouldRenderAvatar?: boolean;
+  shouldRenderAvatar?: boolean | false;
 }
