@@ -191,6 +191,11 @@
       "fallback": {
         "CONTENT": "has shared a url"
       }
+    },
+    "LONG_PRESS_ACTIONS": {
+      "COPY": "Copy",
+      "REPLY": "Reply",
+      "DELETE_MESSAGE": "Delete message"
     }
   },
 

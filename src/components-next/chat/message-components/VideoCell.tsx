@@ -149,7 +149,7 @@ export const VideoCell = (props: VideoCellProps) => {
       <Animated.View style={tailwind.style('flex flex-row')}>
         {sender?.thumbnail && isIncoming && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end mr-1')}>
-            <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name} />
+            <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name || ''} />
           </Animated.View>
         ) : null}
         <MessageMenu menuOptions={menuOptions}>

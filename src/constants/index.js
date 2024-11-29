@@ -128,6 +128,11 @@ export const INBOX_TYPES = {
   SMS: 'Channel::Sms',
 };
 
+export const INBOX_FEATURES = {
+  REPLY_TO: 'replyTo',
+  REPLY_TO_OUTGOING: 'replyToOutgoing',
+};
+
 export const INBOX_ICON = {
   'Channel::All': 'copy-outline',
   'Channel::Api': 'inbox-outline',

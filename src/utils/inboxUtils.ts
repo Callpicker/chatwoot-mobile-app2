@@ -1,9 +1,4 @@
-import { INBOX_TYPES } from '@/constants';
-
-export const INBOX_FEATURES = {
-  REPLY_TO: 'replyTo',
-  REPLY_TO_OUTGOING: 'replyToOutgoing',
-};
+import { INBOX_TYPES, INBOX_FEATURES } from '@/constants';
 
 // This is a single source of truth for inbox features
 // This is used to check if a feature is available for a particular inbox or not

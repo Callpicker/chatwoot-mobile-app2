@@ -6,6 +6,7 @@ import { Animated } from 'react-native';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { tailwind } from '@/theme';
 import { MessagesList } from './MessagesList';
+import { LightBoxProvider } from '@alantoa/lightbox';
 import { ALL_MESSAGES_MOCKDATA } from './messagesListMockdata';
 import { ChatWindowProvider } from '@/context';
 import { Provider } from 'react-redux';
@@ -54,26 +55,27 @@ const meta: Meta<typeof MessagesList> = {
 export default meta;
 type Story = StoryObj<typeof MessagesList>;
 
-export const AllVariants: Story = {
+export const AllMessageTypes: Story = {
   render: function AllVariantsComponent() {
     return (
       <Provider store={mockStore}>
         <KeyboardProvider>
-          <ChatWindowProvider conversationId={29}>
-            <ScrollView contentContainerStyle={tailwind.style('flex')}>
-              <PlatformSpecificKeyboardWrapperComponent
-                style={tailwind.style('flex-1 bg-white')}
-                interpolator="linear">
-                <MessagesList
-                  messages={ALL_MESSAGES_MOCKDATA}
-                  messageListRef={null}
-                  isFlashListReady={false}
-                  setFlashListReady={() => {}}
-                  onEndReached={() => {}}
-                />
-              </PlatformSpecificKeyboardWrapperComponent>
-            </ScrollView>
-          </ChatWindowProvider>
+          <LightBoxProvider>
+            <ChatWindowProvider conversationId={29}>
+              <ScrollView contentContainerStyle={tailwind.style('flex')}>
+                <PlatformSpecificKeyboardWrapperComponent
+                  style={tailwind.style('flex-1 bg-white')}
+                  interpolator="linear">
+                  <MessagesList
+                    messages={ALL_MESSAGES_MOCKDATA}
+                    isFlashListReady={false}
+                    setFlashListReady={() => {}}
+                    onEndReached={() => {}}
+                  />
+                </PlatformSpecificKeyboardWrapperComponent>
+              </ScrollView>
+            </ChatWindowProvider>
+          </LightBoxProvider>
         </KeyboardProvider>
       </Provider>
     );

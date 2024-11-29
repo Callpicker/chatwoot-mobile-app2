@@ -10,8 +10,8 @@ import {
 } from '@gorhom/bottom-sheet';
 import * as ContextMenu from 'zeego/context-menu';
 
-import { tailwind } from '../../../theme';
-import { BottomSheetHeader, BottomSheetWrapper, Icon } from '../../common';
+import { tailwind } from '@/theme';
+import { BottomSheetHeader, BottomSheetWrapper, Icon } from '@/components-next/common';
 
 export type MenuOption = {
   title: string;

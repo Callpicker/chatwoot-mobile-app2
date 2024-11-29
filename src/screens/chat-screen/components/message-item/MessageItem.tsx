@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { tailwind } from '@/theme';
-import { Message } from '@/types';
+import { Channel, Message } from '@/types';
 import { MenuOption } from '@/components-next/chat/message-menu';
 import {
   AudioCell,
@@ -13,14 +13,15 @@ import {
 } from '@/components-next/chat/message-components';
 import { TextMessageCell } from '@/components-next/chat/TextMessageCell';
 
-type StickySectionProps = { item: { date: string } };
+type DateSectionProps = { item: { date: string } };
+
 type MessageItemPresentationProps = {
   item: Message | { date: string };
-  channel?: string;
+  channel?: Channel;
   getMenuOptions: (message: Message) => MenuOption[];
 };
 
-const StickySection = ({ item }: StickySectionProps) => {
+const DateSection = ({ item }: DateSectionProps) => {
   return (
     <Animated.View style={tailwind.style('flex flex-row justify-center items-center py-5')}>
       <Animated.View style={tailwind.style('rounded-lg py-1 px-[7px] bg-blackA-A3')}>
@@ -37,7 +38,7 @@ const StickySection = ({ item }: StickySectionProps) => {
 
 export const MessageItem = ({ item, channel, getMenuOptions }: MessageItemPresentationProps) => {
   if ('date' in item) {
-    return <StickySection item={item} />;
+    return <DateSection item={item} />;
   }
 
   const isReplyMessage = item.contentAttributes?.inReplyTo;

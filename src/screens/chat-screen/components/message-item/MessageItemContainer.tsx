@@ -5,7 +5,8 @@ import { selectConversationById } from '@/store/conversation/conversationSelecto
 import { useChatWindowContext } from '@/context';
 import { setQuoteMessage } from '@/store/conversation/sendMessageSlice';
 import { conversationActions } from '@/store/conversation/conversationActions';
-import { INBOX_FEATURES, inboxHasFeature, is360DialogWhatsAppChannel, useHaptic } from '@/utils';
+import { inboxHasFeature, is360DialogWhatsAppChannel, useHaptic } from '@/utils';
+import { INBOX_FEATURES } from '@/constants';
 import { showToast } from '@/helpers/ToastHelper';
 import i18n from '@/i18n';
 import Clipboard from '@react-native-clipboard/clipboard';
@@ -52,7 +53,7 @@ export const MessageItemContainer = (props: MessageItemContainerProps) => {
   };
 
   const getMenuOptions = (message: Message): MenuOption[] => {
-    const { messageType, content, isPrivate, attachments } = message;
+    const { messageType, content, private: isPrivate, attachments } = message;
     const hasText = !!content;
     const hasAttachments = !!(attachments && attachments.length > 0);
     const channel = conversation?.meta?.channel;
@@ -66,7 +67,7 @@ export const MessageItemContainer = (props: MessageItemContainerProps) => {
 
     if (hasText) {
       menuOptions.push({
-        title: 'Copy',
+        title: i18n.t('CONVERSATION.LONG_PRESS_ACTIONS.COPY'),
         icon: <CopyIcon />,
         handleOnPressMenuOption: () => handleCopyMessage(content),
         destructive: false,
@@ -75,7 +76,7 @@ export const MessageItemContainer = (props: MessageItemContainerProps) => {
 
     if (!isPrivate && channel && inboxSupportsReplyTo(channel).outgoing) {
       menuOptions.push({
-        title: 'Reply',
+        title: i18n.t('CONVERSATION.LONG_PRESS_ACTIONS.REPLY'),
         icon: null,
         handleOnPressMenuOption: handleQuoteReplyAttachment,
         destructive: false,
@@ -84,7 +85,7 @@ export const MessageItemContainer = (props: MessageItemContainerProps) => {
 
     if (hasAttachments || hasText) {
       menuOptions.push({
-        title: 'Delete message',
+        title: i18n.t('CONVERSATION.LONG_PRESS_ACTIONS.DELETE_MESSAGE'),
         icon: <Trash />,
         handleOnPressMenuOption: () => handleDeleteMessage(message.id),
         destructive: true,
