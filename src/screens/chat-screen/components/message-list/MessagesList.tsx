@@ -10,7 +10,7 @@ import Animated, {
 import { FlashList } from '@shopify/flash-list';
 import { tailwind } from '@/theme';
 import { Message } from '@/types';
-import { MessageItemContainer } from './components/MessageItemContainer';
+import { MessageItemContainer } from '../message-item';
 
 export type FlashListRenderProps = {
   item: { date: string } | Message;
@@ -23,7 +23,7 @@ const PlatformSpecificKeyboardWrapperComponent =
 
 type MessagesListPresentationProps = {
   messages: (Message | { date: string })[];
-  messageListRef: React.RefObject<FlashList<any>>;
+  messageListRef: React.RefObject<FlashList<Message>>;
   isFlashListReady: boolean;
   setFlashListReady: (ready: boolean) => void;
   onEndReached: () => void;

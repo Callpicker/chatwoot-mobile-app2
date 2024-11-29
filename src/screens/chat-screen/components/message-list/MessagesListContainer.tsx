@@ -21,14 +21,12 @@ export const MessagesListContainer = () => {
   const { messageListRef } = useRefsContext();
   const [isFlashListReady, setFlashListReady] = React.useState(false);
 
-  // Selectors
   const conversation = useAppSelector(state => selectConversationById(state, conversationId));
   const isAllMessagesFetched = useAppSelector(selectIsAllMessagesFetched);
   const isLoadingMessages = useAppSelector(selectIsLoadingMessages);
   const messages = useAppSelector(state => getMessagesByConversationId(state, { conversationId }));
   const attachments = useAppSelector(selectAttachments);
 
-  // Context and animations
   const { progress, height } = useAppKeyboardAnimation();
   const { setAddMenuOptionSheetState } = useChatWindowContext();
 
