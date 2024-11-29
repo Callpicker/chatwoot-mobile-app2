@@ -1,10 +1,49 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ScrollView } from 'react-native';
+import { Platform } from 'react-native';
+import { KeyboardGestureArea, KeyboardProvider } from 'react-native-keyboard-controller';
+import { Animated } from 'react-native';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { tailwind } from '@/theme';
 import { MessagesList } from './MessagesList';
 import { ALL_MESSAGES_MOCKDATA } from './messagesListMockdata';
-import { useAppKeyboardAnimation } from '@/utils';
 import { ChatWindowProvider } from '@/context';
+import { Provider } from 'react-redux';
+
+const PlatformSpecificKeyboardWrapperComponent =
+  Platform.OS === 'android' ? Animated.View : KeyboardGestureArea;
+
+const mockSendMessageSlice = createSlice({
+  name: 'sendMessage',
+  initialState: {
+    messageContent: '',
+    isPrivateMessage: false,
+    attachments: [],
+    quoteMessage: null,
+  },
+  reducers: {},
+});
+
+const mockConversationSlice = createSlice({
+  name: 'conversation',
+  initialState: {
+    ids: [29],
+    entities: {
+      29: {
+        id: 29,
+        status: 'open',
+      },
+    },
+  },
+  reducers: {},
+});
+
+const mockStore = configureStore({
+  reducer: {
+    sendMessage: mockSendMessageSlice.reducer,
+    conversations: mockConversationSlice.reducer,
+  },
+});
 
 const meta: Meta<typeof MessagesList> = {
   title: 'Messages List',
@@ -17,22 +56,26 @@ type Story = StoryObj<typeof MessagesList>;
 
 export const AllVariants: Story = {
   render: function AllVariantsComponent() {
-    const { progress, height } = useAppKeyboardAnimation();
-
     return (
-      <ChatWindowProvider conversationId={29}>
-        <ScrollView contentContainerStyle={tailwind.style('flex')}>
-          <MessagesList
-            messages={ALL_MESSAGES_MOCKDATA}
-            messageListRef={null}
-            isFlashListReady={false}
-            setFlashListReady={() => {}}
-            onEndReached={() => {}}
-            progress={progress}
-            height={height}
-          />
-        </ScrollView>
-      </ChatWindowProvider>
+      <Provider store={mockStore}>
+        <KeyboardProvider>
+          <ChatWindowProvider conversationId={29}>
+            <ScrollView contentContainerStyle={tailwind.style('flex')}>
+              <PlatformSpecificKeyboardWrapperComponent
+                style={tailwind.style('flex-1 bg-white')}
+                interpolator="linear">
+                <MessagesList
+                  messages={ALL_MESSAGES_MOCKDATA}
+                  messageListRef={null}
+                  isFlashListReady={false}
+                  setFlashListReady={() => {}}
+                  onEndReached={() => {}}
+                />
+              </PlatformSpecificKeyboardWrapperComponent>
+            </ScrollView>
+          </ChatWindowProvider>
+        </KeyboardProvider>
+      </Provider>
     );
   },
 };

@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '@/hooks';
-import { useChatWindowContext, useRefsContext } from '@/context';
-import { useAppKeyboardAnimation } from '@/utils';
+import { useChatWindowContext } from '@/context';
+import { Platform } from 'react-native';
+import { KeyboardGestureArea } from 'react-native-keyboard-controller';
 import { flatMap } from 'lodash';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import {
@@ -12,13 +13,17 @@ import {
 } from '@/store/conversation/conversationSelectors';
 import { conversationActions } from '@/store/conversation/conversationActions';
 import { selectAttachments } from '@/store/conversation/sendMessageSlice';
+import { Animated } from 'react-native';
 import { getGroupedMessages } from '@/utils';
 import { MessagesList } from './MessagesList';
+import tailwind from 'twrnc';
+
+const PlatformSpecificKeyboardWrapperComponent =
+  Platform.OS === 'android' ? Animated.View : KeyboardGestureArea;
 
 export const MessagesListContainer = () => {
   const { conversationId } = useChatWindowContext();
   const dispatch = useAppDispatch();
-  const { messageListRef } = useRefsContext();
   const [isFlashListReady, setFlashListReady] = React.useState(false);
 
   const conversation = useAppSelector(state => selectConversationById(state, conversationId));
@@ -27,7 +32,6 @@ export const MessagesListContainer = () => {
   const messages = useAppSelector(state => getMessagesByConversationId(state, { conversationId }));
   const attachments = useAppSelector(selectAttachments);
 
-  const { progress, height } = useAppKeyboardAnimation();
   const { setAddMenuOptionSheetState } = useChatWindowContext();
 
   useDeepCompareEffect(() => {
@@ -76,14 +80,15 @@ export const MessagesListContainer = () => {
   ]);
 
   return (
-    <MessagesList
-      messages={allMessages}
-      messageListRef={messageListRef}
-      isFlashListReady={isFlashListReady}
-      setFlashListReady={setFlashListReady}
-      onEndReached={onEndReached}
-      progress={progress}
-      height={height}
-    />
+    <PlatformSpecificKeyboardWrapperComponent
+      style={tailwind.style('flex-1 bg-white')}
+      interpolator="linear">
+      <MessagesList
+        messages={allMessages}
+        isFlashListReady={isFlashListReady}
+        setFlashListReady={setFlashListReady}
+        onEndReached={onEndReached}
+      />
+    </PlatformSpecificKeyboardWrapperComponent>
   );
 };

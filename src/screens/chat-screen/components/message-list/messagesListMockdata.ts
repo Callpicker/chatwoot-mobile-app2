@@ -51,7 +51,7 @@ export const messagesListMockdata = {
   payload: [
     {
       id: 1,
-      content: 'Good morning team!',
+      content: 'Good morning guys',
       inbox_id: 496,
       conversation_id: 29,
       message_type: 0,
