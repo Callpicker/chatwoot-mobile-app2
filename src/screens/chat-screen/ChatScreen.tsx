@@ -10,7 +10,7 @@ import { ChatScreenHeader } from './components';
 // import { ConversationActions } from './conversation-actions';
 
 import { ReplyBox } from '@/components-next/chat/ReplyBox';
-import { MessagesList } from './MessagesList';
+import { MessagesListContainer } from './MessagesListContainer';
 import { ChatWindowProvider, useChatWindowContext, useRefsContext } from '@/context';
 import { TabBarExcludedScreenParamList } from '@/navigation/tabs/AppTabs';
 import { tailwind } from '@/theme';
@@ -19,7 +19,7 @@ import { useAppSelector } from '@/hooks';
 export const ChatWindow = (props: ChatScreenProps) => {
   return (
     <Animated.View style={tailwind.style('flex-1')}>
-      <MessagesList />
+      <MessagesListContainer />
       <ReplyBox />
     </Animated.View>
   );

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Message } from '@/types';
-import { useAppDispatch, useAppSelector } from '@/hooks';
-import { selectConversationById } from '@/store/conversation/conversationSelectors';
+// import { useAppDispatch, useAppSelector } from '@/hooks';
+// import { selectConversationById } from '@/store/conversation/conversationSelectors';
 import { useChatWindowContext } from '@/context';
-import { setQuoteMessage } from '@/store/conversation/sendMessageSlice';
-import { conversationActions } from '@/store/conversation/conversationActions';
+// import { setQuoteMessage } from '@/store/conversation/sendMessageSlice';
+// import { conversationActions } from '@/store/conversation/conversationActions';
 import { INBOX_FEATURES, inboxHasFeature, is360DialogWhatsAppChannel, useHaptic } from '@/utils';
 import { showToast } from '@/helpers/ToastHelper';
 import i18n from '@/i18n';
@@ -13,16 +13,17 @@ import { MESSAGE_TYPES } from '@/constants';
 import { CopyIcon, Trash } from '@/svg-icons';
 import { MenuOption } from '@/components-next/chat/message-menu';
 import { MessageItem } from './MessageItem';
-import { FlashListRenderProps } from '../MessagesList';
+// import { FlashListRenderProps } from '../MessagesList';
 
 export const MessageItemContainer = (props: FlashListRenderProps) => {
-  const dispatch = useAppDispatch();
-  const { conversationId } = useChatWindowContext();
+  // const dispatch = useAppDispatch();
+  // const { conversationId } = useChatWindowContext();
+  // const conversationId = 29;
   const hapticSelection = useHaptic();
-  const conversation = useAppSelector(state => selectConversationById(state, conversationId));
+  // const conversation = useAppSelector(state => selectConversationById(state, conversationId));
 
   const handleQuoteReplyAttachment = () => {
-    dispatch(setQuoteMessage(props.item as Message));
+    // dispatch(setQuoteMessage(props.item as Message));
   };
 
   const handleCopyMessage = (content: string) => {
@@ -34,7 +35,7 @@ export const MessageItemContainer = (props: FlashListRenderProps) => {
   };
 
   const handleDeleteMessage = (messageId: number) => {
-    dispatch(conversationActions.deleteMessage({ conversationId, messageId }));
+    // dispatch(conversationActions.deleteMessage({ conversationId, messageId }));
   };
 
   const inboxSupportsReplyTo = (channel: string) => {
@@ -50,7 +51,8 @@ export const MessageItemContainer = (props: FlashListRenderProps) => {
     const { messageType, content, isPrivate, attachments } = message;
     const hasText = !!content;
     const hasAttachments = !!(attachments && attachments.length > 0);
-    const channel = conversation?.meta?.channel;
+    // const channel = conversation?.meta?.channel;
+    const channel = 'whatsapp';
     const isDeleted = message.contentAttributes?.deleted;
 
     const menuOptions: MenuOption[] = [];

@@ -17,9 +17,9 @@ import { AudioPlayer } from './AudioCell';
 import { FilePreview } from './FileCell';
 import { ImageContainer } from './ImageCell';
 import { VideoPlayer } from './VideoCell';
-import { useAppSelector } from '@/hooks';
-import { getMessagesByConversationId } from '@/store/conversation/conversationSelectors';
-import { useChatWindowContext } from '@/context';
+// import { useAppSelector } from '@/hooks';
+// import { getMessagesByConversationId } from '@/store/conversation/conversationSelectors';
+// import { useChatWindowContext } from '@/context';
 import { DeliveryStatus } from './DeliveryStatus';
 
 type ComposedCellProps = {
@@ -41,9 +41,9 @@ export const ComposedCell = (props: ComposedCellProps) => {
     contentAttributes,
   } = props.messageData as Message;
   const { channel, menuOptions } = props;
-  const { conversationId } = useChatWindowContext();
+  // const { conversationId } = useChatWindowContext();
 
-  const messages = useAppSelector(state => getMessagesByConversationId(state, { conversationId }));
+  // const messages = useAppSelector(state => getMessagesByConversationId(state, { conversationId }));
 
   const isIncoming = messageType === MESSAGE_TYPES.INCOMING;
   const isOutgoing = messageType === MESSAGE_TYPES.OUTGOING;
@@ -55,13 +55,14 @@ export const ComposedCell = (props: ComposedCellProps) => {
     [contentAttributes?.inReplyTo],
   );
 
-  const replyMessage = useMemo(
-    () =>
-      contentAttributes && contentAttributes?.inReplyTo
-        ? messages.find(message => message.id === contentAttributes?.inReplyTo) || null
-        : null,
-    [messages, contentAttributes],
-  );
+  // const replyMessage = useMemo(
+  //   () =>
+  //     contentAttributes && contentAttributes?.inReplyTo
+  //       ? messages.find(message => message.id === contentAttributes?.inReplyTo) || null
+  //       : null,
+  //   [messages, contentAttributes],
+  // );
+  const replyMessage = null;
 
   return (
     <Animated.View
