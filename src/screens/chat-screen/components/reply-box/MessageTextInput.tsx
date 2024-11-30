@@ -7,6 +7,7 @@ import {
   TextInputProps,
   View,
   Text,
+  TextInput,
 } from 'react-native';
 import Animated, {
   LayoutAnimationConfig,
@@ -61,7 +62,7 @@ const renderSuggestions: (suggestions: Suggestion[]) => FC<MentionSuggestionsPro
 
 const renderMentionSuggestions = renderSuggestions(users);
 
-// const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
 type MessageTextInputProps = {};
 
@@ -122,6 +123,7 @@ export const MessageTextInput = ({}: MessageTextInputProps) => {
   });
 
   const onChangeText = (text: string) => {
+    setValue(text);
     messageText.value = text.trimEnd();
     dispatch(setMessageText(text));
   };
@@ -188,7 +190,7 @@ export const MessageTextInput = ({}: MessageTextInputProps) => {
 
         <MentionInput
           value={value}
-          onChange={setValue}
+          onChange={onChangeText}
           partTypes={[
             {
               trigger: '@',
