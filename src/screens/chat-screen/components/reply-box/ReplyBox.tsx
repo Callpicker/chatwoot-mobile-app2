@@ -23,22 +23,23 @@ import {
   resetSentMessage,
   updateAttachments,
 } from '@/store/conversation/sendMessageSlice';
-import { AddIcon, PhotosIcon, SendIcon, VoiceNote } from '@/svg-icons';
+import { AddIcon, PhotosIcon, SendIcon } from '@/svg-icons';
 import { tailwind } from '@/theme';
 import { useHaptic, useScaleAnimation } from '@/utils';
 import { Icon } from '@/components-next/common';
 
-import { AttachedMedia } from './AttachedMedia';
-import { CommandOptionsMenu, handleOpenPhotosLibrary } from './CommandOptionsMenu';
+import { AttachedMedia } from '@/components-next/chat/AttachedMedia';
+import {
+  CommandOptionsMenu,
+  handleOpenPhotosLibrary,
+} from '@/components-next/chat/CommandOptionsMenu';
 import {
   photoIconEnterAnimation,
   photoIconExitAnimation,
   sendIconEnterAnimation,
   sendIconExitAnimation,
-  voiceNoteIconEnterAnimation,
-  voiceNoteIconExitAnimation,
-} from './customAnimations';
-import { MessageTextInput } from './message-input';
+} from '@/utils/customAnimations';
+import { MessageTextInput } from './MessageTextInput';
 import { QuoteReply } from './QuoteReply';
 import { conversationActions } from '@/store/conversation/conversationActions';
 import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -115,26 +116,6 @@ const AddCommandButton = (props: AddCommandButtonProps) => {
   );
 };
 
-type VoiceRecordButtonProps = PressableProps & {};
-
-const VoiceRecordButton = (props: VoiceRecordButtonProps) => {
-  const { animatedStyle, handlers } = useScaleAnimation();
-
-  return (
-    <Pressable {...props} {...handlers}>
-      <Animated.View
-        entering={voiceNoteIconEnterAnimation}
-        exiting={voiceNoteIconExitAnimation}
-        style={[
-          tailwind.style('flex items-center justify-center h-10 w-10 rounded-2xl'),
-          animatedStyle,
-        ]}>
-        <Icon icon={<VoiceNote />} size={24} />
-      </Animated.View>
-    </Pressable>
-  );
-};
-
 type PhotosCommandButtonProps = PressableProps & {};
 
 const PhotosCommandButton = (props: PhotosCommandButtonProps) => {
@@ -169,14 +150,12 @@ const BottomSheetContent = () => {
   const isPrivateMessage = useAppSelector(selectIsPrivateMessage);
   const quoteMessage = useAppSelector(selectQuoteMessage);
 
-  // const { addNewMessage } = useMessageList();
   const { bottom } = useSafeAreaInsets();
   const {
     isAddMenuOptionSheetOpen,
     setAddMenuOptionSheetState,
     textInputRef,
     isVoiceRecorderOpen,
-    setIsVoiceRecorderOpen,
     isTextInputFocused,
     conversationId,
   } = useChatWindowContext();
@@ -202,11 +181,6 @@ const BottomSheetContent = () => {
       hapticSelection?.();
       setAddMenuOptionSheetState(true);
     }
-  };
-
-  const onPressVoiceRecordIcon = () => {
-    setIsVoiceRecorderOpen(true);
-    setAddMenuOptionSheetState(false);
   };
 
   const setReplyToInPayload = (payload: SendMessagePayload): SendMessagePayload => {
@@ -280,9 +254,6 @@ const BottomSheetContent = () => {
               {messageContent.length > 0 || attachmentsLength > 0 ? (
                 <SendMessageButton onPress={sendMessage} />
               ) : null}
-              {messageContent.length === 0 && attachmentsLength === 0 ? (
-                <VoiceRecordButton onPress={onPressVoiceRecordIcon} />
-              ) : null}
             </Animated.View>
           ) : null}
         </Animated.View>
@@ -297,21 +268,5 @@ const BottomSheetContent = () => {
 };
 
 export const ReplyBox = () => {
-  // const { bottom } = useSafeAreaInsets();
-
-  // const bottomSheetRef = useRef<BottomSheet>(null);
-
-  return (
-    // <BottomSheet
-    //   ref={bottomSheetRef}
-    //   handleComponent={null}
-    //   enableDynamicSizing
-    //   keyboardBlurBehavior="restore"
-    //   enableContentPanningGesture={false}
-    //   enableOverDrag={false}
-    //   bottomInset={bottom}
-    //   children={BottomSheetContent}
-    // />
-    <BottomSheetContent />
-  );
+  return <BottomSheetContent />;
 };

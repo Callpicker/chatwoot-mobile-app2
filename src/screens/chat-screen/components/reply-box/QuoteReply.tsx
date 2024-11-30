@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { selectQuoteMessage, setQuoteMessage } from '@/store/conversation/sendMessageSlice';
 
-import { VideoPlayer } from './message-components';
+import { VideoPlayer } from '@/components-next/chat/message-components';
 import { Message } from '@/types';
 
 const AudioIcon = () => {

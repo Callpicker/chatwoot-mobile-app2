@@ -14,3 +14,4 @@ export * from './useAppKeyboardAnimation';
 export * from './inboxUtils';
 export * from './messageUtils';
 export * from './isMarkdown';
+export * from './customAnimations';

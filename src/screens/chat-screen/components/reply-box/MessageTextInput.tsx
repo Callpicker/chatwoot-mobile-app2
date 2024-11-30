@@ -153,7 +153,7 @@ export const MessageTextInput = ({}: MessageTextInputProps) => {
       <Animated.View
         style={[
           // Pre calculated value to position the lock
-          tailwind.style('absolute right-[57px]'),
+          tailwind.style('absolute right-[12px]'),
           lockIconAnimatedPosition,
         ]}>
         <Pressable hitSlop={5} onPress={() => dispatch(togglePrivateMessage())}>
