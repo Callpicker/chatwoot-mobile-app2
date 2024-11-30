@@ -7,10 +7,10 @@ import { tailwind } from '@/theme';
 import { Channel, Message } from '@/types';
 import { unixTimestampToReadableTime } from '@/utils';
 import { Avatar, Icon } from '@/components-next';
-import { MarkdownDisplay } from '../markdown';
+import { MarkdownDisplay } from './MarkdownDisplay';
 import { MenuOption, MessageMenu } from '../message-menu';
 import { TEXT_MAX_WIDTH } from '@/constants';
-import { ReplyMessageCell } from '../reply-msg-cell';
+import { ReplyMessageCell } from './ReplyMessageCell';
 import { MESSAGE_TYPES } from '@/constants';
 
 import { AudioPlayer } from './AudioCell';
@@ -209,7 +209,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
               size={'md'}
               src={
                 isTemplate
-                  ? require('../../../assets/local/bot-avatar.png')
+                  ? require('../../../../assets/local/bot-avatar.png')
                   : { uri: sender?.thumbnail }
               }
               name={sender?.name || ''}

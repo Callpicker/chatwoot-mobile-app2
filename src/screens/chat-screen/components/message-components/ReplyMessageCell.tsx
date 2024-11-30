@@ -8,7 +8,7 @@ import { tailwind } from '@/theme';
 import { Message } from '@/types';
 import { isMarkdown } from '@/utils';
 import { Icon } from '@/components-next';
-import { MarkdownDisplay } from '../markdown';
+import { MarkdownDisplay } from './MarkdownDisplay';
 import { TEXT_MAX_WIDTH } from '@/constants';
 
 type ReplyMessageCellProps = {

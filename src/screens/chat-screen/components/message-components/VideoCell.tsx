@@ -15,7 +15,7 @@ import { Channel, Message, MessageStatus, UnixTimestamp } from '@/types';
 import { unixTimestampToReadableTime } from '@/utils';
 import { Avatar } from '@/components-next/common';
 import { Spinner } from '@/components-next/spinner';
-import { MenuOption, MessageMenu } from '@/components-next/chat/message-menu';
+import { MenuOption, MessageMenu } from '../message-menu';
 import { MESSAGE_TYPES } from '@/constants';
 import { DeliveryStatus } from './DeliveryStatus';
 
@@ -108,7 +108,7 @@ export const VideoPlayer = (props: VideoPlayerProps) => {
             onPress={handlePlayPress}
             style={tailwind.style('h-full w-full flex items-center justify-center')}>
             <Image
-              source={require('../../../assets/local/PlayIcon.png')}
+              source={require('../../../../assets/local/PlayIcon.png')}
               style={tailwind.style('h-12 w-12 z-10')}
             />
           </Pressable>
@@ -174,7 +174,7 @@ export const VideoCell = (props: VideoCellProps) => {
               entering={FadeIn.duration(300).easing(Easing.ease)}
               exiting={FadeOut.duration(300).easing(Easing.ease)}>
               <ImageBackground
-                source={require('../../../assets/local/ImageCellTimeStampOverlay.png')}
+                source={require('../../../../assets/local/ImageCellTimeStampOverlay.png')}
                 style={tailwind.style(
                   'absolute bottom-0 right-0 h-15 w-33 z-20 ',
                   shouldRenderAvatar

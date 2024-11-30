@@ -12,7 +12,7 @@ import i18n from '@/i18n';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { MESSAGE_TYPES } from '@/constants';
 import { CopyIcon, Trash } from '@/svg-icons';
-import { MenuOption } from '@/components-next/chat/message-menu';
+import { MenuOption } from '../message-menu';
 import { MessageItem } from './MessageItem';
 
 type MessageItemContainerProps = {

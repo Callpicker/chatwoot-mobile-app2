@@ -5,16 +5,13 @@ import { tailwind } from '@/theme';
 import { Channel, MessageStatus, MessageType } from '@/types';
 import { unixTimestampToReadableTime } from '@/utils';
 
-import { MarkdownDisplay } from './markdown';
+import { MarkdownDisplay } from './MarkdownDisplay';
 import { TEXT_MAX_WIDTH } from '@/constants';
-import { DeliveryStatus } from './message-components/DeliveryStatus';
+import { DeliveryStatus } from './DeliveryStatus';
 
-type MessageTextCellProps = {
+type BotTextCellProps = {
   text: string;
   timeStamp: number;
-  isIncoming: boolean;
-  isOutgoing: boolean;
-  isActivity: boolean;
   status: MessageStatus;
   isAvatarRendered: boolean;
   channel?: Channel;
@@ -22,20 +19,9 @@ type MessageTextCellProps = {
   sourceId?: string;
   isPrivate: boolean;
 };
-
-export const MessageTextCell = (props: MessageTextCellProps) => {
-  const {
-    text,
-    timeStamp,
-    isIncoming,
-    isOutgoing,
-    status,
-    isAvatarRendered,
-    channel,
-    messageType,
-    sourceId,
-    isPrivate,
-  } = props;
+export const BotTextCell = (props: BotTextCellProps) => {
+  const { text, timeStamp, status, isAvatarRendered, channel, messageType, sourceId, isPrivate } =
+    props;
 
   // const [singleLineLongText, setSingleLineLongText] = useState(false);
   // const [singleLineShortText, setSingleLineShortText] = useState(false);
@@ -53,7 +39,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
   //       // Timestamp inline
   //       setSingleLineShortText(true);
   //     } else {
-  //       // The text width is more than the max widthd
+  //       // The text width is more than the max width
   //       setSingleLineLongText(true);
   //     }
   //   } else {
@@ -72,32 +58,22 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
     <Animated.View
       style={[
         tailwind.style(
-          'relative pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
+          'relative max-w-[300px] pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden bg-blue-100',
           `max-w-[${TEXT_MAX_WIDTH}px]`,
-          isIncoming ? 'bg-blue-700' : '',
-          isOutgoing ? 'bg-gray-100' : '',
-          isAvatarRendered
-            ? isOutgoing
-              ? 'rounded-br-none'
-              : isIncoming
-                ? 'rounded-bl-none'
-                : ''
-            : '',
+          // singleLineShortText ? "flex flex-row" : "",
+          isAvatarRendered ? 'rounded-br-none' : '',
         ),
       ]}>
-      <MarkdownDisplay {...{ isIncoming, isOutgoing }} messageContent={text} />
       {/* <Text
         // onTextLayout={handleTextLayout}
         style={tailwind.style(
-          isIncoming || isOutgoing
-            ? "text-base tracking-[0.32px] leading-[22px] font-inter-normal-24"
-            : "",
-          isIncoming ? "text-white" : "",
-          isOutgoing ? "text-gray-950" : "",
-        )} 
+          "text-base tracking-[0.32px] leading-[22px] font-inter-normal-24 text-gray-950",
+        )}
       >
-        {text}
+        {text} 
       </Text> */}
+      <MarkdownDisplay isBotText messageContent={text} />
+
       <Animated.View
         style={tailwind.style(
           'h-[21px] pt-[5px] pb-0.5 flex flex-row items-center justify-end',
@@ -106,11 +82,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
           // multiLineShortText ? " absolute bottom-0.5 right-2.5" : "",
         )}>
         <Text
-          style={tailwind.style(
-            'text-xs font-inter-420-20 tracking-[0.32px] pr-1',
-            isIncoming ? 'text-whiteA-A11' : '',
-            isOutgoing ? 'text-gray-700' : '',
-          )}>
+          style={tailwind.style('text-xs font-inter-420-20 tracking-[0.32px] pr-1 text-gray-700')}>
           {unixTimestampToReadableTime(timeStamp)}
         </Text>
         <DeliveryStatus
@@ -118,25 +90,10 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
           status={status}
           messageType={messageType}
           channel={channel}
-          sourceId={sourceId}
+          sourceId={sourceId || ''}
           deliveredColor="text-gray-700"
           sentColor="text-gray-700"
         />
-        {/* {isOutgoing ? (
-          <Icon
-            icon={
-              <DoubleCheckIcon
-                renderSecondTick={status !== 'sent'}
-                stroke={
-                  status === 'read'
-                    ? tailwind.color('text-blue-800')
-                    : tailwind.color('text-gray-700')
-                }
-              />
-            }
-            size={14}
-          />
-        ) : null} */}
       </Animated.View>
     </Animated.View>
   );

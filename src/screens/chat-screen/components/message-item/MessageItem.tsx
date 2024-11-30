@@ -3,15 +3,9 @@ import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { tailwind } from '@/theme';
 import { Channel, Message } from '@/types';
-import { MenuOption } from '@/components-next/chat/message-menu';
-import {
-  AudioCell,
-  ComposedCell,
-  FileCell,
-  ImageCell,
-  VideoCell,
-} from '@/components-next/chat/message-components';
-import { TextMessageCell } from '@/components-next/chat/TextMessageCell';
+import { MenuOption } from '../message-menu';
+import { AudioCell, ComposedCell, FileCell, ImageCell, VideoCell } from '../message-components';
+import { TextMessageCell } from '../message-components';
 
 type DateSectionProps = { item: { date: string } };
 

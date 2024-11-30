@@ -7,7 +7,7 @@ import { Avatar } from '@/components-next/common';
 
 import { ActivityTextCell } from './ActivityTextCell';
 import { BotTextCell } from './BotTextCell';
-import { MenuOption, MessageMenu } from './message-menu';
+import { MenuOption, MessageMenu } from '../message-menu';
 import { MessageTextCell } from './MessageTextCell';
 import { PrivateTextCell } from './PrivateTextCell';
 import { MESSAGE_TYPES } from '@/constants';
@@ -109,7 +109,7 @@ export const TextMessageCell = (props: TextMessageCellProps) => {
               size={'md'}
               src={
                 isTemplate
-                  ? require('../../assets/local/bot-avatar.png')
+                  ? require('../../../../assets/local/bot-avatar.png')
                   : { uri: sender?.thumbnail }
               }
               name={sender?.name || ''}

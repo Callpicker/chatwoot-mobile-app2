@@ -28,11 +28,11 @@ import { tailwind } from '@/theme';
 import { useHaptic, useScaleAnimation } from '@/utils';
 import { Icon } from '@/components-next/common';
 
-import { AttachedMedia } from '@/components-next/chat/AttachedMedia';
+import { AttachedMedia } from '../message-components/AttachedMedia';
 import {
   CommandOptionsMenu,
   handleOpenPhotosLibrary,
-} from '@/components-next/chat/CommandOptionsMenu';
+} from '../message-components/CommandOptionsMenu';
 import {
   photoIconEnterAnimation,
   photoIconExitAnimation,

@@ -157,7 +157,7 @@ const AttachedVideo = (props: AttachedVideoProps) => {
             tailwind.style('rounded-lg'),
             { transform: [{ rotateY: '180deg' }] },
           ]}
-          source={require('../../assets/local/ImageCellTimeStampOverlay.png')}
+          source={require('../../../../assets/local/ImageCellTimeStampOverlay.png')}
         />
         <Animated.View
           style={tailwind.style('absolute z-50 left-2 bottom-2 flex flex-row items-center')}>

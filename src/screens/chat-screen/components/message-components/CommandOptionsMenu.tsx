@@ -16,10 +16,10 @@ import {
   PhotosIcon,
   // VideoCall,
   // VoiceNote,
-} from '../../svg-icons';
-import { tailwind } from '../../theme';
-import { useHaptic, useScaleAnimation } from '../../utils';
-import { Icon } from '../common';
+} from '@/svg-icons';
+import { tailwind } from '@/theme';
+import { useHaptic, useScaleAnimation } from '@/utils';
+import { Icon } from '@/components-next/common';
 
 export const handleOpenPhotosLibrary = async dispatch => {
   if (Platform.OS === 'ios') {

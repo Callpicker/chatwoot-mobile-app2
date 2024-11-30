@@ -97,7 +97,7 @@ export const ImageCell = (props: ImageCellProps) => {
             <ImageContainer {...{ imageSrc }} width={300} height={215} />
             <Animated.View pointerEvents={'none'}>
               <ImageBackground
-                source={require('../../../assets/local/ImageCellTimeStampOverlay.png')}
+                source={require('../../../../assets/local/ImageCellTimeStampOverlay.png')}
                 style={tailwind.style(
                   'absolute bottom-0 right-0 h-15 w-33 z-10',
                   shouldRenderAvatar
