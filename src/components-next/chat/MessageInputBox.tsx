@@ -29,7 +29,6 @@ import { useHaptic, useScaleAnimation } from '@/utils';
 import { Icon } from '@/components-next/common';
 
 import { AttachedMedia } from './AttachedMedia';
-import { AudioRecorder } from './audio-recorder';
 import { CommandOptionsMenu, handleOpenPhotosLibrary } from './CommandOptionsMenu';
 import {
   photoIconEnterAnimation,
@@ -267,7 +266,7 @@ const BottomSheetContent = () => {
               <QuoteReply />
             </Animated.View>
           ) : null}
-          {isVoiceRecorderOpen ? <AudioRecorder /> : null}
+          {/* {isVoiceRecorderOpen ? <AudioRecorder /> : null} */}
           {!isVoiceRecorderOpen ? (
             <Animated.View style={tailwind.style('flex flex-row px-1 items-end z-20 relative')}>
               <AddCommandButton
