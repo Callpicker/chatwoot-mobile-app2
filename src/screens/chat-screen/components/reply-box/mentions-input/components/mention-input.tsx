@@ -1,8 +1,10 @@
 import React, { FC, MutableRefObject, useMemo, useRef, useState } from 'react';
+import Animated, { LinearTransition } from 'react-native-reanimated';
 import {
   NativeSyntheticEvent,
   Text,
   TextInput,
+  // TextInputProps,
   TextInputSelectionChangeEventData,
   View,
 } from 'react-native';
@@ -17,18 +19,15 @@ import {
   parseValue,
 } from '../utils';
 
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+
 const MentionInput: FC<MentionInputProps> = ({
   value,
   onChange,
-
   partTypes = [],
-
   inputRef: propInputRef,
-
   containerStyle,
-
   onSelectionChange,
-
   ...textInputProps
 }) => {
   const textInput = useRef<TextInput | null>(null);
@@ -117,6 +116,12 @@ const MentionInput: FC<MentionInputProps> = ({
     </React.Fragment>
   );
 
+  // const animatedProps = useAnimatedProps(() => {
+  //   return {
+  //     text: value,
+  //   } as unknown as TextInputProps;
+  // });
+
   return (
     <View style={containerStyle}>
       {(
@@ -128,12 +133,15 @@ const MentionInput: FC<MentionInputProps> = ({
         ) as MentionPartType[]
       ).map(renderMentionSuggestions)}
 
-      <TextInput
+      <AnimatedTextInput
         multiline
         {...textInputProps}
         ref={handleTextInputRef}
+        layout={LinearTransition.springify().damping(20).stiffness(120)}
         onChangeText={onChangeInput}
-        onSelectionChange={handleSelectionChange}>
+        onSelectionChange={handleSelectionChange}
+        // animatedProps={animatedProps}
+      >
         <Text>
           {parts.map(({ text, partType, data }, index) =>
             partType ? (
@@ -147,7 +155,7 @@ const MentionInput: FC<MentionInputProps> = ({
             ),
           )}
         </Text>
-      </TextInput>
+      </AnimatedTextInput>
 
       {(
         partTypes.filter(

@@ -100,6 +100,7 @@ type MentionInputProps = Omit<TextInputProps, 'onChange'> & {
   inputRef?: Ref<TextInput>;
 
   containerStyle?: StyleProp<ViewStyle>;
+  animatedProps?: any;
 };
 
 export type {

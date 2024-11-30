@@ -1,13 +1,11 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   NativeSyntheticEvent,
   Platform,
   Pressable,
+  TextInput,
   TextInputFocusEventData,
   TextInputProps,
-  View,
-  Text,
-  TextInput,
 } from 'react-native';
 import Animated, {
   LayoutAnimationConfig,
@@ -28,39 +26,6 @@ import {
   selectIsPrivateMessage,
   selectQuoteMessage,
 } from '@/store/conversation/sendMessageSlice';
-
-import { MentionInput, MentionSuggestionsProps, Suggestion } from '../reply-box/mentions-input';
-
-const users = [
-  { id: '1', name: 'David Tabaka' },
-  { id: '2', name: 'Mary' },
-  { id: '3', name: 'Tony' },
-  { id: '4', name: 'Mike' },
-  { id: '5', name: 'Grey' },
-];
-
-const renderSuggestions: (suggestions: Suggestion[]) => FC<MentionSuggestionsProps> =
-  suggestions =>
-  // eslint-disable-next-line react/display-name
-  ({ keyword, onSuggestionPress }) => {
-    if (keyword == null) {
-      return null;
-    }
-
-    return (
-      <View>
-        {suggestions
-          .filter(one => one.name.toLocaleLowerCase().includes(keyword.toLocaleLowerCase()))
-          .map(one => (
-            <Pressable key={one.id} onPress={() => onSuggestionPress(one)} style={{ padding: 12 }}>
-              <Text>{one.name}</Text>
-            </Pressable>
-          ))}
-      </View>
-    );
-  };
-
-const renderMentionSuggestions = renderSuggestions(users);
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
@@ -102,8 +67,6 @@ export const MessageTextInput = ({}: MessageTextInputProps) => {
   const messageText = useSharedValue('');
   const dispatch = useAppDispatch();
 
-  const [value, setValue] = useState('');
-
   const lockIconAnimatedPosition = useAnimatedStyle(() => {
     return {
       bottom: Platform.OS === 'ios' ? 5.5 : 6,
@@ -123,7 +86,6 @@ export const MessageTextInput = ({}: MessageTextInputProps) => {
   });
 
   const onChangeText = (text: string) => {
-    setValue(text);
     messageText.value = text.trimEnd();
     dispatch(setMessageText(text));
   };
@@ -160,7 +122,7 @@ export const MessageTextInput = ({}: MessageTextInputProps) => {
       <Animated.View
         layout={LinearTransition.springify().damping(20).stiffness(120)}
         style={[tailwind.style('flex-1 my-0.5')]}>
-        {/* <AnimatedTextInput
+        <AnimatedTextInput
           // @ts-ignore
           ref={textInputRef}
           layout={LinearTransition.springify().damping(20).stiffness(120)}
@@ -186,26 +148,6 @@ export const MessageTextInput = ({}: MessageTextInputProps) => {
           onFocus={handleOnFocus}
           onBlur={handleOnBlur}
           animatedProps={animatedProps}
-        /> */}
-
-        <MentionInput
-          value={value}
-          onChange={onChangeText}
-          partTypes={[
-            {
-              trigger: '@',
-              renderSuggestions: renderMentionSuggestions,
-            },
-          ]}
-          placeholder="Type here..."
-          style={[
-            tailwind.style(
-              'text-base font-inter-normal-24 tracking-[0.24px] leading-[20px] android:leading-[18px]',
-              'ml-[5px] mr-2 py-2 pl-3 pr-[36px] rounded-2xl text-gray-950',
-              'min-h-9 max-h-[76px]',
-              isPrivateMessage ? 'bg-amber-100' : 'bg-blackA-A4',
-            ),
-          ]}
         />
       </Animated.View>
       <Animated.View
