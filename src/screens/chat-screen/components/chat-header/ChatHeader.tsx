@@ -1,96 +1,57 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { ImageSourcePropType, Pressable } from 'react-native';
+import { BottomSheetModal, useBottomSheetSpringConfigs } from '@gorhom/bottom-sheet';
 import Animated from 'react-native-reanimated';
-import { StackActions, useNavigation } from '@react-navigation/native';
 
 import { Avatar, Icon } from '@/components-next';
-import { useChatWindowContext, useRefsContext } from '@/context';
-import { ChevronLeft, OpenIcon, Overflow, ResolvedIcon } from '@/svg-icons';
+import { ChevronLeft, OpenIcon, Overflow, ResolvedIcon, SLAIcon } from '@/svg-icons';
+import { BottomSheetBackdrop, BottomSheetWrapper } from '@/components-next';
 import { tailwind } from '@/theme';
-import { showToast } from '@/helpers/ToastHelper';
-import i18n from '@/i18n';
-
 import { ChatDropdownMenu, DashboardList } from './DropdownMenu';
-import { useAppDispatch, useAppSelector } from '@/hooks';
-import { conversationActions } from '@/store/conversation/conversationActions';
-import { selectConversationById } from '@/store/conversation/conversationSelectors';
-import { CONVERSATION_STATUS } from '@/constants';
-import { ConversationStatus } from '@/types/common/ConversationStatus';
-type ChatScreenHeaderProps = {
+import { SLAEvent } from '@/types/common/SLA';
+import { useRefsContext } from '@/context';
+import { SlaEvents } from './SlaEvents';
+
+type ChatHeaderProps = {
   name: string;
   imageSrc: ImageSourcePropType;
+  isResolved: boolean;
+  isSlaMissed?: boolean;
+  hasSla?: boolean;
+  slaEvents?: SLAEvent[];
+  dashboardsList: DashboardList[];
+  statusText?: string;
+  onBackPress: () => void;
+  onContactDetailsPress: () => void;
+  onToggleChatStatus: () => void;
 };
 
-export const ChatScreenHeader = (props: ChatScreenHeaderProps) => {
-  const { name, imageSrc } = props;
-  const navigation = useNavigation();
-  const dispatch = useAppDispatch();
-  const { conversationId } = useChatWindowContext();
-  const conversation = useAppSelector(state => selectConversationById(state, conversationId));
+export const ChatHeader = ({
+  name,
+  imageSrc,
+  isResolved,
+  slaEvents,
+  isSlaMissed,
+  hasSla,
+  statusText,
+  dashboardsList,
+  onBackPress,
+  onContactDetailsPress,
+  onToggleChatStatus,
+}: ChatHeaderProps) => {
+  const { slaEventsSheetRef } = useRefsContext();
 
-  const conversationStatus = conversation?.status;
+  const animationConfigs = useBottomSheetSpringConfigs({
+    mass: 1,
+    stiffness: 420,
+    damping: 30,
+  });
 
-  const isResolved = conversationStatus === CONVERSATION_STATUS.RESOLVED;
-
-  const { chatPagerView } = useRefsContext();
-  const { pagerViewIndex } = useChatWindowContext();
-
-  const handleBackPress = () => {
-    navigation.dispatch(StackActions.pop());
-  };
-
-  const handleNavigationToContactDetails = () => {
-    const navigateToScreen = StackActions.push('ContactDetails', { conversationId });
-    navigation.dispatch(navigateToScreen);
-  };
-
-  const handleNavigation = (url?: string, title?: string) => {
-    if (url) {
-      const navigateToScreen = StackActions.push('Dashboard', { url, title });
-      navigation.dispatch(navigateToScreen);
-    } else {
-      chatPagerView.current?.setPage(1);
+  const toggleSlaEventsSheet = () => {
+    if (slaEvents?.length) {
+      slaEventsSheetRef.current?.present();
     }
   };
-
-  const toggleChatStatus = async () => {
-    const updatedStatus =
-      conversationStatus === CONVERSATION_STATUS.RESOLVED
-        ? CONVERSATION_STATUS.OPEN
-        : CONVERSATION_STATUS.RESOLVED;
-    await dispatch(
-      conversationActions.toggleConversationStatus({
-        conversationId,
-        payload: { status: updatedStatus as ConversationStatus, snoozed_until: null },
-      }),
-    );
-
-    showToast({
-      message: i18n.t('CONVERSATION.STATUS_CHANGE'),
-    });
-  };
-
-  const dashboardsList = useMemo(() => {
-    return [
-      pagerViewIndex === 0
-        ? {
-            title: 'Conversation Actions',
-            onSelect: handleNavigation,
-          }
-        : null,
-      {
-        title: 'Chatwoot AI',
-        url: 'https://chatwoot.ai/',
-        onSelect: handleNavigation,
-      },
-      {
-        title: 'Changelog',
-        url: 'https://github.com/chatwoot/chatwoot-mobile-app/releases/tag/1.10.26',
-        onSelect: handleNavigation,
-      },
-    ].filter(Boolean) as DashboardList[];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagerViewIndex]);
 
   return (
     <Animated.View style={[tailwind.style('border-b-[1px] border-b-blackA-A3')]}>
@@ -99,13 +60,13 @@ export const ChatScreenHeader = (props: ChatScreenHeaderProps) => {
           'flex flex-row justify-between items-center px-4 pt-[13px] pb-[12px]',
         )}>
         <Animated.View style={tailwind.style('flex-1')}>
-          <Pressable hitSlop={8} style={tailwind.style('h-6 w-6')} onPress={handleBackPress}>
+          <Pressable hitSlop={8} style={tailwind.style('h-6 w-6')} onPress={onBackPress}>
             <Icon icon={<ChevronLeft />} size={24} />
           </Pressable>
         </Animated.View>
         <Pressable
           hitSlop={{ top: 8, bottom: 8, left: 20, right: 20 }}
-          onPress={handleNavigationToContactDetails}
+          onPress={onContactDetailsPress}
           style={tailwind.style('flex flex-row justify-center items-center flex-1')}>
           <Avatar size="md" src={imageSrc} name={name} />
           <Animated.View style={tailwind.style('pl-2')}>
@@ -118,24 +79,45 @@ export const ChatScreenHeader = (props: ChatScreenHeaderProps) => {
             </Animated.Text>
           </Animated.View>
         </Pressable>
-        <Animated.View style={tailwind.style('flex flex-row items-center justify-end flex-1')}>
-          <Pressable hitSlop={8} onPress={toggleChatStatus}>
-            <Icon
-              icon={
-                isResolved ? (
-                  <ResolvedIcon strokeWidth={2} stroke={tailwind.color('bg-green-700')} />
-                ) : (
-                  <OpenIcon strokeWidth={2} />
-                )
-              }
-              size={24}
-            />
-          </Pressable>
+        <Animated.View style={tailwind.style('flex flex-row flex-1 justify-end')}>
+          <Animated.View style={tailwind.style('flex flex-row items-center gap-2')}>
+            {hasSla && (
+              <Pressable hitSlop={8} onPress={toggleSlaEventsSheet}>
+                <Icon icon={<SLAIcon color={isSlaMissed ? '#E13D45' : '#BBBBBB'} />} size={24} />
+              </Pressable>
+            )}
+            <Pressable hitSlop={8} onPress={onToggleChatStatus}>
+              <Icon
+                icon={
+                  isResolved ? (
+                    <ResolvedIcon strokeWidth={2} stroke={tailwind.color('bg-green-700')} />
+                  ) : (
+                    <OpenIcon strokeWidth={2} />
+                  )
+                }
+                size={24}
+              />
+            </Pressable>
+          </Animated.View>
+
           <ChatDropdownMenu dropdownMenuList={dashboardsList}>
             <Icon icon={<Overflow strokeWidth={2} />} size={24} />
           </ChatDropdownMenu>
         </Animated.View>
       </Animated.View>
+      <BottomSheetModal
+        ref={slaEventsSheetRef}
+        backdropComponent={BottomSheetBackdrop}
+        handleIndicatorStyle={tailwind.style('overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]')}
+        enablePanDownToClose
+        animationConfigs={animationConfigs}
+        handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
+        style={tailwind.style('rounded-[26px] overflow-hidden')}
+        snapPoints={['36%']}>
+        <BottomSheetWrapper>
+          <SlaEvents slaEvents={slaEvents} statusText={statusText ?? ''} />
+        </BottomSheetWrapper>
+      </BottomSheetModal>
     </Animated.View>
   );
 };

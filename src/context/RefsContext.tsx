@@ -18,6 +18,7 @@ interface RefsContextType {
   deliveryStatusSheetRef: React.RefObject<BottomSheetModal>;
   messageListRef: React.RefObject<FlashList<Message>>;
   inboxFiltersSheetRef: React.RefObject<BottomSheetModal>;
+  slaEventsSheetRef: React.RefObject<BottomSheetModal>;
 }
 
 const RefsContext = React.createContext<RefsContextType | undefined>(undefined);
@@ -47,6 +48,7 @@ const RefsProvider: React.FC<Partial<RefsContextType & { children: React.ReactNo
   const inboxFiltersSheetRef = useRef<BottomSheetModal>(null);
   const messageListRef = useRef<FlashList<Message>>(null);
   const deliveryStatusSheetRef = useRef<BottomSheetModal>(null);
+  const slaEventsSheetRef = useRef<BottomSheetModal>(null);
 
   const { children } = props;
 
@@ -64,6 +66,7 @@ const RefsProvider: React.FC<Partial<RefsContextType & { children: React.ReactNo
     inboxFiltersSheetRef,
     messageListRef,
     deliveryStatusSheetRef,
+    slaEventsSheetRef,
   };
 
   return <RefsContext.Provider value={contextRefValues}>{children}</RefsContext.Provider>;

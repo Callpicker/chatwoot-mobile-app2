@@ -6,7 +6,7 @@ import TrackPlayer from 'react-native-track-player';
 import { LightBoxProvider } from '@alantoa/lightbox';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { ChatScreenHeader } from './components';
+import { ChatHeaderContainer } from './components';
 // import { ConversationActions } from './conversation-actions';
 
 import { ReplyBox } from './components';
@@ -56,7 +56,7 @@ const ChatScreenWrapper = (props: ChatScreenProps) => {
 
   return (
     <React.Fragment>
-      <ChatScreenHeader
+      <ChatHeaderContainer
         name={name || ''}
         imageSrc={{
           uri: thumbnail || '',
