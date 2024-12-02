@@ -30,6 +30,7 @@ type VideoCellProps = {
   isPrivate: boolean;
   sourceId?: string | null;
   menuOptions: MenuOption[];
+  errorMessage?: string;
 };
 
 type VideoPlayerProps = Pick<VideoCellProps, 'videoSrc'> & {
@@ -130,6 +131,7 @@ export const VideoCell = (props: VideoCellProps) => {
     isPrivate,
     channel,
     sourceId,
+    errorMessage,
   } = props;
 
   const isIncoming = messageType === MESSAGE_TYPES.INCOMING;
@@ -198,6 +200,7 @@ export const VideoCell = (props: VideoCellProps) => {
                     status={status}
                     messageType={messageType}
                     channel={channel}
+                    errorMessage={errorMessage || ''}
                     sourceId={sourceId}
                   />
                 </Animated.View>

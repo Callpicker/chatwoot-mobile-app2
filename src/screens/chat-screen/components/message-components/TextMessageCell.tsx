@@ -30,12 +30,14 @@ export const TextMessageCell = (props: TextMessageCellProps) => {
     sourceId,
     content,
     createdAt,
+    contentAttributes,
   } = messageItem;
   const { channel } = props;
   const isIncoming = messageItem.messageType === MESSAGE_TYPES.INCOMING;
   const isOutgoing = messageItem.messageType === MESSAGE_TYPES.OUTGOING;
   const isActivity = messageItem.messageType === MESSAGE_TYPES.ACTIVITY;
   const isTemplate = messageItem.messageType === MESSAGE_TYPES.TEMPLATE;
+  const errorMessage = contentAttributes?.externalError || '';
 
   const { menuOptions } = props;
 
@@ -81,6 +83,7 @@ export const TextMessageCell = (props: TextMessageCellProps) => {
                     messageType={messageType}
                     sourceId={sourceId || ''}
                     isPrivate={isPrivate}
+                    errorMessage={errorMessage}
                   />
                 ) : null}
                 {isTemplate ? (
@@ -93,6 +96,7 @@ export const TextMessageCell = (props: TextMessageCellProps) => {
                     messageType={messageType}
                     sourceId={sourceId || ''}
                     isPrivate={isPrivate}
+                    errorMessage={errorMessage}
                   />
                 ) : null}
                 {isActivity ? <ActivityTextCell text={content} timeStamp={createdAt} /> : null}

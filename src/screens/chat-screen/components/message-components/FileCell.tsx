@@ -126,6 +126,7 @@ type FileCellProps = {
   isPrivate: boolean;
   sourceId?: string | null;
   menuOptions: MenuOption[];
+  errorMessage?: string;
 };
 
 export const FileCell = (props: FileCellProps) => {
@@ -140,6 +141,7 @@ export const FileCell = (props: FileCellProps) => {
     isPrivate,
     channel,
     sourceId,
+    errorMessage,
   } = props;
 
   const isIncoming = messageType === MESSAGE_TYPES.INCOMING;
@@ -195,6 +197,7 @@ export const FileCell = (props: FileCellProps) => {
                 messageType={messageType}
                 channel={channel}
                 sourceId={sourceId}
+                errorMessage={errorMessage || ''}
                 deliveredColor="text-gray-700"
                 sentColor="text-gray-700"
               />

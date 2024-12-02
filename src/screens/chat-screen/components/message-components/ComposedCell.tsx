@@ -63,6 +63,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
   //   [messages, contentAttributes],
   // );
   const replyMessage = null;
+  const errorMessage = contentAttributes?.externalError || '';
 
   return (
     <Animated.View
@@ -194,6 +195,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
                     messageType={messageType}
                     channel={channel}
                     sourceId={sourceId}
+                    errorMessage={errorMessage || ''}
                     deliveredColor="text-gray-700"
                     sentColor="text-gray-700"
                   />

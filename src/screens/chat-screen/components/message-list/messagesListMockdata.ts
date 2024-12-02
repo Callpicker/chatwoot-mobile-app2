@@ -467,6 +467,33 @@ export const messagesListMockdata = {
         },
       ],
     },
+    {
+      id: 1928,
+      content: 'Sure thing! What specific feature are you interested in learning more about?',
+      inbox_id: 2,
+      conversation_id: 248,
+      message_type: 1,
+      content_type: 'text',
+      status: 'failed',
+      content_attributes: {
+        external_error:
+          'Authentication failed. Confirm that the access token in the authorization header is valid.',
+      },
+      created_at: 1704694375,
+      private: false,
+      source_id: null,
+      sender: {
+        id: 2,
+        name: 'Michael Scott',
+        available_name: 'Michael Scott',
+        avatar_url:
+          'https://alfred-tunnel.chatwoot.dev/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--1645760c94016f2317bd374712226fc2ec4bc664/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--df796c2af3c0153e55236c2f3cf3a199ac2cb6f7/50.jpg',
+        type: 'user',
+        availability_status: 'offline',
+        thumbnail:
+          'https://alfred-tunnel.chatwoot.dev/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--1645760c94016f2317bd374712226fc2ec4bc664/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--df796c2af3c0153e55236c2f3cf3a199ac2cb6f7/50.jpg',
+      },
+    },
   ],
 };
 

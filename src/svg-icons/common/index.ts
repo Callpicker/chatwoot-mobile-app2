@@ -34,3 +34,4 @@ export * from './Trash';
 export * from './MessageType';
 export * from './Location';
 export * from './NotificationIcons';
+export * from './Warning';

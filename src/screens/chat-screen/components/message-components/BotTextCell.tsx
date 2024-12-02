@@ -13,15 +13,25 @@ type BotTextCellProps = {
   text: string;
   timeStamp: number;
   status: MessageStatus;
-  isAvatarRendered: boolean;
+  isAvatarRendered?: boolean;
   channel?: Channel;
   messageType: MessageType;
   sourceId?: string;
   isPrivate: boolean;
+  errorMessage?: string;
 };
 export const BotTextCell = (props: BotTextCellProps) => {
-  const { text, timeStamp, status, isAvatarRendered, channel, messageType, sourceId, isPrivate } =
-    props;
+  const {
+    text,
+    timeStamp,
+    status,
+    isAvatarRendered,
+    channel,
+    messageType,
+    sourceId,
+    isPrivate,
+    errorMessage,
+  } = props;
 
   // const [singleLineLongText, setSingleLineLongText] = useState(false);
   // const [singleLineShortText, setSingleLineShortText] = useState(false);
@@ -91,6 +101,7 @@ export const BotTextCell = (props: BotTextCellProps) => {
           messageType={messageType}
           channel={channel}
           sourceId={sourceId || ''}
+          errorMessage={errorMessage || ''}
           deliveredColor="text-gray-700"
           sentColor="text-gray-700"
         />

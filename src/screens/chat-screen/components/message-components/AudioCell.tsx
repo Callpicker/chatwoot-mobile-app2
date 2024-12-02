@@ -43,6 +43,7 @@ type AudioCellProps = {
   isPrivate: boolean;
   sourceId?: string | null;
   menuOptions: MenuOption[];
+  errorMessage?: string;
 };
 
 type AudioPlayerProps = Pick<AudioCellProps, 'audioSrc'> & {
@@ -187,6 +188,7 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
     channel,
     sourceId,
     menuOptions,
+    errorMessage,
   } = props;
   const isIncoming = messageType === MESSAGE_TYPES.INCOMING;
   const isOutgoing = messageType === MESSAGE_TYPES.OUTGOING;
@@ -243,6 +245,7 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
                 messageType={messageType}
                 channel={channel}
                 sourceId={sourceId}
+                errorMessage={errorMessage}
                 deliveredColor="text-gray-700"
                 sentColor="text-gray-700"
               />

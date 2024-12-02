@@ -60,6 +60,7 @@ export const ImageCell = (props: ImageCellProps) => {
     sourceId,
     status,
     menuOptions,
+    errorMessage,
   } = props;
 
   const isIncoming = messageType === MESSAGE_TYPES.INCOMING;
@@ -122,6 +123,7 @@ export const ImageCell = (props: ImageCellProps) => {
                     channel={channel}
                     isPrivate={isPrivate}
                     sourceId={sourceId}
+                    errorMessage={errorMessage || ''}
                   />
                 </Animated.View>
               </ImageBackground>

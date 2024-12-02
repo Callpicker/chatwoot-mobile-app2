@@ -1,10 +1,16 @@
 import React from 'react';
+import { Pressable } from 'react-native';
+import { BottomSheetModal, useBottomSheetSpringConfigs } from '@gorhom/bottom-sheet';
+
+import { BottomSheetBackdrop, BottomSheetWrapper } from '@/components-next';
 import { tailwind } from '@/theme';
-import { DoubleCheckIcon } from '@/svg-icons';
+import { DoubleCheckIcon, WarningIcon } from '@/svg-icons';
 import { Icon } from '@/components-next/common';
 import { MessageStatus, MessageType } from '@/types';
 import { Channel } from '@/types';
 import { INBOX_TYPES, MESSAGE_TYPES, MESSAGE_STATUS } from '@/constants';
+import { ErrorInformation } from './ErrorInformation';
+import { useRefsContext } from '@/context';
 
 type DeliveryStatusProps = {
   channel?: Channel;
@@ -15,14 +21,27 @@ type DeliveryStatusProps = {
   deliveredColor?: string;
   readColor?: string;
   sentColor?: string;
+  errorMessage: string;
 };
 
 export const DeliveryStatus = (props: DeliveryStatusProps) => {
-  const { channel, isPrivate, status, messageType, sourceId, deliveredColor, sentColor } = props;
+  const {
+    channel,
+    isPrivate,
+    status,
+    messageType,
+    sourceId,
+    deliveredColor,
+    sentColor,
+    errorMessage,
+  } = props;
+
+  const { deliveryStatusSheetRef } = useRefsContext();
 
   const isDelivered = status === MESSAGE_STATUS.DELIVERED;
   const isRead = status === MESSAGE_STATUS.READ;
   const isSent = status === MESSAGE_STATUS.SENT;
+  const isFailed = status === MESSAGE_STATUS.FAILED;
   const isEmailChannel = channel === INBOX_TYPES.EMAIL;
   const isAWhatsappChannel = channel === INBOX_TYPES.TWILIO || channel === INBOX_TYPES.WHATSAPP;
   const isATelegramChannel = channel === INBOX_TYPES.TELEGRAM;
@@ -35,6 +54,12 @@ export const DeliveryStatus = (props: DeliveryStatusProps) => {
   const shouldShowStatusIndicator =
     (messageType === MESSAGE_TYPES.OUTGOING || isTemplate) && !isPrivate;
   const isALineChannel = channel === INBOX_TYPES.LINE;
+
+  const animationConfigs = useBottomSheetSpringConfigs({
+    mass: 1,
+    stiffness: 420,
+    damping: 30,
+  });
 
   const showSentIndicator = () => {
     if (!shouldShowStatusIndicator) {
@@ -96,6 +121,29 @@ export const DeliveryStatus = (props: DeliveryStatusProps) => {
 
     return false;
   };
+
+  if (isFailed) {
+    return (
+      <Pressable onPress={() => deliveryStatusSheetRef.current?.present()}>
+        <Icon icon={<WarningIcon stroke={tailwind.color('text-ruby-800')} />} size={14} />
+        <BottomSheetModal
+          ref={deliveryStatusSheetRef}
+          backdropComponent={BottomSheetBackdrop}
+          handleIndicatorStyle={tailwind.style(
+            'overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]',
+          )}
+          enablePanDownToClose
+          animationConfigs={animationConfigs}
+          handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
+          style={tailwind.style('rounded-[26px] overflow-hidden')}
+          snapPoints={['36%']}>
+          <BottomSheetWrapper>
+            <ErrorInformation errorMessage={errorMessage} />
+          </BottomSheetWrapper>
+        </BottomSheetModal>
+      </Pressable>
+    );
+  }
 
   if (showReadIndicator()) {
     return (

@@ -44,6 +44,7 @@ export type MessageContentAttributes = {
   email: {
     subject: string;
   };
+  externalError: string;
 };
 
 export interface Message {

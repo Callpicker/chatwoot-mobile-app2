@@ -6,7 +6,7 @@ import { Channel, MessageStatus, MessageType } from '@/types';
 import { unixTimestampToReadableTime } from '@/utils';
 
 import { MarkdownDisplay } from './MarkdownDisplay';
-import { TEXT_MAX_WIDTH } from '@/constants';
+import { MESSAGE_STATUS, TEXT_MAX_WIDTH } from '@/constants';
 import { DeliveryStatus } from './DeliveryStatus';
 
 type MessageTextCellProps = {
@@ -16,11 +16,12 @@ type MessageTextCellProps = {
   isOutgoing: boolean;
   isActivity: boolean;
   status: MessageStatus;
-  isAvatarRendered: boolean;
+  isAvatarRendered?: boolean;
   channel?: Channel;
   messageType: MessageType;
   sourceId?: string;
   isPrivate: boolean;
+  errorMessage: string;
 };
 
 export const MessageTextCell = (props: MessageTextCellProps) => {
@@ -35,6 +36,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
     messageType,
     sourceId,
     isPrivate,
+    errorMessage,
   } = props;
 
   // const [singleLineLongText, setSingleLineLongText] = useState(false);
@@ -68,6 +70,8 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
   //   }
   // };
 
+  const isMessageFailed = status === MESSAGE_STATUS.FAILED;
+
   return (
     <Animated.View
       style={[
@@ -76,6 +80,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
           `max-w-[${TEXT_MAX_WIDTH}px]`,
           isIncoming ? 'bg-blue-700' : '',
           isOutgoing ? 'bg-gray-100' : '',
+          isMessageFailed ? 'bg-ruby-400' : '',
           isAvatarRendered
             ? isOutgoing
               ? 'rounded-br-none'
@@ -110,6 +115,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
             'text-xs font-inter-420-20 tracking-[0.32px] pr-1',
             isIncoming ? 'text-whiteA-A11' : '',
             isOutgoing ? 'text-gray-700' : '',
+            isMessageFailed ? 'text-ruby-900' : '',
           )}>
           {unixTimestampToReadableTime(timeStamp)}
         </Text>
@@ -119,24 +125,10 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
           messageType={messageType}
           channel={channel}
           sourceId={sourceId}
+          errorMessage={errorMessage}
           deliveredColor="text-gray-700"
           sentColor="text-gray-700"
         />
-        {/* {isOutgoing ? (
-          <Icon
-            icon={
-              <DoubleCheckIcon
-                renderSecondTick={status !== 'sent'}
-                stroke={
-                  status === 'read'
-                    ? tailwind.color('text-blue-800')
-                    : tailwind.color('text-gray-700')
-                }
-              />
-            }
-            size={14}
-          />
-        ) : null} */}
       </Animated.View>
     </Animated.View>
   );
