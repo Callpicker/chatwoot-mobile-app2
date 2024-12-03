@@ -196,6 +196,14 @@
       "COPY": "Copy",
       "REPLY": "Reply",
       "DELETE_MESSAGE": "Delete message"
+    },
+    "EMAIL_HEADER": {
+      "FROM": "From",
+      "TO": "To",
+      "BCC": "Bcc",
+      "CC": "Cc",
+      "SUBJECT": "Subject",
+      "EXPAND": "Expand email"
     }
   },
 
