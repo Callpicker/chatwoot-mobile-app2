@@ -41,10 +41,13 @@ import {
 } from '@/utils/customAnimations';
 import { MessageTextInput } from './MessageTextInput';
 import { QuoteReply } from './QuoteReply';
+import { ReplyWarning } from './ReplyWarning';
 import { conversationActions } from '@/store/conversation/conversationActions';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { SendMessagePayload } from '@/store/conversation/conversationTypes';
 import { selectUserId, selectUserThumbnail } from '@/store/auth/authSelectors';
+import { selectConversationById } from '@/store/conversation/conversationSelectors';
+import { selectInboxById } from '@/store/inbox/inboxSelectors';
 
 const SHEET_APPEAR_SPRING_CONFIG: WithSpringConfig = {
   damping: 20,
@@ -159,6 +162,10 @@ const BottomSheetContent = () => {
     isTextInputFocused,
     conversationId,
   } = useChatWindowContext();
+  const conversation = useAppSelector(state => selectConversationById(state, conversationId));
+  const inboxId = conversation?.inboxId;
+
+  const inbox = useAppSelector(state => selectInboxById(state, inboxId ?? 0));
 
   const { messageListRef } = useRefsContext();
 
@@ -229,6 +236,8 @@ const BottomSheetContent = () => {
     };
   }, [isTextInputFocused]);
 
+  const shouldShowReplyWarning = !conversation?.canReply;
+
   return (
     <Animated.View layout={LinearTransition.springify().damping(38).stiffness(240)}>
       <AnimatedKeyboardStickyView style={[tailwind.style('bg-white'), animatedInputWrapperStyle]}>
@@ -238,6 +247,11 @@ const BottomSheetContent = () => {
           {quoteMessage ? (
             <Animated.View entering={FadeIn.duration(250)} exiting={FadeOut.duration(10)}>
               <QuoteReply />
+            </Animated.View>
+          ) : null}
+          {shouldShowReplyWarning && inbox && conversation ? (
+            <Animated.View entering={FadeIn.duration(250)} exiting={FadeOut.duration(10)}>
+              <ReplyWarning inbox={inbox} conversation={conversation} />
             </Animated.View>
           ) : null}
           {/* {isVoiceRecorderOpen ? <AudioRecorder /> : null} */}
