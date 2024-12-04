@@ -19,7 +19,7 @@ const mockSendMessageSlice = createSlice({
   name: 'sendMessage',
   initialState: {
     messageContent: '',
-    isPrivateMessage: false, 
+    isPrivateMessage: false,
     attachments: [],
     quoteMessage: null,
   },

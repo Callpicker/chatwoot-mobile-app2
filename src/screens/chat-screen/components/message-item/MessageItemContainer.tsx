@@ -40,8 +40,9 @@ export const MessageItemContainer = (props: MessageItemContainerProps) => {
     }
   };
 
-  const handleDeleteMessage = (messageId: number) => {
-    dispatch(conversationActions.deleteMessage({ conversationId, messageId }));
+  const handleDeleteMessage = async (messageId: number) => {
+    await dispatch(conversationActions.deleteMessage({ conversationId, messageId }));
+    showToast({ message: i18n.t('CONVERSATION.DELETE_MESSAGE_SUCCESS') });
   };
 
   // const inboxSupportsReplyTo = (channel: string) => {
@@ -76,6 +77,7 @@ export const MessageItemContainer = (props: MessageItemContainerProps) => {
       });
     }
 
+    // TODO: Add reply to message when we have the feature
     // if (!isPrivate && channel && inboxSupportsReplyTo(channel).outgoing) {
     //   menuOptions.push({
     //     title: i18n.t('CONVERSATION.LONG_PRESS_ACTIONS.REPLY'),
