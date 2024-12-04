@@ -1,5 +1,45 @@
 export const MESSAGE_LIST_3 = [
   {
+    id: 81375782,
+    content: null,
+    inbox_id: 7029,
+    conversation_id: 22834,
+    message_type: 0,
+    content_type: 'text',
+    status: 'sent',
+    content_attributes: {},
+    created_at: 1730781861,
+    private: false,
+    source_id: '56',
+    sender: {
+      additional_attributes: {
+        username: 'pranavrajs',
+        language_code: 'en',
+      },
+      custom_attributes: {},
+      email: null,
+      id: 47172376,
+      identifier: null,
+      name: 'Pranav Raj S',
+      phone_number: null,
+      thumbnail:
+        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMFJZVWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--cd2ff84ac6523fa78a73496c07cdbed4376019b3/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/file_2.jpg',
+      type: 'contact',
+    },
+    attachments: [
+      {
+        id: 6315337,
+        message_id: 81375782,
+        file_type: 'location',
+        account_id: 1,
+        coordinates_lat: 37.616722,
+        coordinates_long: -122.390071,
+        fallback_title: '',
+        data_url: null,
+      },
+    ],
+  },
+  {
     id: 59539708,
     content: 'iammuhzi mentioned you in the story: ',
     inbox_id: 27355,
