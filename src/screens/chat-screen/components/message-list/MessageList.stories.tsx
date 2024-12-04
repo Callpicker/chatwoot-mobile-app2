@@ -8,7 +8,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { tailwind } from '@/theme';
 import { MessagesList } from './MessagesList';
 import { LightBoxProvider } from '@alantoa/lightbox';
-import { ALL_MESSAGES_MOCKDATA } from './messagesListMockdata';
+import { ALL_MESSAGES_MOCKDATA } from './mock-data/MessagesListMockdata';
 import { ChatWindowProvider, RefsProvider } from '@/context';
 import { Provider } from 'react-redux';
 
@@ -19,7 +19,7 @@ const mockSendMessageSlice = createSlice({
   name: 'sendMessage',
   initialState: {
     messageContent: '',
-    isPrivateMessage: false,
+    isPrivateMessage: false, 
     attachments: [],
     quoteMessage: null,
   },
@@ -34,6 +34,7 @@ const mockConversationSlice = createSlice({
       29: {
         id: 29,
         status: 'open',
+        messages: ALL_MESSAGES_MOCKDATA,
       },
     },
   },

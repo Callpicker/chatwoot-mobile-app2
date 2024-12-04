@@ -59,7 +59,7 @@ export const TextMessageCell = (props: TextMessageCellProps) => {
         ),
       ]}>
       <Animated.View style={tailwind.style('flex flex-row')}>
-        {sender?.thumbnail && isIncoming && shouldRenderAvatar ? (
+        {sender?.name && isIncoming && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end mr-1')}>
             <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name || ''} />
           </Animated.View>
@@ -84,6 +84,7 @@ export const TextMessageCell = (props: TextMessageCellProps) => {
                     sourceId={sourceId || ''}
                     isPrivate={isPrivate}
                     errorMessage={errorMessage}
+                    contentAttributes={contentAttributes}
                   />
                 ) : null}
                 {isTemplate ? (
@@ -104,10 +105,7 @@ export const TextMessageCell = (props: TextMessageCellProps) => {
             )}
           </React.Fragment>
         </MessageMenu>
-        {sender?.thumbnail &&
-        sender?.thumbnail.length >= 0 &&
-        shouldRenderAvatar &&
-        (isPrivate || isOutgoing || isTemplate) ? (
+        {shouldRenderAvatar && (isPrivate || isOutgoing || isTemplate) ? (
           <Animated.View style={tailwind.style('flex items-end justify-end ml-1')}>
             <Avatar
               size={'md'}

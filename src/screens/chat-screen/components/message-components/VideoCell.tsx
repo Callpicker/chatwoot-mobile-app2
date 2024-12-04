@@ -149,7 +149,7 @@ export const VideoCell = (props: VideoCellProps) => {
         shouldRenderAvatar ? 'pb-2' : '',
       )}>
       <Animated.View style={tailwind.style('flex flex-row')}>
-        {sender?.thumbnail && isIncoming && shouldRenderAvatar ? (
+        {isIncoming && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end mr-1')}>
             <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name || ''} />
           </Animated.View>
@@ -208,7 +208,7 @@ export const VideoCell = (props: VideoCellProps) => {
             </Animated.View>
           </Animated.View>
         </MessageMenu>
-        {sender?.thumbnail && sender?.name && isOutgoing && shouldRenderAvatar ? (
+        {sender?.name && isOutgoing && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end ml-1')}>
             <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name} />
           </Animated.View>

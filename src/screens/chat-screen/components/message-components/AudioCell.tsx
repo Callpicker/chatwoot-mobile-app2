@@ -205,7 +205,7 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
         shouldRenderAvatar ? 'pb-2' : '',
       )}>
       <Animated.View style={tailwind.style('flex flex-row')}>
-        {sender?.thumbnail && sender?.name && isIncoming && shouldRenderAvatar ? (
+        {sender?.name && isIncoming && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end mr-1')}>
             <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name} />
           </Animated.View>
@@ -252,7 +252,7 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
             </Animated.View>
           </Animated.View>
         </MessageMenu>
-        {sender?.thumbnail && sender?.name && isOutgoing && shouldRenderAvatar ? (
+        {sender?.name && isOutgoing && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end ml-1')}>
             <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name} />
           </Animated.View>
