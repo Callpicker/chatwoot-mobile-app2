@@ -917,7 +917,7 @@ export const MESSAGE_LIST_2 = [
     content_type: 'text',
     processed_message_content: null,
     id: 5399,
-    content: "Here's a recording of the call",
+    content: '',
     account_id: 2,
     inbox_id: 486,
     message_type: 1,

@@ -83,7 +83,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
         isPrivate ? 'my-6' : '',
       )}>
       <Animated.View style={tailwind.style('flex flex-row')}>
-        {sender?.thumbnail && isIncoming && shouldRenderAvatar ? (
+        {sender?.name && isIncoming && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end mr-1')}>
             <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name || ''} />
           </Animated.View>
@@ -132,7 +132,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
                             audioSrc={attachment.dataUrl}
                             {...{ isIncoming, isOutgoing }}
                           />
-                        </Animated.View>
+                        </Animated.View> 
                       );
                     }
                     if (attachment.fileType === 'image') {
@@ -207,7 +207,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
           </Animated.View>
         </MessageMenu>
 
-        {sender?.thumbnail && shouldRenderAvatar && (isPrivate || isOutgoing || isTemplate) ? (
+        {shouldRenderAvatar && (isPrivate || isOutgoing || isTemplate) ? (
           <Animated.View style={tailwind.style('flex items-end justify-end ml-1')}>
             <Avatar
               size={'md'}
