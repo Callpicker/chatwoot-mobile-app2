@@ -35,6 +35,9 @@ type ImageMetadata = {
   extension: string | null;
   dataUrl: string;
   thumbUrl: string;
+  fallbackTitle: string;
+  coordinatesLat: number;
+  coordinatesLong: number;
 };
 
 export type MessageContentAttributes = {

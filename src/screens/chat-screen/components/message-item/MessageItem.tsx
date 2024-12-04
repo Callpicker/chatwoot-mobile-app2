@@ -6,6 +6,8 @@ import { Channel, Message } from '@/types';
 import { MenuOption } from '../message-menu';
 import { AudioCell, ComposedCell, FileCell, ImageCell, VideoCell } from '../message-components';
 import { TextMessageCell } from '../message-components';
+import { ATTACHMENT_TYPES } from '@/constants';
+import { LocationCell } from '../message-components/LocationCell';
 
 type DateSectionProps = { item: { date: string } };
 
@@ -38,7 +40,7 @@ export const MessageItem = ({ item, channel, getMenuOptions }: MessageItemPresen
   const isReplyMessage = item.contentAttributes?.inReplyTo;
   const attachments = item.attachments;
 
-  // Message has only one attachment, no content and not a reply message 
+  // Message has only one attachment, no content and not a reply message
   if (attachments?.length === 1 && !item.content && !isReplyMessage) {
     const commonProps = {
       sender: item.sender,
@@ -52,15 +54,24 @@ export const MessageItem = ({ item, channel, getMenuOptions }: MessageItemPresen
       menuOptions: getMenuOptions(item),
     };
 
+    console.log('attachments[0]', attachments[0]);
     switch (attachments[0].fileType) {
-      case 'image':
+      case ATTACHMENT_TYPES.IMAGE:
         return <ImageCell {...commonProps} imageSrc={attachments[0].dataUrl} />;
-      case 'audio':
+      case ATTACHMENT_TYPES.AUDIO:
         return <AudioCell {...commonProps} audioSrc={attachments[0].dataUrl} />;
-      case 'video':
+      case ATTACHMENT_TYPES.VIDEO:
         return <VideoCell {...commonProps} videoSrc={attachments[0].dataUrl} />;
-      case 'file':
+      case ATTACHMENT_TYPES.FILE:
         return <FileCell {...commonProps} fileSrc={attachments[0].dataUrl} />;
+      case ATTACHMENT_TYPES.LOCATION:
+        return (
+          <LocationCell
+            {...commonProps}
+            latitude={attachments[0].coordinatesLat ?? 0}
+            longitude={attachments[0].coordinatesLong ?? 0}
+          />
+        );
       default:
         return null;
     }

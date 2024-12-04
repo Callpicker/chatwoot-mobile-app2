@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { FileErrorIcon, LockIcon } from '@/svg-icons';
@@ -23,6 +23,7 @@ import { useAppSelector } from '@/hooks';
 import { useChatWindowContext } from '@/context';
 import { getMessagesByConversationId } from '@/store/conversation/conversationSelectors';
 import { ATTACHMENT_TYPES } from '@/constants';
+import i18n from '@/i18n';
 
 type ComposedCellProps = {
   messageData: Message;
@@ -149,12 +150,14 @@ export const ComposedCell = (props: ComposedCellProps) => {
                       return isAnInstagramStory && isInstagramStoryExpired ? (
                         <Animated.View
                           style={tailwind.style(
-                            'flex flex-row items-center justify-center py-8 bg-slate-100 gap-2',
+                            'flex flex-row items-center justify-center py-8 bg-slate-100 gap-1',
                           )}>
                           <Icon icon={<FileErrorIcon fill={tailwind.color('text-gray-900')} />} />
                           <Animated.Text
-                            style={tailwind.style('text-cxs font-inter-420-20 text-gray-900')}>
-                            Story is not available
+                            style={tailwind.style(
+                              'text-cxs font-inter-420-20 text-gray-900 mt-[1px]',
+                            )}>
+                            {i18n.t('CONVERSATION.STORY_NOT_AVAILABLE')}
                           </Animated.Text>
                         </Animated.View>
                       ) : (
