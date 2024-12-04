@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
-import { LockIcon } from '@/svg-icons';
+import { FileErrorIcon, LockIcon } from '@/svg-icons';
+import { differenceInHours } from 'date-fns';
 import { tailwind } from '@/theme';
 import { Channel, Message } from '@/types';
 import { unixTimestampToReadableTime } from '@/utils';
@@ -21,11 +22,20 @@ import { DeliveryStatus } from './DeliveryStatus';
 import { useAppSelector } from '@/hooks';
 import { useChatWindowContext } from '@/context';
 import { getMessagesByConversationId } from '@/store/conversation/conversationSelectors';
+import { ATTACHMENT_TYPES } from '@/constants';
 
 type ComposedCellProps = {
   messageData: Message;
   channel?: Channel;
   menuOptions: MenuOption[];
+};
+
+const isMessageCreatedAtLessThan24HoursOld = (messageTimestamp: number) => {
+  const currentTime = new Date();
+  const messageTime = new Date(messageTimestamp * 1000);
+  const hoursDifference = differenceInHours(currentTime, messageTime);
+
+  return hoursDifference > 24;
 };
 
 export const ComposedCell = (props: ComposedCellProps) => {
@@ -64,8 +74,9 @@ export const ComposedCell = (props: ComposedCellProps) => {
   );
   // const replyMessage = null;
   const errorMessage = contentAttributes?.externalError || '';
-
-  // console.log('content', content);
+  const { imageType } = contentAttributes || {};
+  const isAnInstagramStory = imageType === ATTACHMENT_TYPES.STORY_MENTION;
+  const isInstagramStoryExpired = isMessageCreatedAtLessThan24HoursOld(createdAt);
 
   return (
     <Animated.View
@@ -120,7 +131,6 @@ export const ComposedCell = (props: ComposedCellProps) => {
                 {content && (
                   <MarkdownDisplay {...{ isIncoming, isOutgoing }} messageContent={content} />
                 )}
-                {/* TODO: Implement this later */}
                 {props.messageData.attachments &&
                   props.messageData.attachments.map((attachment, index) => {
                     if (attachment.fileType === 'audio') {
@@ -132,11 +142,22 @@ export const ComposedCell = (props: ComposedCellProps) => {
                             audioSrc={attachment.dataUrl}
                             {...{ isIncoming, isOutgoing }}
                           />
-                        </Animated.View> 
+                        </Animated.View>
                       );
                     }
                     if (attachment.fileType === 'image') {
-                      return (
+                      return isAnInstagramStory && isInstagramStoryExpired ? (
+                        <Animated.View
+                          style={tailwind.style(
+                            'flex flex-row items-center justify-center py-8 bg-slate-100 gap-2',
+                          )}>
+                          <Icon icon={<FileErrorIcon fill={tailwind.color('text-gray-900')} />} />
+                          <Animated.Text
+                            style={tailwind.style('text-cxs font-inter-420-20 text-gray-900')}>
+                            Story is not available
+                          </Animated.Text>
+                        </Animated.View>
+                      ) : (
                         <Animated.View
                           key={attachment.fileType + index}
                           style={tailwind.style('flex-1 my-2')}>

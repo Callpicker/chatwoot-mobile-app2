@@ -264,3 +264,23 @@ export const REPLY_EDITOR_MODES = {
   REPLY: 'REPLY',
   NOTE: 'NOTE',
 };
+
+export const ATTACHMENT_TYPES = {
+  IMAGE: 'image',
+  AUDIO: 'audio',
+  VIDEO: 'video',
+  FILE: 'file',
+  LOCATION: 'location',
+  FALLBACK: 'fallback',
+  SHARE: 'share',
+  STORY_MENTION: 'story_mention',
+  CONTACT: 'contact',
+  IG_REEL: 'ig_reel',
+};
+
+export const MEDIA_TYPES = [
+  ATTACHMENT_TYPES.IMAGE,
+  ATTACHMENT_TYPES.VIDEO,
+  ATTACHMENT_TYPES.AUDIO,
+  ATTACHMENT_TYPES.IG_REEL,
+];

@@ -3,7 +3,7 @@ import { Message } from '@/types';
 import { getGroupedMessages } from '@/utils';
 import { flatMap } from 'lodash';
 // import { MESSAGE_LIST_1 } from './MessageList1';
-import { MESSAGE_LIST_2 } from './MessageList2';
+import { MESSAGE_LIST_3 } from './MessageList3';
 
 export const messagesListMockdata = {
   meta: {
@@ -50,7 +50,7 @@ export const messagesListMockdata = {
     agent_last_seen_at: '2023-11-28T02:43:51.476Z',
     assignee_last_seen_at: null,
   },
-  payload: [...MESSAGE_LIST_2],
+  payload: [...MESSAGE_LIST_3],
 };
 
 const MESSAGES_LIST_MOCKDATA = [...messagesListMockdata.payload].reverse();

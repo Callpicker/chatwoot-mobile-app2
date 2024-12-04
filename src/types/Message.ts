@@ -45,6 +45,7 @@ export type MessageContentAttributes = {
     subject: string;
   };
   externalError: string;
+  imageType: string;
 };
 
 export interface Message {
