@@ -125,7 +125,7 @@ export const DeliveryStatus = (props: DeliveryStatusProps) => {
   if (isFailed) {
     return (
       <Pressable onPress={() => deliveryStatusSheetRef.current?.present()}>
-        <Icon icon={<WarningIcon stroke={tailwind.color('text-ruby-800')} />} size={14} />
+        <Icon icon={<WarningIcon stroke={tailwind.color('text-whiteA-A11')} />} size={14} />
         <BottomSheetModal
           ref={deliveryStatusSheetRef}
           backdropComponent={BottomSheetBackdrop}
@@ -136,7 +136,7 @@ export const DeliveryStatus = (props: DeliveryStatusProps) => {
           animationConfigs={animationConfigs}
           handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
           style={tailwind.style('rounded-[26px] overflow-hidden')}
-          snapPoints={['36%']}>
+          snapPoints={['15']}>
           <BottomSheetWrapper>
             <ErrorInformation errorMessage={errorMessage} />
           </BottomSheetWrapper>

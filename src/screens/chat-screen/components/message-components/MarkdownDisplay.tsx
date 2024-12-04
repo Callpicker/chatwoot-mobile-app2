@@ -10,10 +10,11 @@ type MarkdownDisplayProps = {
   isOutgoing?: boolean;
   isBotText?: boolean;
   isPrivate?: boolean;
+  isMessageFailed?: boolean;
 };
 
 export const MarkdownDisplay = (props: MarkdownDisplayProps) => {
-  const { messageContent, isIncoming, isOutgoing, isBotText, isPrivate } = props;
+  const { messageContent, isIncoming, isOutgoing, isBotText, isPrivate, isMessageFailed } = props;
   const handleURL = (url: string) => {
     Linking.openURL(url).then(() => {});
     return true;
@@ -22,6 +23,7 @@ export const MarkdownDisplay = (props: MarkdownDisplayProps) => {
   const textStyle = tailwind.style(
     isIncoming ? 'text-white' : '',
     isOutgoing || isBotText || isPrivate ? 'text-gray-950' : '',
+    isMessageFailed ? 'text-white' : '',
   );
 
   const styles = StyleSheet.create({

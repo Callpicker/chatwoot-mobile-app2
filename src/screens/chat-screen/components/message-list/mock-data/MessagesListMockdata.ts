@@ -3,6 +3,7 @@ import { Message } from '@/types';
 import { getGroupedMessages } from '@/utils';
 import { flatMap } from 'lodash';
 // import { MESSAGE_LIST_1 } from './MessageList1';
+// import { MESSAGE_LIST_2 } from './MessageList2';
 import { MESSAGE_LIST_3 } from './MessageList3';
 
 export const messagesListMockdata = {

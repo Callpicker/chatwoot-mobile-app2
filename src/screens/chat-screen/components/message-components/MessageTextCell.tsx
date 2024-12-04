@@ -80,7 +80,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
           `max-w-[${TEXT_MAX_WIDTH}px]`,
           isIncoming ? 'bg-blue-700' : '',
           isOutgoing ? 'bg-gray-100' : '',
-          isMessageFailed ? 'bg-ruby-400' : '',
+          isMessageFailed ? 'bg-ruby-700' : '',
           isAvatarRendered
             ? isOutgoing
               ? 'rounded-br-none'
@@ -90,7 +90,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
             : '',
         ),
       ]}>
-      <MarkdownDisplay {...{ isIncoming, isOutgoing }} messageContent={text} />
+      <MarkdownDisplay {...{ isIncoming, isOutgoing, isMessageFailed }} messageContent={text} />
       {/* <Text
         // onTextLayout={handleTextLayout}
         style={tailwind.style(
@@ -115,7 +115,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
             'text-xs font-inter-420-20 tracking-[0.32px] pr-1',
             isIncoming ? 'text-whiteA-A11' : '',
             isOutgoing ? 'text-gray-700' : '',
-            isMessageFailed ? 'text-ruby-900' : '',
+            isMessageFailed ? 'text-whiteA-A11' : '',
           )}>
           {unixTimestampToReadableTime(timeStamp)}
         </Text>

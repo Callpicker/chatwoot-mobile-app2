@@ -20,10 +20,9 @@ export const MESSAGE_LIST_3 = [
       email: null,
       id: 47172376,
       identifier: null,
-      name: 'Pranav Raj S',
+      name: 'Muhsin Keloth',
       phone_number: null,
-      thumbnail:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBMFJZVWc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--cd2ff84ac6523fa78a73496c07cdbed4376019b3/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/file_2.jpg',
+      thumbnail: '',
       type: 'contact',
     },
     attachments: [
@@ -39,57 +38,7 @@ export const MESSAGE_LIST_3 = [
       },
     ],
   },
-  {
-    id: 59539708,
-    content: 'iammuhzi mentioned you in the story: ',
-    inbox_id: 27355,
-    conversation_id: 23724,
-    message_type: 0,
-    content_type: 'text',
-    status: 'sent',
-    content_attributes: {
-      in_reply_to_external_id: null,
-      story_sender: 'iammuhzi',
-      story_id: '17870075838132477',
-      image_type: 'story_mention',
-    },
-    created_at: 1719905966,
-    private: false,
-    source_id:
-      'aWdfZAG1faXRlbToxOklHTWVzc2FnZAUlEOjE3ODQxNDQ3NTU5OTYxMzk4OjM0MDI4MjM2Njg0MTcxMDMwMTI0NDI1ODcwNzIxMjU5ODI4ODM2NjozMTcyNjY2NTEyNzc2NTEwNDEzMDU5Nzg5ODIyNzI4NjAxNgZDZD',
-    sender: {
-      additional_attributes: {
-        social_profiles: {
-          instagram: 'iammuhzi',
-        },
-      },
-      custom_attributes: {},
-      email: null,
-      id: 53364943,
-      identifier: null,
-      name: 'Muhsin',
-      phone_number: null,
-      thumbnail:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeGs0V0E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--4dec645ac0228f02910e15ee689e263ad6ec5d3e/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/272819353_1488256531571824_6160892973137511656_n.jpg',
-      type: 'contact',
-    },
-    attachments: [
-      {
-        id: 4435328,
-        message_id: 59539708,
-        file_type: 'video',
-        account_id: 1,
-        extension: null,
-        data_url:
-          'https://lookaside.fbsbx.com/ig_messaging_cdn/?asset_id=17870075838132477&signature=AbzNNitwQ3L1hSWhHuFBJQ2WRPP8g0FvS5Bb4tXi57a6SKLwjWxr3sHsTiJco101pMbZ9pJw5elm1AAZ0gjyHK5jUx8DFRQ5l6ooKk0bu_zFaF9oSUOATOa0Jj1raMFrRwH-9Hi9zSdMpbneXLmNtQVZ3UN1APWurEk0HjXcNacK_3UN9tQOXWAcA8rlGWMt4MH3ax53Yg4n9kZj-h8qfiqqnHt29i5o',
-        thumb_url:
-          'https://lookaside.fbsbx.com/ig_messaging_cdn/?asset_id=17870075838132477&signature=AbzNNitwQ3L1hSWhHuFBJQ2WRPP8g0FvS5Bb4tXi57a6SKLwjWxr3sHsTiJco101pMbZ9pJw5elm1AAZ0gjyHK5jUx8DFRQ5l6ooKk0bu_zFaF9oSUOATOa0Jj1raMFrRwH-9Hi9zSdMpbneXLmNtQVZ3UN1APWurEk0HjXcNacK_3UN9tQOXWAcA8rlGWMt4MH3ax53Yg4n9kZj-h8qfiqqnHt29i5o',
-        file_size: 427808,
-        width: null,
-        height: null,
-      },
-    ],
-  },
+
   {
     id: 60077759,
     content: 'Conversation was marked resolved by Muhsin Keloth',
@@ -128,104 +77,6 @@ export const MESSAGE_LIST_3 = [
     },
   },
   {
-    id: 62563750,
-    content: '[@Muhsin Keloth](mention://user/21/Muhsin%20Keloth) test',
-    inbox_id: 27355,
-    conversation_id: 23724,
-    message_type: 1,
-    content_type: 'text',
-    status: 'read',
-    content_attributes: {},
-    created_at: 1721805028,
-    private: true,
-    source_id: null,
-    sender: {
-      id: 21,
-      name: 'Muhsin Keloth',
-      available_name: 'Muhsin Keloth',
-      avatar_url:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-      type: 'user',
-      availability_status: 'busy',
-      thumbnail:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-    },
-  },
-  {
-    id: 62563952,
-    content: '[@Muhsin Keloth](mention://user/21/Muhsin%20Keloth) test',
-    inbox_id: 27355,
-    conversation_id: 23724,
-    message_type: 1,
-    content_type: 'text',
-    status: 'read',
-    content_attributes: {},
-    created_at: 1721805197,
-    private: true,
-    source_id: null,
-    sender: {
-      id: 21,
-      name: 'Muhsin Keloth',
-      available_name: 'Muhsin Keloth',
-      avatar_url:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-      type: 'user',
-      availability_status: 'busy',
-      thumbnail:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-    },
-  },
-  {
-    id: 62563989,
-    content: 'Ok ',
-    inbox_id: 27355,
-    conversation_id: 23724,
-    message_type: 1,
-    content_type: 'text',
-    status: 'read',
-    content_attributes: {},
-    created_at: 1721805244,
-    private: false,
-    source_id:
-      'aWdfZAG1faXRlbToxOklHTWVzc2FnZAUlEOjE3ODQxNDQ3NTU5OTYxMzk4OjM0MDI4MjM2Njg0MTcxMDMwMTI0NDI1ODcwNzIxMjU5ODI4ODM2NjozMTc2MTcwMDcyMDM0ODAwNjcwNzk3MTU2MDAyMTQyNjE3NgZDZD',
-    sender: {
-      id: 21,
-      name: 'Muhsin Keloth',
-      available_name: 'Muhsin Keloth',
-      avatar_url:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-      type: 'user',
-      availability_status: 'busy',
-      thumbnail:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-    },
-  },
-  {
-    id: 62563992,
-    content: 'Working fine ',
-    inbox_id: 27355,
-    conversation_id: 23724,
-    message_type: 1,
-    content_type: 'text',
-    status: 'read',
-    content_attributes: {},
-    created_at: 1721805247,
-    private: false,
-    source_id:
-      'aWdfZAG1faXRlbToxOklHTWVzc2FnZAUlEOjE3ODQxNDQ3NTU5OTYxMzk4OjM0MDI4MjM2Njg0MTcxMDMwMTI0NDI1ODcwNzIxMjU5ODI4ODM2NjozMTc2MTcwMDc0OTAzMjQ1MzkzNDkxNjk1NDU2MDEzNTE2OAZDZD',
-    sender: {
-      id: 21,
-      name: 'Muhsin Keloth',
-      available_name: 'Muhsin Keloth',
-      avatar_url:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-      type: 'user',
-      availability_status: 'busy',
-      thumbnail:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-    },
-  },
-  {
     id: 62563994,
     content: 'Jenny',
     inbox_id: 27355,
@@ -235,30 +86,6 @@ export const MESSAGE_LIST_3 = [
     status: 'read',
     content_attributes: {},
     created_at: 1721805250,
-    private: true,
-    source_id: null,
-    sender: {
-      id: 21,
-      name: 'Muhsin Keloth',
-      available_name: 'Muhsin Keloth',
-      avatar_url:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-      type: 'user',
-      availability_status: 'busy',
-      thumbnail:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-    },
-  },
-  {
-    id: 62564011,
-    content: '[@Muhsin Keloth](mention://user/21/%241) hsheh',
-    inbox_id: 27355,
-    conversation_id: 23724,
-    message_type: 1,
-    content_type: 'text',
-    status: 'read',
-    content_attributes: {},
-    created_at: 1721805258,
     private: true,
     source_id: null,
     sender: {
@@ -343,54 +170,6 @@ export const MESSAGE_LIST_3 = [
         file_size: 236818,
         width: 1103,
         height: 1280,
-      },
-    ],
-  },
-  {
-    id: 63384546,
-    content: 'https://www.instagram.com/reel/C-BjBBpMjk7/?igsh=cDl4c2lpZTVla3g3',
-    inbox_id: 27355,
-    conversation_id: 23724,
-    message_type: 0,
-    content_type: 'text',
-    status: 'sent',
-    content_attributes: {
-      in_reply_to_external_id: null,
-    },
-    created_at: 1722320152,
-    private: false,
-    source_id:
-      'aWdfZAG1faXRlbToxOklHTWVzc2FnZAUlEOjE3ODQxNDQ3NTU5OTYxMzk4OjM0MDI4MjM2Njg0MTcxMDMwMTI0NDI1ODcwNzIxMjU5ODI4ODM2NjozMTc3MTE5OTA0ODM2NTEyNTM4MjA2MzMwNjUwNjc2NDI4OAZDZD',
-    sender: {
-      additional_attributes: {
-        social_profiles: {
-          instagram: 'iammuhzi',
-        },
-      },
-      custom_attributes: {},
-      email: null,
-      id: 53364943,
-      identifier: null,
-      name: 'Muhsin',
-      phone_number: null,
-      thumbnail:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBeGs0V0E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--4dec645ac0228f02910e15ee689e263ad6ec5d3e/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/272819353_1488256531571824_6160892973137511656_n.jpg',
-      type: 'contact',
-    },
-    attachments: [
-      {
-        id: 4688694,
-        message_id: 63384546,
-        file_type: 'ig_reel',
-        account_id: 1,
-        extension: null,
-        data_url:
-          'https://lookaside.fbsbx.com/ig_messaging_cdn/?asset_id=18125403325334403&signature=AbykTcHtgPkQ2-rdtmABzxydmD6-S_Z7naifq1QeYWKyDTY9jYFsB2OajHGjbuU2pTRsekDrXQq537f9qyz-tVRfeALhhqQDmOILi-ghhdGiCP5jXfThBi9hzs4uhUYujF1-eVvViiHuESZb1uS3sPz_ukvhJaLJk99TkWFxJgCnjZIXjixizVE9io_HjNDsrTh5xT8yvTWWOmCpwM2fpCr-Nq_OSHWt',
-        thumb_url:
-          'https://lookaside.fbsbx.com/ig_messaging_cdn/?asset_id=18125403325334403&signature=AbykTcHtgPkQ2-rdtmABzxydmD6-S_Z7naifq1QeYWKyDTY9jYFsB2OajHGjbuU2pTRsekDrXQq537f9qyz-tVRfeALhhqQDmOILi-ghhdGiCP5jXfThBi9hzs4uhUYujF1-eVvViiHuESZb1uS3sPz_ukvhJaLJk99TkWFxJgCnjZIXjixizVE9io_HjNDsrTh5xT8yvTWWOmCpwM2fpCr-Nq_OSHWt',
-        file_size: 8054626,
-        width: null,
-        height: null,
       },
     ],
   },
@@ -570,30 +349,6 @@ export const MESSAGE_LIST_3 = [
     status: 'sent',
     content_attributes: {},
     created_at: 1724944058,
-    private: true,
-    source_id: null,
-    sender: {
-      id: 21,
-      name: 'Muhsin Keloth',
-      available_name: 'Muhsin Keloth',
-      avatar_url:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-      type: 'user',
-      availability_status: 'busy',
-      thumbnail:
-        'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNEVHQ1E9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--356c8f20d17980487a5d2bd36b978f2c743f027a/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--fabd060060e055c9dd6a8996dc0b9ef8a3776cf5/Muhsin_Photo.jpg',
-    },
-  },
-  {
-    id: 71069365,
-    content: '[@Muhsin Keloth](mention://user/21/Muhsin%20Keloth) Test private note',
-    inbox_id: 27355,
-    conversation_id: 23724,
-    message_type: 1,
-    content_type: 'text',
-    status: 'sent',
-    content_attributes: {},
-    created_at: 1726507678,
     private: true,
     source_id: null,
     sender: {

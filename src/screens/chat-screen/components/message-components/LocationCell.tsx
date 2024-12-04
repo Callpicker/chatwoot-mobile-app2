@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text } from 'react-native';
+import { Text } from 'react-native';
 import Animated, { Easing, FadeIn } from 'react-native-reanimated';
 
 import { tailwind } from '@/theme';
@@ -9,7 +9,7 @@ import { Avatar, Icon } from '@/components-next/common';
 import { MenuOption, MessageMenu } from '../message-menu';
 import { MESSAGE_STATUS, MESSAGE_TYPES, TEXT_MAX_WIDTH } from '@/constants';
 import { DeliveryStatus } from './DeliveryStatus';
-import { LocationIcon } from '@/svg-icons';
+import { MapIcon } from '@/svg-icons';
 import { openURL } from 'helpers/UrlHelper';
 
 type LocationCellProps = {
@@ -83,24 +83,20 @@ export const LocationCell: React.FC<LocationCellProps> = props => {
                   : '',
               ),
             ]}>
-            <Animated.View style={tailwind.style('flex flex-row items-center gap-1')}>
-              <Icon
-                icon={<LocationIcon fill="white" />}
-                size="32"
-                style={tailwind.style('mr-1 flex-shrink-0')}
-              />
-              <Pressable onPress={() => openURL({ URL: mapUrl })}>
-                <Text
-                  style={tailwind.style(
-                    isIncoming || isOutgoing
-                      ? 'text-base tracking-[0.32px] leading-[22px] font-inter-normal-24 underline'
-                      : '',
-                    isIncoming ? 'text-white' : '',
-                    isOutgoing ? 'text-gray-950' : '',
-                  )}>
-                  See on map
-                </Text>
-              </Pressable>
+            <Animated.View
+              style={tailwind.style('flex flex-row justify-center items-center gap-1')}>
+              <Icon icon={<MapIcon fill="white" />} size={24} />
+              <Text
+                onPress={() => openURL({ URL: mapUrl })}
+                style={tailwind.style(
+                  isIncoming || isOutgoing
+                    ? 'text-base tracking-[0.32px] leading-[22px] font-inter-normal-24 underline'
+                    : '',
+                  isIncoming ? 'text-white' : '',
+                  isOutgoing ? 'text-gray-950' : '',
+                )}>
+                See on map
+              </Text>
             </Animated.View>
 
             <Animated.View
