@@ -79,8 +79,8 @@ const BottomSheetContent = () => {
   } = useChatWindowContext();
 
   const conversation = useAppSelector(state => selectConversationById(state, conversationId));
-  const { inboxId, canReply } = conversation;
-  const inbox = useAppSelector(state => selectInboxById(state, inboxId));
+  const { inboxId, canReply } = conversation || {};
+  const inbox = useAppSelector(state => (inboxId ? selectInboxById(state, inboxId) : undefined));
 
   const [replyEditorMode, setReplyEditorMode] = useState(REPLY_EDITOR_MODES.REPLY);
   const [ccEmails, setCCEmails] = useState('');
@@ -201,7 +201,7 @@ const BottomSheetContent = () => {
     const isOnWhatsApp =
       isATwilioWhatsAppChannel(inbox) ||
       isAWhatsAppCloudChannel(inbox) ||
-      is360DialogWhatsAppChannel(inbox);
+      is360DialogWhatsAppChannel(inbox?.channelType);
 
     if (isOnWhatsApp && !isPrivate) {
       sendMessageAsMultipleMessages(messageContent);

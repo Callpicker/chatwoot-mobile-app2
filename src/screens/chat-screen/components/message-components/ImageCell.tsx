@@ -8,7 +8,7 @@ import { Channel, Message, MessageStatus, UnixTimestamp } from '@/types';
 import { unixTimestampToReadableTime } from '@/utils';
 import { Avatar } from '@/components-next/common';
 import { MenuOption, MessageMenu } from '../message-menu';
-import { MESSAGE_TYPES } from '@/constants';
+import { MESSAGE_TYPES, TEXT_MAX_WIDTH } from '@/constants';
 import { DeliveryStatus } from './DeliveryStatus';
 
 const { width, height } = Dimensions.get('screen');
@@ -26,6 +26,7 @@ type ImageCellProps = {
   isPrivate: boolean;
   sourceId?: string | null;
   menuOptions: MenuOption[];
+  errorMessage?: string;
 };
 
 type ImageContainerProps = Pick<ImageCellProps, 'imageSrc'> &
@@ -85,48 +86,65 @@ export const ImageCell = (props: ImageCellProps) => {
         ) : null}
         <MessageMenu menuOptions={menuOptions}>
           <Animated.View
-            style={tailwind.style(
-              'relative w-[300px] rounded-[14px] overflow-hidden',
-              shouldRenderAvatar
-                ? isOutgoing
-                  ? 'rounded-br-none'
-                  : isIncoming
-                    ? 'rounded-bl-none'
-                    : ''
-                : '',
-            )}>
-            <ImageContainer {...{ imageSrc }} width={300} height={215} />
-            <Animated.View pointerEvents={'none'}>
-              <ImageBackground
-                source={require('../../../../assets/local/ImageCellTimeStampOverlay.png')}
-                style={tailwind.style(
-                  'absolute bottom-0 right-0 h-15 w-33 z-10',
-                  shouldRenderAvatar
-                    ? isOutgoing
-                      ? 'rounded-br-none'
-                      : isIncoming
-                        ? 'rounded-bl-none'
-                        : ''
-                    : '',
-                )}>
-                <Animated.View
-                  style={tailwind.style('flex flex-row absolute right-3 bottom-[5px]')}>
-                  <Text
-                    style={tailwind.style(
-                      'text-xs font-inter-420-20 tracking-[0.32px] leading-[14px] text-whiteA-A12 pr-1',
-                    )}>
-                    {unixTimestampToReadableTime(timeStamp)}
-                  </Text>
-                  <DeliveryStatus
-                    messageType={messageType}
-                    status={status}
-                    channel={channel}
-                    isPrivate={isPrivate}
-                    sourceId={sourceId}
-                    errorMessage={errorMessage || ''}
-                  />
-                </Animated.View>
-              </ImageBackground>
+            style={[
+              tailwind.style(
+                'relative pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
+                isIncoming ? 'bg-blue-700' : '',
+                isOutgoing ? 'bg-gray-100' : '',
+                isPrivate ? ' bg-amber-100' : '',
+                shouldRenderAvatar
+                  ? isOutgoing
+                    ? 'rounded-br-none'
+                    : isIncoming
+                      ? 'rounded-bl-none'
+                      : ''
+                  : '',
+              ),
+            ]}>
+            <Animated.View
+              style={tailwind.style(
+                'relative w-[300px] rounded-[14px] overflow-hidden',
+                shouldRenderAvatar
+                  ? isOutgoing
+                    ? 'rounded-br-none'
+                    : isIncoming
+                      ? 'rounded-bl-none'
+                      : ''
+                  : '',
+              )}>
+              <ImageContainer {...{ imageSrc }} width={300} height={215} />
+              <Animated.View pointerEvents={'none'}>
+                <ImageBackground
+                  source={require('../../../../assets/local/ImageCellTimeStampOverlay.png')}
+                  style={tailwind.style(
+                    'absolute bottom-0 right-0 h-15 w-33 z-10',
+                    shouldRenderAvatar
+                      ? isOutgoing
+                        ? 'rounded-br-none'
+                        : isIncoming
+                          ? 'rounded-bl-none'
+                          : ''
+                      : '',
+                  )}>
+                  <Animated.View
+                    style={tailwind.style('flex flex-row absolute right-3 bottom-[5px]')}>
+                    <Text
+                      style={tailwind.style(
+                        'text-xs font-inter-420-20 tracking-[0.32px] leading-[14px] text-whiteA-A12 pr-1',
+                      )}>
+                      {unixTimestampToReadableTime(timeStamp)}
+                    </Text>
+                    <DeliveryStatus
+                      messageType={messageType}
+                      status={status}
+                      channel={channel}
+                      isPrivate={isPrivate}
+                      sourceId={sourceId}
+                      errorMessage={errorMessage || ''}
+                    />
+                  </Animated.View>
+                </ImageBackground>
+              </Animated.View>
             </Animated.View>
           </Animated.View>
         </MessageMenu>

@@ -28,27 +28,12 @@ export const inboxHasFeature = (feature: string, inboxType?: string) => {
   return INBOX_FEATURE_MAP[feature]?.includes(inboxType) ?? false;
 };
 
-export const is360DialogWhatsAppChannel = (inboxType?: string) => {
-  if (!inboxType) {
-    return false;
-  }
-  return inboxType === INBOX_TYPES.WHATSAPP && inboxType === 'default';
-};
-
 export const isAWebWidgetInbox = (inbox: Inbox) => {
   return inbox.channelType === INBOX_TYPES.WEB;
 };
 
-export const isATwilioChannel = (inbox: Inbox) => {
-  return inbox.channelType === INBOX_TYPES.TWILIO;
-};
-
 export const isAFacebookInbox = (inbox: Inbox) => {
   return inbox.channelType === INBOX_TYPES.FB;
-};
-
-export const isATwilioWhatsAppChannel = (inbox: Inbox) => {
-  return inbox.channelType === INBOX_TYPES.TWILIO && inbox.medium === 'whatsapp';
 };
 
 export const isATelegramChannel = (inbox: Inbox) => {
@@ -59,28 +44,43 @@ export const isAnEmailChannel = (inbox: Inbox) => {
   return inbox.channelType === INBOX_TYPES.EMAIL;
 };
 
-export const isATwilioSMSChannel = (inbox: Inbox) => {
-  return inbox.channelType === INBOX_TYPES.TWILIO && inbox.medium === 'sms';
-};
-
-export const isASmsInbox = (inbox: Inbox) => {
-  return inbox.channelType === INBOX_TYPES.SMS || isATwilioSMSChannel(inbox);
-};
-
 export const isALineChannel = (inbox: Inbox) => {
   return inbox.channelType === INBOX_TYPES.LINE;
+};
+
+export const isATwilioChannel = (inbox: Inbox) => {
+  return inbox.channelType === INBOX_TYPES.TWILIO;
+};
+
+export const isATwilioSMSChannel = (inbox: Inbox) => {
+  return inbox.channelType === INBOX_TYPES.TWILIO && inbox.medium === 'sms';
 };
 
 export const isAWhatsAppChannel = (inbox: Inbox) => {
   return inbox.channelType === INBOX_TYPES.WHATSAPP || isATwilioWhatsAppChannel(inbox);
 };
 
-export const whatsAppAPIProvider = (inbox: Inbox) => {
-  return inbox.provider || '';
+export const is360DialogWhatsAppChannel = (inboxType?: string) => {
+  if (!inboxType) {
+    return false;
+  }
+  return inboxType === INBOX_TYPES.WHATSAPP && inboxType === 'default';
 };
 
-export const isAWhatsAppCloudChannel = (inbox: Inbox) => {
+export const isATwilioWhatsAppChannel = (inbox: Inbox | undefined) => {
+  return inbox?.channelType === INBOX_TYPES.TWILIO && inbox?.medium === 'whatsapp';
+};
+
+export const isAWhatsAppCloudChannel = (inbox: Inbox | undefined) => {
   return (
-    inbox.channelType === INBOX_TYPES.WHATSAPP && whatsAppAPIProvider(inbox) === 'whatsapp_cloud'
+    inbox?.channelType === INBOX_TYPES.WHATSAPP && whatsAppAPIProvider(inbox) === 'whatsapp_cloud'
   );
+};
+
+export const isASmsInbox = (inbox: Inbox) => {
+  return inbox.channelType === INBOX_TYPES.SMS || isATwilioSMSChannel(inbox);
+};
+
+export const whatsAppAPIProvider = (inbox: Inbox) => {
+  return inbox.provider || '';
 };

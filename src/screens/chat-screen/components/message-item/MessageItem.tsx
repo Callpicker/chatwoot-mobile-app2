@@ -38,7 +38,7 @@ export const MessageItem = ({ item, channel, getMenuOptions }: MessageItemPresen
   const isReplyMessage = item.contentAttributes?.inReplyTo;
   const attachments = item.attachments;
 
-  // Message has only one attachment, no content and not a reply message
+  // Message has only one attachment, no content and not a reply message 
   if (attachments?.length === 1 && !item.content && !isReplyMessage) {
     const commonProps = {
       sender: item.sender,
