@@ -30,6 +30,7 @@ import { MESSAGE_STATUS } from '@/constants';
 import { buildCreatePayload, createPendingMessage } from '@/utils/messageUtils';
 import { addOrUpdateMessage } from './conversationSlice';
 import { transformMessage } from '@/utils/camelCaseKeys';
+import { Platform } from 'react-native';
 
 export const conversationActions = {
   fetchConversations: createAsyncThunk<ConversationListResponse, ConversationPayload>(
@@ -88,16 +89,19 @@ export const conversationActions = {
           }),
         );
         const payload = buildCreatePayload(pendingMessage);
-        // const { file } = sendMessagePayload;
-        // TODO: handle file upload
-        // const contentType =
-        //   Platform.OS === 'ios' && file
-        //     ? file.type
-        //     : Platform.OS === 'android' && file
-        //       ? 'multipart/form-data'
-        //       : 'application/json';
+        const { file } = sendMessagePayload;
+        const contentType =
+          Platform.OS === 'ios' && file
+            ? file.type
+            : Platform.OS === 'android' && file
+              ? 'multipart/form-data'
+              : 'application/json';
 
-        const response = await ConversationService.sendMessage(conversationId, payload);
+        const response = await ConversationService.sendMessage(conversationId, payload, {
+          headers: {
+            'Content-Type': contentType,
+          },
+        });
 
         const camelCaseMessage = transformMessage(response);
 

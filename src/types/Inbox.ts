@@ -11,4 +11,5 @@ export type Inbox = {
   additionalAttributes?: {
     agentReplyTimeWindowMessage?: string;
   };
+  provider: string;
 };

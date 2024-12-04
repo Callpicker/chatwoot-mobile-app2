@@ -49,11 +49,13 @@ export const buildCreatePayload = (data: PendingMessage): MessageBuilderPayload 
     if (message) {
       payload.append('content', message);
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     payload.append('attachments[]', {
       uri: file.uri,
       name: file.fileName,
       type: file.type,
-    } as any);
+    });
     payload.append('private', isPrivate.toString());
     payload.append('echo_id', echoId);
     payload.append('cc_emails', ccEmails || '');

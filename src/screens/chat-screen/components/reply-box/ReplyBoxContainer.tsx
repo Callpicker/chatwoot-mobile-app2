@@ -1,172 +1,75 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Keyboard, Pressable, PressableProps, TextInput } from 'react-native';
+import { Keyboard, TextInput } from 'react-native';
 import { KeyboardStickyView } from 'react-native-keyboard-controller';
 import Animated, {
   FadeIn,
   FadeOut,
-  interpolate,
   LinearTransition,
-  SharedValue,
-  useAnimatedStyle,
   useDerivedValue,
+  useAnimatedStyle,
   withSpring,
-  WithSpringConfig,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useChatWindowContext, useRefsContext } from '@/context';
 import {
-  selectMessageContent,
-  selectAttachments,
-  selectIsPrivateMessage,
-  selectQuoteMessage,
-  resetSentMessage,
-  updateAttachments,
-} from '@/store/conversation/sendMessageSlice';
-import { AddIcon, PhotosIcon, SendIcon } from '@/svg-icons';
+  useHaptic,
+  isAWhatsAppChannel,
+  is360DialogWhatsAppChannel,
+  isATwilioWhatsAppChannel,
+  isAWhatsAppCloudChannel,
+  isAnEmailChannel,
+} from '@/utils';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { REPLY_EDITOR_MODES } from '@/constants';
 import { tailwind } from '@/theme';
 import {
-  isAWebWidgetInbox,
-  isAFacebookInbox,
-  isATwilioWhatsAppChannel,
-  isASmsInbox,
-  isAnEmailChannel,
-  isALineChannel,
-  isATelegramChannel,
-  useHaptic,
-  useScaleAnimation,
-  isAWhatsAppChannel,
-} from '@/utils';
-import { Icon } from '@/components-next/common';
-
-import { AttachedMedia } from '../message-components/AttachedMedia';
-import {
-  CommandOptionsMenu,
-  handleOpenPhotosLibrary,
-} from '../message-components/CommandOptionsMenu';
-import {
-  photoIconEnterAnimation,
-  photoIconExitAnimation,
-  sendIconEnterAnimation,
-  sendIconExitAnimation,
-} from '@/utils/customAnimations';
-import { MessageTextInput } from './MessageTextInput';
-import { QuoteReply } from './QuoteReply';
-import { ReplyWarning } from './ReplyWarning';
-import { conversationActions } from '@/store/conversation/conversationActions';
-import { useAppDispatch, useAppSelector } from '@/hooks';
-import { SendMessagePayload } from '@/store/conversation/conversationTypes';
+  selectMessageContent,
+  selectAttachments,
+  selectQuoteMessage,
+  resetSentMessage,
+  selectIsPrivateMessage,
+} from '@/store/conversation/sendMessageSlice';
 import { selectUserId, selectUserThumbnail } from '@/store/auth/authSelectors';
 import { selectConversationById } from '@/store/conversation/conversationSelectors';
 import { selectInboxById } from '@/store/inbox/inboxSelectors';
-import { MESSAGE_MAX_LENGTH, REPLY_EDITOR_MODES } from '@/constants';
+import { conversationActions } from '@/store/conversation/conversationActions';
 
-const SHEET_APPEAR_SPRING_CONFIG: WithSpringConfig = {
+import { AddCommandButton } from './buttons/AddCommandButton';
+import { SendMessageButton } from './buttons/SendMessageButton';
+import { MessageTextInput } from './MessageTextInput';
+import { QuoteReply } from './QuoteReply';
+import { ReplyWarning } from './ReplyWarning';
+import { AttachedMedia } from '../message-components/AttachedMedia';
+import { CommandOptionsMenu } from '../message-components/CommandOptionsMenu';
+import { SendMessagePayload } from '@/store/conversation/conversationTypes';
+
+const SHEET_APPEAR_SPRING_CONFIG = {
   damping: 20,
   stiffness: 120,
 };
 
+// TODO: Implement this
+// const globalConfig = {
+//   directUploadsEnabled: true,
+// };
+
 const AnimatedKeyboardStickyView = Animated.createAnimatedComponent(KeyboardStickyView);
-
-type SendMessageButtonProps = PressableProps & {};
-
-const SendMessageButton = (props: SendMessageButtonProps) => {
-  const { animatedStyle, handlers } = useScaleAnimation();
-  const isPrivateMessage = useAppSelector(selectIsPrivateMessage);
-
-  return (
-    <Pressable {...props} {...handlers}>
-      <Animated.View
-        layout={LinearTransition.springify().damping(20).stiffness(180)}
-        entering={sendIconEnterAnimation}
-        exiting={sendIconExitAnimation}
-        style={[tailwind.style('flex items-center justify-center h-10 w-10'), animatedStyle]}>
-        <Animated.View
-          style={tailwind.style(
-            'flex items-center justify-center h-7 w-7 rounded-full bg-gray-950',
-            isPrivateMessage ? 'bg-amber-700' : 'bg-gray-950',
-          )}>
-          <Icon icon={<SendIcon />} size={16} />
-        </Animated.View>
-      </Animated.View>
-    </Pressable>
-  );
-};
-
-type AddCommandButtonProps = PressableProps & {
-  derivedAddMenuOptionStateValue: SharedValue<number>;
-};
-
-const AddCommandButton = (props: AddCommandButtonProps) => {
-  const { derivedAddMenuOptionStateValue, ...otherProps } = props;
-  const { animatedStyle, handlers } = useScaleAnimation();
-
-  const addIconAnimation = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          rotate: `${interpolate(derivedAddMenuOptionStateValue.value, [0, 1], [0, 45])}deg`,
-        },
-      ],
-    };
-  });
-
-  return (
-    <Animated.View
-      layout={LinearTransition.springify().damping(20).stiffness(180)}
-      style={animatedStyle}>
-      <Pressable
-        {...otherProps}
-        style={({ pressed }) => [tailwind.style(pressed ? 'opacity-70' : '')]}
-        {...handlers}>
-        <Animated.View
-          style={[
-            tailwind.style('flex items-center justify-center h-10 w-10 rounded-2xl'),
-            addIconAnimation,
-          ]}>
-          <Icon icon={<AddIcon />} size={24} />
-        </Animated.View>
-      </Pressable>
-    </Animated.View>
-  );
-};
-
-type PhotosCommandButtonProps = PressableProps & {};
-
-const PhotosCommandButton = (props: PhotosCommandButtonProps) => {
-  const { animatedStyle, handlers } = useScaleAnimation();
-
-  return (
-    <Pressable
-      {...props}
-      {...handlers}
-      style={({ pressed }) => [tailwind.style(pressed ? 'opacity-70' : '')]}>
-      <Animated.View
-        entering={photoIconEnterAnimation}
-        exiting={photoIconExitAnimation}
-        style={[
-          tailwind.style('flex items-center justify-center h-10 w-10 rounded-2xl'),
-          animatedStyle,
-        ]}>
-        <Icon icon={<PhotosIcon />} size={24} />
-      </Animated.View>
-    </Pressable>
-  );
-};
-
 const BottomSheetContent = () => {
   const hapticSelection = useHaptic();
   const dispatch = useAppDispatch();
+  const { bottom } = useSafeAreaInsets();
+  const { messageListRef } = useRefsContext();
+
+  // Selectors
   const userId = useAppSelector(selectUserId);
   const userThumbnail = useAppSelector(selectUserThumbnail);
-
   const messageContent = useAppSelector(selectMessageContent);
-  const attachments = useAppSelector(selectAttachments);
-  const isPrivateMessage = useAppSelector(selectIsPrivateMessage);
+  const attachedFiles = useAppSelector(selectAttachments);
   const quoteMessage = useAppSelector(selectQuoteMessage);
-  const [replyEditorMode, setReplyEditorMode] = useState(REPLY_EDITOR_MODES.REPLY);
+  const isPrivate = useAppSelector(selectIsPrivateMessage);
 
-  const { bottom } = useSafeAreaInsets();
+  // Context
   const {
     isAddMenuOptionSheetOpen,
     setAddMenuOptionSheetState,
@@ -174,12 +77,20 @@ const BottomSheetContent = () => {
     isTextInputFocused,
     conversationId,
   } = useChatWindowContext();
-  const conversation = useAppSelector(state => selectConversationById(state, conversationId));
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const { inboxId, canReply } = conversation;
 
+  const conversation = useAppSelector(state => selectConversationById(state, conversationId));
+  const { inboxId, canReply } = conversation;
   const inbox = useAppSelector(state => selectInboxById(state, inboxId));
+
+  const [replyEditorMode, setReplyEditorMode] = useState(REPLY_EDITOR_MODES.REPLY);
+  const [ccEmails, setCCEmails] = useState('');
+  const [bccEmails, setBCCEmails] = useState('');
+  const [toEmails, setToEmails] = useState('');
+
+  const attachmentsLength = useMemo(() => attachedFiles.length, [attachedFiles.length]);
+
+  // Show reply header form if it's an email channel and not on a private note
+  const showReplyHeader = inbox && isAnEmailChannel(inbox) && !isPrivate;
 
   useEffect(() => {
     if (canReply || (inbox && isAWhatsAppChannel(inbox))) {
@@ -189,19 +100,20 @@ const BottomSheetContent = () => {
     }
   }, [canReply, inbox]);
 
-  const { messageListRef } = useRefsContext();
-
-  const attachmentsLength = useMemo(() => {
-    return attachments.length;
-  }, [attachments.length]);
-
   const derivedAddMenuOptionStateValue = useDerivedValue(() => {
     return isAddMenuOptionSheetOpen
       ? withSpring(1, SHEET_APPEAR_SPRING_CONFIG)
       : withSpring(0, SHEET_APPEAR_SPRING_CONFIG);
   });
 
-  const showAddMenuOption = () => {
+  const animatedInputWrapperStyle = useAnimatedStyle(
+    () => ({
+      marginBottom: isTextInputFocused ? 0 : bottom,
+    }),
+    [isTextInputFocused],
+  );
+
+  const handleShowAddMenuOption = () => {
     if (isAddMenuOptionSheetOpen) {
       hapticSelection?.();
       setAddMenuOptionSheetState(false);
@@ -212,85 +124,100 @@ const BottomSheetContent = () => {
     }
   };
 
-  const setReplyToInPayload = (payload: SendMessagePayload): SendMessagePayload => {
-    if (quoteMessage?.id) {
-      return {
-        ...payload,
-        contentAttributes: {
-          ...payload.contentAttributes,
-          inReplyTo: quoteMessage.id,
-        },
-      };
-    }
-    return payload; // Return original payload if no quote message
+  // TODO: Implement this
+  const sendMessageAsMultipleMessages = (message: string) => {
+    console.log('sendMessageAsMultipleMessages', message);
   };
 
-  const sendMessage = () => {
-    hapticSelection?.();
+  // TODO: Implement this
+  const setReplyToInPayload = (messagePayload: any) => {
+    console.log('setReplyToInPayload', messagePayload);
+    //     ...(quoteMessage?.id && {
+    //       contentAttributes: { inReplyTo: quoteMessage.id },
+    //     }),
+    return messagePayload;
+  };
 
-    if (textInputRef && 'current' in textInputRef) {
+  const getMessagePayload = (message: string) => {
+    // TODO: Update mentions if the message is private
+    // if (isPrivate) {
+    //   const regex = /@\[([\w\s]+)\]\((\d+)\)/g;
+    //   updatedMessage = message.replace(
+    //     regex,
+    //     '[@$1](mention://user/$2/' + encodeURIComponent('$1') + ')',
+    //   );
+    // }
+
+    let messagePayload = {
+      conversationId,
+      message,
+      private: isPrivate,
+      sender: {
+        id: userId ?? 0,
+        thumbnail: userThumbnail ?? '',
+      },
+      files: [],
+    } as SendMessagePayload;
+    messagePayload = setReplyToInPayload(messagePayload);
+
+    if (attachedFiles && attachedFiles.length) {
+      // messagePayload.files = [];
+      // TODO: Implement this
+      // attachedFiles.forEach(attachment => {
+      //   if (globalConfig.directUploadsEnabled) {
+      //     messagePayload.files.push(attachment.blobSignedId);
+      //   } else {
+      //     messagePayload.files.push(attachment.resource.file);
+      //   }
+      // });
+      // TODO: Add support for multiple files later
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      messagePayload.file = attachedFiles[0];
+    }
+
+    // TODO: Implement this
+    if (ccEmails && !isPrivate) {
+      messagePayload.ccEmails = ccEmails;
+    }
+
+    if (bccEmails && !isPrivate) {
+      messagePayload.bccEmails = bccEmails;
+    }
+
+    if (toEmails && !isPrivate) {
+      messagePayload.toEmails = toEmails;
+    }
+
+    return messagePayload;
+  };
+
+  const confirmOnSendReply = () => {
+    hapticSelection?.();
+    if (textInputRef && 'current' in textInputRef && textInputRef.current) {
       (textInputRef.current as TextInput).clear();
     }
-    if (messageContent.length >= 0) {
-      let payload: SendMessagePayload = {
-        conversationId: conversationId,
-        message: messageContent,
-        private: isPrivateMessage,
-        sender: {
-          id: userId ?? 0,
-          thumbnail: userThumbnail ?? '',
-        },
-      };
-      payload = setReplyToInPayload(payload);
-      dispatch(conversationActions.sendMessage(payload));
-      dispatch(resetSentMessage());
-      messageListRef?.current?.scrollToOffset({ offset: 0, animated: true });
-    }
-  };
 
-  const handleOnPressPhotoButton = () => {
-    if (textInputRef && 'current' in textInputRef) {
-      (textInputRef.current as TextInput).clear();
-    }
-    hapticSelection?.();
-    handleOpenPhotosLibrary(updateAttachments);
-  };
-
-  const animatedInputWrapperStyle = useAnimatedStyle(() => {
-    return {
-      marginBottom: isTextInputFocused ? 0 : bottom,
-    };
-  }, [isTextInputFocused]);
-
-  const shouldShowReplyWarning = !canReply;
-
-  const shouldShowFileUpload =
-    inbox &&
-    (isAWebWidgetInbox(inbox) ||
-      isAFacebookInbox(inbox) ||
+    const isOnWhatsApp =
       isATwilioWhatsAppChannel(inbox) ||
-      isASmsInbox(inbox) ||
-      isAnEmailChannel(inbox) ||
-      isATelegramChannel(inbox) ||
-      isALineChannel(inbox));
+      isAWhatsAppCloudChannel(inbox) ||
+      is360DialogWhatsAppChannel(inbox);
 
-  const maxLength = () => {
-    if (isPrivateMessage) {
-      return MESSAGE_MAX_LENGTH.GENERAL;
+    if (isOnWhatsApp && !isPrivate) {
+      sendMessageAsMultipleMessages(messageContent);
+    } else {
+      const messagePayload = getMessagePayload(messageContent);
+      sendMessage(messagePayload);
     }
-    if (isAFacebookInbox(inbox)) {
-      return MESSAGE_MAX_LENGTH.FACEBOOK;
-    }
-    if (isAWhatsAppChannel(inbox)) {
-      return MESSAGE_MAX_LENGTH.TWILIO_WHATSAPP;
-    }
-    if (isASmsInbox(inbox)) {
-      return MESSAGE_MAX_LENGTH.TWILIO_SMS;
-    }
-    if (isAnEmailChannel(inbox)) {
-      return MESSAGE_MAX_LENGTH.EMAIL;
-    }
-    return MESSAGE_MAX_LENGTH.GENERAL;
+  };
+
+  const sendMessage = (messagePayload: SendMessagePayload) => {
+    dispatch(conversationActions.sendMessage(messagePayload));
+    dispatch(resetSentMessage());
+    setCCEmails('');
+    setBCCEmails('');
+    setToEmails('');
+    messageListRef?.current?.scrollToOffset({ offset: 0, animated: true });
   };
 
   return (
@@ -299,31 +226,33 @@ const BottomSheetContent = () => {
         <Animated.View
           layout={LinearTransition.springify().damping(38).stiffness(240)}
           style={tailwind.style('py-2 border-t-[1px] border-t-blackA-A3')}>
-          {quoteMessage ? (
+          {quoteMessage && (
             <Animated.View entering={FadeIn.duration(250)} exiting={FadeOut.duration(10)}>
-              <QuoteReply />
+              <QuoteReply />s
             </Animated.View>
-          ) : null}
-          {shouldShowReplyWarning && inbox && conversation ? (
+          )}
+
+          {!canReply && inbox && conversation && (
             <Animated.View entering={FadeIn.duration(250)} exiting={FadeOut.duration(10)}>
               <ReplyWarning inbox={inbox} conversation={conversation} />
             </Animated.View>
-          ) : null}
+          )}
 
           <Animated.View style={tailwind.style('flex flex-row px-1 items-end z-20 relative')}>
-            <AddCommandButton
-              onPress={showAddMenuOption}
-              derivedAddMenuOptionStateValue={derivedAddMenuOptionStateValue}
-            />
-            {messageContent.length > 0 || isAddMenuOptionSheetOpen ? null : (
-              <PhotosCommandButton onPress={handleOnPressPhotoButton} />
+            {/* TODO: Add the support for multiple attachments */}
+            {attachmentsLength === 0 && (
+              <AddCommandButton
+                onPress={handleShowAddMenuOption}
+                derivedAddMenuOptionStateValue={derivedAddMenuOptionStateValue}
+              />
             )}
             <MessageTextInput />
-            {messageContent.length > 0 || attachmentsLength > 0 ? (
-              <SendMessageButton onPress={sendMessage} />
-            ) : null}
+            {(messageContent.length > 0 || attachmentsLength > 0) && (
+              <SendMessageButton onPress={confirmOnSendReply} />
+            )}
           </Animated.View>
         </Animated.View>
+
         {isAddMenuOptionSheetOpen ? (
           <CommandOptionsMenu />
         ) : attachmentsLength > 0 ? (

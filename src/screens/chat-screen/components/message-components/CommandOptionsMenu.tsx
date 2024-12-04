@@ -8,15 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppDispatch } from '@/hooks';
 import { updateAttachments } from '@/store/conversation/sendMessageSlice';
 import { useRefsContext } from '@/context';
-import {
-  // AIAssisst,
-  AttachFileIcon,
-  CameraIcon,
-  // MacrosIcon,
-  PhotosIcon,
-  // VideoCall,
-  // VoiceNote,
-} from '@/svg-icons';
+import { AttachFileIcon, CameraIcon, PhotosIcon } from '@/svg-icons';
 import { tailwind } from '@/theme';
 import { useHaptic, useScaleAnimation } from '@/utils';
 import { Icon } from '@/components-next/common';
@@ -196,27 +188,6 @@ const ADD_MENU_OPTIONS = [
     title: 'Attach File',
     handlePress: handleAttachFile,
   },
-  // {
-  //   icon: <AIAssisst />,
-  //   title: 'AI Assist',
-  //   handlePress: () => Alert.alert('AI Assist'),
-  // },
-  // {
-  //   icon: <MacrosIcon />,
-  //   title: 'Macros',
-  //   handlePress: () => {},
-  // },
-
-  // {
-  //   icon: <VoiceNote />,
-  //   title: 'Voice Note',
-  //   handlePress: () => Alert.alert('Voice Note'),
-  // },
-  // {
-  //   icon: <VideoCall />,
-  //   title: 'Video Call',
-  //   handlePress: () => Alert.alert('Video Call'),
-  // },
 ];
 
 type MenuOptionProps = {
@@ -261,7 +232,7 @@ const MenuOption = (props: MenuOptionProps) => {
 
 export const CommandOptionsMenu = () => {
   const { bottom } = useSafeAreaInsets();
-  const containerHeight = 352 + (bottom === 0 ? 16 : bottom);
+  const containerHeight = 110 + (bottom === 0 ? 16 : bottom);
   return (
     <Animated.View
       entering={SlideInDown.springify().damping(38).stiffness(240)}

@@ -74,3 +74,13 @@ export const isALineChannel = (inbox: Inbox) => {
 export const isAWhatsAppChannel = (inbox: Inbox) => {
   return inbox.channelType === INBOX_TYPES.WHATSAPP || isATwilioWhatsAppChannel(inbox);
 };
+
+export const whatsAppAPIProvider = (inbox: Inbox) => {
+  return inbox.provider || '';
+};
+
+export const isAWhatsAppCloudChannel = (inbox: Inbox) => {
+  return (
+    inbox.channelType === INBOX_TYPES.WHATSAPP && whatsAppAPIProvider(inbox) === 'whatsapp_cloud'
+  );
+};
