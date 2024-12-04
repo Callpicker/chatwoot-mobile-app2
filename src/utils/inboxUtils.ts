@@ -32,16 +32,16 @@ export const isAWebWidgetInbox = (inbox: Inbox) => {
   return inbox.channelType === INBOX_TYPES.WEB;
 };
 
-export const isAFacebookInbox = (inbox: Inbox) => {
-  return inbox.channelType === INBOX_TYPES.FB;
+export const isAFacebookInbox = (inbox: Inbox | undefined) => {
+  return inbox?.channelType === INBOX_TYPES.FB;
 };
 
 export const isATelegramChannel = (inbox: Inbox) => {
   return inbox.channelType === INBOX_TYPES.TELEGRAM;
 };
 
-export const isAnEmailChannel = (inbox: Inbox) => {
-  return inbox.channelType === INBOX_TYPES.EMAIL;
+export const isAnEmailChannel = (inbox: Inbox | undefined) => {
+  return inbox?.channelType === INBOX_TYPES.EMAIL;
 };
 
 export const isALineChannel = (inbox: Inbox) => {
@@ -52,12 +52,12 @@ export const isATwilioChannel = (inbox: Inbox) => {
   return inbox.channelType === INBOX_TYPES.TWILIO;
 };
 
-export const isATwilioSMSChannel = (inbox: Inbox) => {
-  return inbox.channelType === INBOX_TYPES.TWILIO && inbox.medium === 'sms';
+export const isATwilioSMSChannel = (inbox: Inbox | undefined) => {
+  return inbox?.channelType === INBOX_TYPES.TWILIO && inbox.medium === 'sms';
 };
 
-export const isAWhatsAppChannel = (inbox: Inbox) => {
-  return inbox.channelType === INBOX_TYPES.WHATSAPP || isATwilioWhatsAppChannel(inbox);
+export const isAWhatsAppChannel = (inbox: Inbox | undefined) => {
+  return inbox?.channelType === INBOX_TYPES.WHATSAPP || isATwilioWhatsAppChannel(inbox);
 };
 
 export const is360DialogWhatsAppChannel = (inboxType?: string) => {
@@ -77,8 +77,8 @@ export const isAWhatsAppCloudChannel = (inbox: Inbox | undefined) => {
   );
 };
 
-export const isASmsInbox = (inbox: Inbox) => {
-  return inbox.channelType === INBOX_TYPES.SMS || isATwilioSMSChannel(inbox);
+export const isASmsInbox = (inbox: Inbox | undefined) => {
+  return inbox?.channelType === INBOX_TYPES.SMS || isATwilioSMSChannel(inbox);
 };
 
 export const whatsAppAPIProvider = (inbox: Inbox) => {

@@ -26,10 +26,14 @@ import {
   selectIsPrivateMessage,
   selectQuoteMessage,
 } from '@/store/conversation/sendMessageSlice';
+import { REPLY_EDITOR_MODES } from '@/constants';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
-type MessageTextInputProps = {};
+type MessageTextInputProps = {
+  maxLength: number;
+  replyEditorMode: string;
+};
 
 const Unlock = () => {
   return (
@@ -63,7 +67,7 @@ const Locked = () => {
 };
 
 // eslint-disable-next-line no-empty-pattern
-export const MessageTextInput = ({}: MessageTextInputProps) => {
+export const MessageTextInput = ({ maxLength, replyEditorMode }: MessageTextInputProps) => {
   const messageText = useSharedValue('');
   const dispatch = useAppDispatch();
 
@@ -117,6 +121,12 @@ export const MessageTextInput = ({}: MessageTextInputProps) => {
     [],
   );
 
+  const toggleReplyMode = () => {
+    if (replyEditorMode === REPLY_EDITOR_MODES.REPLY) {
+      dispatch(togglePrivateMessage());
+    }
+  };
+
   return (
     <LayoutAnimationConfig skipEntering={true}>
       <Animated.View
@@ -140,6 +150,7 @@ export const MessageTextInput = ({}: MessageTextInputProps) => {
             // TODO: Try settings includeFontPadding to false and have a single lineHeight value of 20
           ]}
           placeholderTextColor={tailwind.color('bg-gray-800')}
+          maxLength={maxLength}
           placeholder="Message..."
           onSubmitEditing={() => (messageText.value = '')}
           returnKeyType={'default'}
@@ -156,7 +167,7 @@ export const MessageTextInput = ({}: MessageTextInputProps) => {
           tailwind.style('absolute right-[12px]'),
           lockIconAnimatedPosition,
         ]}>
-        <Pressable hitSlop={5} onPress={() => dispatch(togglePrivateMessage())}>
+        <Pressable hitSlop={5} onPress={toggleReplyMode}>
           {isPrivateMessage ? (
             <Icon size={29} icon={<Locked />} />
           ) : (

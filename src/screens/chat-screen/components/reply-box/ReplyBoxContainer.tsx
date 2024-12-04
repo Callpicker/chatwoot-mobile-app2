@@ -19,9 +19,14 @@ import {
   isATwilioWhatsAppChannel,
   isAWhatsAppCloudChannel,
   isAnEmailChannel,
+  isASmsInbox,
+  isAFacebookInbox,
+  isALineChannel,
+  isATelegramChannel,
+  isAWebWidgetInbox,
 } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { REPLY_EDITOR_MODES } from '@/constants';
+import { MESSAGE_MAX_LENGTH, REPLY_EDITOR_MODES } from '@/constants';
 import { tailwind } from '@/theme';
 import {
   selectMessageContent,
@@ -29,6 +34,7 @@ import {
   selectQuoteMessage,
   resetSentMessage,
   selectIsPrivateMessage,
+  togglePrivateMessage,
 } from '@/store/conversation/sendMessageSlice';
 import { selectUserId, selectUserThumbnail } from '@/store/auth/authSelectors';
 import { selectConversationById } from '@/store/conversation/conversationSelectors';
@@ -97,8 +103,9 @@ const BottomSheetContent = () => {
       setReplyEditorMode(REPLY_EDITOR_MODES.REPLY);
     } else {
       setReplyEditorMode(REPLY_EDITOR_MODES.NOTE);
+      dispatch(togglePrivateMessage());
     }
-  }, [canReply, inbox]);
+  }, [inbox]);
 
   const derivedAddMenuOptionStateValue = useDerivedValue(() => {
     return isAddMenuOptionSheetOpen
@@ -220,6 +227,35 @@ const BottomSheetContent = () => {
     messageListRef?.current?.scrollToOffset({ offset: 0, animated: true });
   };
 
+  const shouldShowFileUpload =
+    inbox &&
+    (isAWebWidgetInbox(inbox) ||
+      isAFacebookInbox(inbox) ||
+      isATwilioWhatsAppChannel(inbox) ||
+      isASmsInbox(inbox) ||
+      isAnEmailChannel(inbox) ||
+      isATelegramChannel(inbox) ||
+      isALineChannel(inbox));
+
+  const maxLength = () => {
+    if (isPrivate) {
+      return MESSAGE_MAX_LENGTH.GENERAL;
+    }
+    if (isAFacebookInbox(inbox)) {
+      return MESSAGE_MAX_LENGTH.FACEBOOK;
+    }
+    if (isAWhatsAppChannel(inbox)) {
+      return MESSAGE_MAX_LENGTH.TWILIO_WHATSAPP;
+    }
+    if (isASmsInbox(inbox)) {
+      return MESSAGE_MAX_LENGTH.TWILIO_SMS;
+    }
+    if (isAnEmailChannel(inbox)) {
+      return MESSAGE_MAX_LENGTH.EMAIL;
+    }
+    return MESSAGE_MAX_LENGTH.GENERAL;
+  };
+
   return (
     <Animated.View layout={LinearTransition.springify().damping(38).stiffness(240)}>
       <AnimatedKeyboardStickyView style={[tailwind.style('bg-white'), animatedInputWrapperStyle]}>
@@ -240,13 +276,13 @@ const BottomSheetContent = () => {
 
           <Animated.View style={tailwind.style('flex flex-row px-1 items-end z-20 relative')}>
             {/* TODO: Add the support for multiple attachments */}
-            {attachmentsLength === 0 && (
+            {attachmentsLength === 0 && shouldShowFileUpload && (
               <AddCommandButton
                 onPress={handleShowAddMenuOption}
                 derivedAddMenuOptionStateValue={derivedAddMenuOptionStateValue}
               />
             )}
-            <MessageTextInput />
+            <MessageTextInput maxLength={maxLength()} replyEditorMode={replyEditorMode} />
             {(messageContent.length > 0 || attachmentsLength > 0) && (
               <SendMessageButton onPress={confirmOnSendReply} />
             )}
