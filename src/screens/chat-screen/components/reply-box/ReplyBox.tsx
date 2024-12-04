@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { Keyboard, Pressable, PressableProps } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Keyboard, Pressable, PressableProps, TextInput } from 'react-native';
 import { KeyboardStickyView } from 'react-native-keyboard-controller';
 import Animated, {
   FadeIn,
@@ -25,7 +25,18 @@ import {
 } from '@/store/conversation/sendMessageSlice';
 import { AddIcon, PhotosIcon, SendIcon } from '@/svg-icons';
 import { tailwind } from '@/theme';
-import { useHaptic, useScaleAnimation } from '@/utils';
+import {
+  isAWebWidgetInbox,
+  isAFacebookInbox,
+  isATwilioWhatsAppChannel,
+  isASmsInbox,
+  isAnEmailChannel,
+  isALineChannel,
+  isATelegramChannel,
+  useHaptic,
+  useScaleAnimation,
+  isAWhatsAppChannel,
+} from '@/utils';
 import { Icon } from '@/components-next/common';
 
 import { AttachedMedia } from '../message-components/AttachedMedia';
@@ -48,6 +59,7 @@ import { SendMessagePayload } from '@/store/conversation/conversationTypes';
 import { selectUserId, selectUserThumbnail } from '@/store/auth/authSelectors';
 import { selectConversationById } from '@/store/conversation/conversationSelectors';
 import { selectInboxById } from '@/store/inbox/inboxSelectors';
+import { MESSAGE_MAX_LENGTH, REPLY_EDITOR_MODES } from '@/constants';
 
 const SHEET_APPEAR_SPRING_CONFIG: WithSpringConfig = {
   damping: 20,
@@ -152,6 +164,7 @@ const BottomSheetContent = () => {
   const attachments = useAppSelector(selectAttachments);
   const isPrivateMessage = useAppSelector(selectIsPrivateMessage);
   const quoteMessage = useAppSelector(selectQuoteMessage);
+  const [replyEditorMode, setReplyEditorMode] = useState(REPLY_EDITOR_MODES.REPLY);
 
   const { bottom } = useSafeAreaInsets();
   const {
@@ -163,9 +176,19 @@ const BottomSheetContent = () => {
     conversationId,
   } = useChatWindowContext();
   const conversation = useAppSelector(state => selectConversationById(state, conversationId));
-  const inboxId = conversation?.inboxId;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { inboxId, canReply } = conversation;
 
-  const inbox = useAppSelector(state => selectInboxById(state, inboxId ?? 0));
+  const inbox = useAppSelector(state => selectInboxById(state, inboxId));
+
+  useEffect(() => {
+    if (canReply || (inbox && isAWhatsAppChannel(inbox))) {
+      setReplyEditorMode(REPLY_EDITOR_MODES.REPLY);
+    } else {
+      setReplyEditorMode(REPLY_EDITOR_MODES.NOTE);
+    }
+  }, [canReply, inbox]);
 
   const { messageListRef } = useRefsContext();
 
@@ -206,7 +229,9 @@ const BottomSheetContent = () => {
   const sendMessage = () => {
     hapticSelection?.();
 
-    textInputRef?.current?.clear();
+    if (textInputRef && 'current' in textInputRef) {
+      (textInputRef.current as TextInput).clear();
+    }
     if (messageContent.length >= 0) {
       let payload: SendMessagePayload = {
         conversationId: conversationId,
@@ -225,7 +250,9 @@ const BottomSheetContent = () => {
   };
 
   const handleOnPressPhotoButton = () => {
-    textInputRef?.current?.blur();
+    if (textInputRef && 'current' in textInputRef) {
+      (textInputRef.current as TextInput).clear();
+    }
     hapticSelection?.();
     handleOpenPhotosLibrary(updateAttachments);
   };
@@ -236,7 +263,36 @@ const BottomSheetContent = () => {
     };
   }, [isTextInputFocused]);
 
-  const shouldShowReplyWarning = !conversation?.canReply;
+  const shouldShowReplyWarning = !canReply;
+
+  const shouldShowFileUpload =
+    inbox &&
+    (isAWebWidgetInbox(inbox) ||
+      isAFacebookInbox(inbox) ||
+      isATwilioWhatsAppChannel(inbox) ||
+      isASmsInbox(inbox) ||
+      isAnEmailChannel(inbox) ||
+      isATelegramChannel(inbox) ||
+      isALineChannel(inbox));
+
+  const maxLength = () => {
+    if (isPrivateMessage) {
+      return MESSAGE_MAX_LENGTH.GENERAL;
+    }
+    if (isAFacebookInbox(inbox)) {
+      return MESSAGE_MAX_LENGTH.FACEBOOK;
+    }
+    if (isAWhatsAppChannel(inbox)) {
+      return MESSAGE_MAX_LENGTH.TWILIO_WHATSAPP;
+    }
+    if (isASmsInbox(inbox)) {
+      return MESSAGE_MAX_LENGTH.TWILIO_SMS;
+    }
+    if (isAnEmailChannel(inbox)) {
+      return MESSAGE_MAX_LENGTH.EMAIL;
+    }
+    return MESSAGE_MAX_LENGTH.GENERAL;
+  };
 
   return (
     <Animated.View layout={LinearTransition.springify().damping(38).stiffness(240)}>

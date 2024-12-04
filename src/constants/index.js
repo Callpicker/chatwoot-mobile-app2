@@ -251,3 +251,16 @@ export const EMAIL_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export const TEXT_MAX_WIDTH = 300;
+
+export const MESSAGE_MAX_LENGTH = {
+  GENERAL: 10000,
+  FACEBOOK: 1000,
+  TWILIO_SMS: 320,
+  TWILIO_WHATSAPP: 1600,
+  EMAIL: 25000,
+};
+
+export const REPLY_EDITOR_MODES = {
+  REPLY: 'REPLY',
+  NOTE: 'NOTE',
+};
