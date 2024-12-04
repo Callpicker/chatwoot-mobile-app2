@@ -171,7 +171,6 @@ const BottomSheetContent = () => {
     isAddMenuOptionSheetOpen,
     setAddMenuOptionSheetState,
     textInputRef,
-    isVoiceRecorderOpen,
     isTextInputFocused,
     conversationId,
   } = useChatWindowContext();
@@ -310,22 +309,20 @@ const BottomSheetContent = () => {
               <ReplyWarning inbox={inbox} conversation={conversation} />
             </Animated.View>
           ) : null}
-          {/* {isVoiceRecorderOpen ? <AudioRecorder /> : null} */}
-          {!isVoiceRecorderOpen ? (
-            <Animated.View style={tailwind.style('flex flex-row px-1 items-end z-20 relative')}>
-              <AddCommandButton
-                onPress={showAddMenuOption}
-                derivedAddMenuOptionStateValue={derivedAddMenuOptionStateValue}
-              />
-              {messageContent.length > 0 || isAddMenuOptionSheetOpen ? null : (
-                <PhotosCommandButton onPress={handleOnPressPhotoButton} />
-              )}
-              <MessageTextInput />
-              {messageContent.length > 0 || attachmentsLength > 0 ? (
-                <SendMessageButton onPress={sendMessage} />
-              ) : null}
-            </Animated.View>
-          ) : null}
+
+          <Animated.View style={tailwind.style('flex flex-row px-1 items-end z-20 relative')}>
+            <AddCommandButton
+              onPress={showAddMenuOption}
+              derivedAddMenuOptionStateValue={derivedAddMenuOptionStateValue}
+            />
+            {messageContent.length > 0 || isAddMenuOptionSheetOpen ? null : (
+              <PhotosCommandButton onPress={handleOnPressPhotoButton} />
+            )}
+            <MessageTextInput />
+            {messageContent.length > 0 || attachmentsLength > 0 ? (
+              <SendMessageButton onPress={sendMessage} />
+            ) : null}
+          </Animated.View>
         </Animated.View>
         {isAddMenuOptionSheetOpen ? (
           <CommandOptionsMenu />
@@ -337,6 +334,6 @@ const BottomSheetContent = () => {
   );
 };
 
-export const ReplyBox = () => {
+export const ReplyBoxContainer = () => {
   return <BottomSheetContent />;
 };

@@ -1,1 +1,1 @@
-export * from './ReplyBox';
+export * from './ReplyBoxContainer';
