@@ -104,7 +104,7 @@ const BottomSheetContent = () => {
       dispatch(togglePrivateMessage(false));
     } else {
       setReplyEditorMode(REPLY_EDITOR_MODES.NOTE);
-      dispatch(togglePrivateMessage(false));
+      dispatch(togglePrivateMessage(true));
     }
   }, [inbox, canReply, dispatch]);
 
