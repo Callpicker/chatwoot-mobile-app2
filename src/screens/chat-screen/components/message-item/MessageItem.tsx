@@ -54,7 +54,6 @@ export const MessageItem = ({ item, channel, getMenuOptions }: MessageItemPresen
       menuOptions: getMenuOptions(item),
     };
 
-    console.log('attachments[0]', attachments[0]);
     switch (attachments[0].fileType) {
       case ATTACHMENT_TYPES.IMAGE:
         return <ImageCell {...commonProps} imageSrc={attachments[0].dataUrl} />;
