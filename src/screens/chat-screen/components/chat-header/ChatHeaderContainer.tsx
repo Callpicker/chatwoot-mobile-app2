@@ -13,7 +13,7 @@ import { DashboardList } from './DropdownMenu';
 import { ImageSourcePropType } from 'react-native';
 import { SLAStatus } from '@/types/common/SLA';
 import { evaluateSLAStatus } from '@chatwoot/utils';
-import { resetSentMessage, togglePrivateMessage } from '@/store/conversation/sendMessageSlice';
+import { resetSentMessage } from '@/store/conversation/sendMessageSlice';
 
 type ChatScreenHeaderProps = {
   name: string;

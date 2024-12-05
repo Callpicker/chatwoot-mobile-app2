@@ -24,8 +24,8 @@ const sendMessageSlice = createSlice({
     setMessageText: (state, action: PayloadAction<string>) => {
       state.messageContent = action.payload;
     },
-    togglePrivateMessage: state => {
-      state.isPrivateMessage = !state.isPrivateMessage;
+    togglePrivateMessage: (state, action: PayloadAction<boolean>) => {
+      state.isPrivateMessage = action.payload || !state.isPrivateMessage;
     },
     updateAttachments: (state, action: PayloadAction<Asset[]>) => {
       state.attachments = [...state.attachments, ...action.payload];

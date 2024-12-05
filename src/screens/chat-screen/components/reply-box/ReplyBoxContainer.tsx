@@ -101,11 +101,12 @@ const BottomSheetContent = () => {
   useEffect(() => {
     if (canReply || (inbox && isAWhatsAppChannel(inbox))) {
       setReplyEditorMode(REPLY_EDITOR_MODES.REPLY);
+      dispatch(togglePrivateMessage(false));
     } else {
       setReplyEditorMode(REPLY_EDITOR_MODES.NOTE);
-      dispatch(togglePrivateMessage());
+      dispatch(togglePrivateMessage(false));
     }
-  }, [inbox]);
+  }, [inbox, canReply, dispatch]);
 
   const derivedAddMenuOptionStateValue = useDerivedValue(() => {
     return isAddMenuOptionSheetOpen
@@ -138,7 +139,6 @@ const BottomSheetContent = () => {
 
   // TODO: Implement this
   const setReplyToInPayload = (messagePayload: any) => {
-    console.log('setReplyToInPayload', messagePayload);
     //     ...(quoteMessage?.id && {
     //       contentAttributes: { inReplyTo: quoteMessage.id },
     //     }),

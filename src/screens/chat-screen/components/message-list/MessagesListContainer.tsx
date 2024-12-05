@@ -38,6 +38,12 @@ export const MessagesListContainer = () => {
     setAddMenuOptionSheetState(false);
   }, [attachments]);
 
+  useEffect(() => {
+    if (conversation) {
+      dispatch(conversationActions.markMessageRead({ conversationId }));
+    }
+  }, []);
+
   const lastMessageId = useCallback(() => {
     if (messages && messages.length) {
       const lastMessage = messages[messages.length - 1];
