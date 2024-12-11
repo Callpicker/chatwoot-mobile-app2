@@ -24,6 +24,7 @@ import {
   isALineChannel,
   isATelegramChannel,
   isAWebWidgetInbox,
+  getTypingUsersText,
 } from '@/utils';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { MESSAGE_MAX_LENGTH, REPLY_EDITOR_MODES } from '@/constants';
@@ -52,11 +53,11 @@ import { AttachedMedia } from '../message-components/AttachedMedia';
 import { CommandOptionsMenu } from '../message-components/CommandOptionsMenu';
 import { SendMessagePayload } from '@/store/conversation/conversationTypes';
 import { TypingIndicator } from './TypingIndicator';
-import { getTypingUsersText } from '@/utils';
 import { selectTypingUsersByConversationId } from '@/store/conversation/conversationTypingSlice';
-import { CannedResponse, Contact, Conversation } from '@/types';
+import { Agent, CannedResponse, Contact, Conversation } from '@/types';
 import AnalyticsHelper from '@/helpers/AnalyticsHelper';
 import { CONVERSATION_EVENTS } from '@/constants/analyticsEvents';
+import { selectAssignableParticipantsByInboxId } from '@/store/assignable-agent/assignableAgentSelectors';
 import {
   allMessageVariables,
   replaceMessageVariables,
@@ -101,6 +102,9 @@ const BottomSheetContent = () => {
   const { inboxId, canReply } = conversation || {};
   const inbox = useAppSelector(state => (inboxId ? selectInboxById(state, inboxId) : undefined));
 
+  const agents = useAppSelector(state =>
+    inboxId ? selectAssignableParticipantsByInboxId(state, inboxId, '') : [],
+  );
   const [replyEditorMode, setReplyEditorMode] = useState(REPLY_EDITOR_MODES.REPLY);
   const [ccEmails, setCCEmails] = useState('');
   const [bccEmails, setBCCEmails] = useState('');
@@ -327,6 +331,7 @@ const BottomSheetContent = () => {
           {typingText && <TypingIndicator typingText={typingText} />}
 
           <Animated.View style={tailwind.style('flex flex-row px-1 items-end z-20 relative')}>
+            {/* TODO: Add the support for multiple attachments */}
             {attachmentsLength === 0 && shouldShowFileUpload && (
               <AddCommandButton
                 onPress={handleShowAddMenuOption}
@@ -337,6 +342,7 @@ const BottomSheetContent = () => {
               maxLength={maxLength()}
               replyEditorMode={replyEditorMode}
               selectedCannedResponse={selectedCannedResponse}
+              agents={agents as Agent[]}
             />
             {(messageContent.length > 0 || attachmentsLength > 0) && (
               <SendMessageButton onPress={confirmOnSendReply} />
