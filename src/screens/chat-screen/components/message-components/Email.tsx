@@ -51,8 +51,7 @@ export const Email = (props: EmailProps) => {
     <Animated.View
       style={[
         tailwind.style(
-          'relative pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden bg-gray-100 w-full',
-          `max-w-[${TEXT_MAX_WIDTH + 50}px]`,
+          'relative pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden bg-gray-100 w-[96%]',
           isMessageFailed ? 'bg-ruby-700' : '',
           isAvatarRendered
             ? isOutgoing
@@ -65,10 +64,10 @@ export const Email = (props: EmailProps) => {
       ]}>
       {contentAttributes && <EmailMeta {...{ contentAttributes, sender }} />}
       <Animated.View style={tailwind.style('h-[1px] my-2 bg-gray-300')} />
-      <Animated.View style={[tailwind.style('flex bg-white rounded-2xl')]}>
-        <Animated.View style={tailwind.style('px-4 py-2')}>
+      <Animated.View style={[tailwind.style('flex bg-white rounded-2xl w-full')]}>
+        <Animated.View style={tailwind.style('px-4 py-2 w-full')}>
           <AutoHeightWebView
-            style={{ width: '100%', opacity: 0.99, minHeight: 1 }}
+            style={{ width: '100%', minHeight: 1, minWidth: '100%' }}
             scrollEnabled={false}
             customStyle={`
         * {
@@ -84,6 +83,7 @@ export const Email = (props: EmailProps) => {
             }}
             viewportContent={'width=device-width, user-scalable=no'}
           />
+          {/* <Text>{FormattedEmail}</Text> */}
         </Animated.View>
       </Animated.View>
       <Animated.View
