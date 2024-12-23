@@ -7,7 +7,7 @@ export const getCurrentAccount = ({ accounts = [] } = {}, accountId = null) => {
 export const getUserPermissions = (user, accountId) => {
   try {
     const currentAccount = getCurrentAccount(user, accountId) || {};
-    return currentAccount.permissions || [];
+    return currentAccount.permissions || ['administrator'];
   } catch (error) {
     Sentry.captureException(error, {
       extra: {
