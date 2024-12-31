@@ -3,6 +3,7 @@ import { settingsActions } from './settingsActions';
 import * as RootNavigation from '@/helpers/NavigationHelper';
 import { NotificationSettings } from './settingsTypes';
 import { Theme } from '@/types/common/Theme';
+import { CALLPICKER_CHATWOOT_DOMAIN } from '@env';
 
 interface SettingsState {
   baseUrl: string;
@@ -19,9 +20,10 @@ interface SettingsState {
   version: string;
   pushToken: string;
 }
+
 const initialState: SettingsState = {
-  baseUrl: 'app.chatwoot.com',
-  installationUrl: 'https://app.chatwoot.com/',
+  baseUrl: CALLPICKER_CHATWOOT_DOMAIN,
+  installationUrl: `https://${CALLPICKER_CHATWOOT_DOMAIN}/`,
   uiFlags: {
     isSettingUrl: false,
     isUpdating: false,
@@ -37,7 +39,7 @@ const initialState: SettingsState = {
     selected_push_flags: [],
     user_id: 0,
   },
-  webSocketUrl: 'wss://app.chatwoot.com/cable',
+  webSocketUrl: `wss://${CALLPICKER_CHATWOOT_DOMAIN}/cable`,
   theme: 'system',
   version: '',
   pushToken: '',
