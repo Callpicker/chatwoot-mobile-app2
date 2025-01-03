@@ -51,7 +51,7 @@ import {
   selectUser,
   selectAccounts,
 } from '@/store/auth/authSelectors';
-import { logout, setAccount } from '@/store/auth/authSlice';
+import { logout, setAccount, setCurrentUserAvailability } from '@/store/auth/authSlice';
 import { authActions } from '@/store/auth/authActions';
 import { selectLocale, selectIsChatwootCloud } from '@/store/settings/settingsSelectors';
 import { settingsActions } from '@/store/settings/settingsActions';
@@ -154,6 +154,8 @@ const SettingsScreen = () => {
       to: updatedStatus,
     });
     const payload = { profile: { availability: updatedStatus, account_id: activeAccountId } };
+    const usersPayload = { users: {[Number(user?.id)] : updatedStatus}};
+    dispatch(setCurrentUserAvailability(usersPayload));
     // TODO: Fix this later
     // @ts-expect-error TODO: Fix typing for dispatch
     dispatch(authActions.updateAvailability(payload));
