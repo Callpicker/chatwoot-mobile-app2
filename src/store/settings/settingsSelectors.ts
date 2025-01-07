@@ -1,11 +1,13 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '@/store';
+import { CALLPICKER_CHATWOOT_DOMAIN } from '@env';
 
 export const selectSettings = (state: RootState) => state.settings;
 
 export const selectInstallationUrl = createSelector(
   selectSettings,
-  settings => settings.installationUrl,
+  // settings => settings.installationUrl,
+  settings => CALLPICKER_CHATWOOT_DOMAIN,
 );
 
 export const selectLocale = createSelector(selectSettings, settings => settings.localeValue);
