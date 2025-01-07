@@ -8,6 +8,7 @@ import {
   useBottomSheetSpringConfigs,
 } from '@gorhom/bottom-sheet';
 import * as DropdownMenu from 'zeego/dropdown-menu';
+import i18n from '@/i18n';
 
 import { BottomSheetHeader, BottomSheetWrapper } from '@/components-next';
 import { tailwind } from '@/theme';
@@ -98,7 +99,7 @@ export const ChatDropdownMenu = (props: PropsWithChildren<ChatDropdownMenuProps>
           enablePanDownToClose
           snapPoints={[dropdownMenuList.length * 44 + 4 + 37]}>
           <BottomSheetWrapper>
-            <BottomSheetHeader headerText="Select action" />
+            <BottomSheetHeader headerText={i18n.t('DASHBOARD.SELECT_ACTION')} />
             <Animated.View style={tailwind.style('py-1 pl-3')}>
               {dropdownMenuList?.map((option, index) => {
                 const handleOnOptionSelect = () => {

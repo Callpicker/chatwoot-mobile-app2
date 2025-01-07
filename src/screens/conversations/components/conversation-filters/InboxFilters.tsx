@@ -28,6 +28,7 @@ const defaultInbox: Inbox = {
   channelId: 0,
   phoneNumber: '',
   medium: 'Channel::All',
+  provider: ''
 };
 
 const InboxCell = (props: InboxCellProps) => {

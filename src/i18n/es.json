@@ -49,7 +49,74 @@
     "SUB_TITLE": "¡No te preocupes! Te cubrimos las espaldas",
     "API_SUCCESS": "El enlace para restablecer la contraseña ha sido enviado a tu correo electrónico"
   },
+  "DASHBOARD": {
+    "CONVERSATION_ACTIONS": "Acciones de conversación",
+    "SELECT_ACTION": "Seleccionar acción"
+  },
   "CONVERSATION": {
+    "HEADER": {
+      "TITLE": "Conversaciones",
+      "CLEAR_FILTER": "Limpiar"
+    },
+    "ITEM": {
+      "ASSIGN": "Asignar",
+      "STATUS": "Estatus"
+    },
+    "FILTERS": {
+      "AGENT": {
+        "SEARCH_AGENT": "Buscar agentes"
+      },
+      "ASSIGNEE_TYPE": {
+        "TITLE": "Filtrar por tipo de asignado",
+        "OPTIONS": {
+          "ME": "Yo",
+          "UNASSIGNED": "Sin asignar",
+          "ALL": "Todos"
+        }
+      },
+      "INBOX": {
+        "TITLE": "Filtrar por bandeja de entrada"
+      },
+      "SORT_BY": {
+        "TITLE": "Ordenar por",
+        "OPTIONS": {
+          "LATEST": "Más reciente",
+          "SORT_ON_CREATED_AT": "Fecha de creación",
+          "SORT_ON_PRIORITY": "Prioridad"
+        }
+      },
+      "STATUS": {
+        "TITLE": "Filtrar por estatus",
+        "OPTIONS": {
+          "OPEN": "Abierto",
+          "PENDING": "Pendiente",
+          "SNOOZED": "Pospuesto",
+          "RESOLVED": "Resuelto",
+          "ALL": "Todos"
+        }
+      }
+    },
+    "ASSIGNEE": {
+      "LABELS": {
+        "SEARCH_LABELS": "Buscar etiquetas",
+        "TITLE": "Etiquetas",
+        "ACTION": "Agregar"
+      },
+      "AGENTS": {
+        "SEARCH_AGENT": "Buscar agentes"
+      },
+      "STATUS": {
+        "HEADER_TITLE": "Asignar estatus",
+        "TITLE": "Filtrar por estatus",
+        "OPTIONS": {
+          "OPEN": "Abierto",
+          "PENDING": "Pendiente",
+          "SNOOZED": "Pospuesto",
+          "RESOLVED": "Resuelto",
+          "ALL": "Todos"
+        }
+      }
+    },
     "DEFAULT_HEADER_TITLE": "Conversaciones",
     "UPDATING": "Actualizando...",
     "MINE": "Para mí",
@@ -104,6 +171,21 @@
         "SUCCESSFUL": "Se ha cambiado la prioridad del id de conversación %{conversationId} a %{priority}",
         "FAILED": "No se pudo cambiar la prioridad. Por favor, inténtelo de nuevo."
       }
+    },
+    "ACTIONS": {
+      "ASSIGNEE": {
+        "EMPTY": "Sin asignar",
+        "ASSIGN": "Asignar",
+        "EDIT": "Editar"
+      },
+      "TEAM": {
+        "EMPTY": "Sin equipo asignado",
+        "ASSIGN": "Asignar"
+      },
+      "PRIORITY": {
+        "EMPTY": "Sin prioridad seleccionada",
+        "EDIT": "Editar"
+      }
     }
   },
   "FILTER": {
@@ -115,22 +197,27 @@
     "HEADER_TITLE": "Filtro de conversación",
     "CHOOSE_INBOX": "Elegir bandeja de entrada",
     "CHOOSE_STATUS": "Estado de la conversación",
-    "OPEN": "Abrir",
+    "OPEN": "Abierto",
     "RESOLVED": "Resuelto",
     "BOT": "Bot",
     "SUBMIT": "Enviar",
-    "PENDING": "En espera",
+    "PENDING": "Pendiente",
     "SNOOZED": "Pospuesto"
   },
   "SETTINGS": {
     "HEADER_TITLE": "Preferencias",
     "SET_AVAILABILITY": "Ponte como",
+    "CHANGE_AVAILABILITY": "Disponibilidad",
     "PREFERENCES": "Preferencias",
     "ABOUT": "Acerca de",
     "SUPPORT": "Soporte",
+    "NOTIFICATIONS": "Notificaciones",
     "SWITCH_ACCOUNT": "Cambiar de cuenta",
     "CHANGE_LANGUAGE": "Cambiar idioma",
+    "SET_LANGUAGE": "Elige idioma",
     "NOTIFICATION_PREFERENCES": "Preferencias de Notificación",
+    "READ_DOCS": "Leer documentación",
+    "CHAT_WITH_US": "Habla con nosotros",
     "LOGOUT": "Cerrar sesión",
     "SUBMIT": "Enviar"
   },
@@ -140,7 +227,26 @@
     "EMPTY_MORE_TEXT": "Una vez que empieces a recibir notificaciones, aparecerán aquí.",
     "ALL_NOTIFICATION_LOADED": "Todas las notificaciones cargadas",
     "MARK_ALL": "Marcar todo como leído",
-    "CANCEL": "Cancelar"
+    "CANCEL": "Cancelar",
+    "TYPES": {
+      "CONVERSATION_MENTION": "Has sido mencionado en una conversación",
+      "CONVERSATION_CREATION": "Se ha creado una nueva conversación",
+      "CONVERSATION_ASSIGNMENT": "Se te ha asignado una conversación",
+      "ASSIGNED_CONVERSATION_NEW_MESSAGE": "Nuevo mensaje en conversación asignada",
+      "PARTICIPATING_CONVERSATION_NEW_MESSAGE": "Nuevo mensaje en una conversación donde eres participante",
+      "SLA_MISSED_FIRST_RESPONSE": "El objetivo SLA de primera respuesta no se cumplió para la conversación",
+      "SLA_MISSED_NEXT_RESPONSE": "El objetivo SLA de siguiente respuesta no se cumplió para la conversación",
+      "SLA_MISSED_RESOLUTION": "El objetivo SLA de resolución no se cumplió para la conversación"
+    },
+    "FILTERS": {
+      "SORT_BY": {
+        "TITLE": "Ordenar por",
+        "OPTIONS": {
+          "ASC": "Más antiguo",
+          "DESC": "Más reciente"
+        }
+      }
+    }
   },
   "AVAILABILITY": {
     "ONLINE": "En línea",
@@ -160,7 +266,10 @@
     "CONVERSATION_ASSIGNEE_EMAIL": "Enviar notificaciones por email cuando se me ha asignado una conversación",
     "CONVERSATION_MENTION_EMAIL": "Enviar notificaciones por correo electrónico cuando sea mencionado en una conversación",
     "CONVERSATION_ASSIGNED_NEW_MESSAGE_EMAIL": "Enviar notificaciones por email cuando se crea un nuevo mensaje en una conversación asignada",
-    "CONVERSATION_PARTICIPATING_NEW_MESSAGE_EMAIL": "Enviar notificaciones push cuando se crea un nuevo mensaje en una conversación participante"
+    "CONVERSATION_PARTICIPATING_NEW_MESSAGE_EMAIL": "Enviar notificaciones push cuando se crea un nuevo mensaje en una conversación participante",
+    "CONVERSATION_SLA_MISSED_FIRST_RESPONSE": "Una conversación no cumple con el SLA de primera respuesta",
+    "CONVERSATION_SLA_MISSED_NEXT_RESPONSE": "Una conversación no cumple con el SLA de siguiente respuesta",
+    "CONVERSATION_SLA_MISSED_RESOLUTION": "Una conversación no cumple con el SLA de resolución"
   },
   "CONVERSATION_DETAILS": {
     "TITLE": "Información de la conversación",
@@ -181,7 +290,8 @@
     "SELECT_PARTICIPANTS": "Seleccionar agentes",
     "ADD_PARTICIPANTS": "Seleccionar participantes",
     "REMAINING_PARTICIPANTS_TEXT": "otros",
-    "REMAINING_PARTICIPANT_TEXT": "otro"
+    "REMAINING_PARTICIPANT_TEXT": "otro",
+    "ADD_PARTICIPANT": "Agregar participante"
   },
   "CONTACT_ATTRIBUTES": {
     "TITLE": "Atributos de contacto"

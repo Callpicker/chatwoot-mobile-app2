@@ -12,6 +12,7 @@ import { useAppSelector } from '@/hooks';
 import { filterLabels } from '@/store/label/labelSelectors';
 import { useAppDispatch } from '@/hooks';
 import { conversationActions } from '@/store/conversation/conversationActions';
+import i18n from '@/i18n';
 
 import { LabelCell, LabelItem } from '@/components-next/label-section';
 
@@ -107,7 +108,7 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
           style={tailwind.style(
             'text-sm font-inter-medium-24 leading-[16px] tracking-[0.32px] text-gray-700',
           )}>
-          Labels
+          {i18n.t('CONVERSATION.ASSIGNEE.LABELS.TITLE')}
         </Animated.Text>
       </Animated.View>
       <Animated.View style={tailwind.style('flex flex-row flex-wrap pl-4')}>
@@ -128,7 +129,7 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
             style={tailwind.style(
               'text-md font-inter-medium-24 leading-[17px] tracking-[0.24px] pl-1.5 text-blue-800',
             )}>
-            Add
+            {i18n.t('CONVERSATION.ASSIGNEE.LABELS.ACTION')}
           </Animated.Text>
         </Pressable>
       </Animated.View>

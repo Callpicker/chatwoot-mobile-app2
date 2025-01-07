@@ -50,6 +50,10 @@
     "SUB_TITLE": "Don't worry! We got your back",
     "API_SUCCESS": "Password reset link has been sent to your email address"
   },
+  "DASHBOARD": {
+    "CONVERSATION_ACTIONS": "Conversation Actions",
+    "SELECT_ACTION": "Select action"
+  },
   "CONVERSATION": {
     "HEADER": {
       "TITLE": "Conversations",
@@ -91,7 +95,9 @@
     },
     "ASSIGNEE": {
       "LABELS": {
-        "SEARCH_LABELS": "Search labels"
+        "SEARCH_LABELS": "Search labels",
+        "TITLE": "Labels",
+        "ACTION": "Add"
       },
       "AGENTS": {
         "SEARCH_AGENT": "Search agents"
@@ -124,7 +130,7 @@
     "ALL_CONVERSATION_LOADED": "All conversations loaded",
     "ASSIGN": "Assign conversation",
     "FILE_SIZE_LIMIT": "File exceeds the 5MB attachment limit",
-    "SHARE": "Share",
+    "SHARE": "Share conversation",
     "DETAILS": "Details",
     "LABELS": "Conversation labels",
     "ASSIGNED_AGENT": "Assigned agent",

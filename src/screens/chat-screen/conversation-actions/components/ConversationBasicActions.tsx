@@ -12,6 +12,7 @@ import { OpenIcon, ResolvedFilledIcon, PendingFilledIcon, SnoozedFilledIcon } fr
 import { tailwind } from '@/theme';
 import { useHaptic, useScaleAnimation } from '@/utils';
 import { ConversationStatus } from '@/types';
+import i18n from '@/i18n';
 
 import { ConversationActionType } from '../ConversationActions';
 
@@ -107,6 +108,16 @@ const ConversationActionOption = (props: ConversationActionOptionProps) => {
     };
   });
 
+  const mapActionTextToKey = (actionText: string) => {
+    const mapping: Record<string, string> = {
+      snooze: 'SNOOZED',
+      resolve: 'RESOLVED',
+      open: 'OPEN',
+      pending: 'PENDING',
+    };
+    return mapping[actionText] || actionText.toUpperCase();
+  };
+
   return (
     <Animated.View
       style={[
@@ -136,7 +147,7 @@ const ConversationActionOption = (props: ConversationActionOptionProps) => {
           style={tailwind.style(
             'text-md font-inter-normal-20 leading-[17px] tracking-[0.32px] text-center pt-5 capitalize text-gray-950 ',
           )}>
-          {conversationAction.actionText}
+          {i18n.t(`CONVERSATION.FILTERS.STATUS.OPTIONS.${mapActionTextToKey(conversationAction.actionText)}`)}
         </Animated.Text>
       </Pressable>
     </Animated.View>

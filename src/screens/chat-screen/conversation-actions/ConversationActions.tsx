@@ -19,6 +19,7 @@ import { useChatWindowContext } from '@/context';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { selectConversationById } from '@/store/conversation/conversationSelectors';
 import { conversationActions } from '@/store/conversation/conversationActions';
+import i18n from '@/i18n';
 
 import { setActionState } from '@/store/conversation/conversationActionSlice';
 import { useRefsContext } from '@/context';
@@ -158,7 +159,7 @@ export const ConversationActions = () => {
           {conversation && <ConversationMetaInformation conversation={conversation} />}
         </Animated.View>
         <Animated.View style={tailwind.style('px-4 pt-10')}>
-          <Button variant="secondary" handlePress={onShareConversation} text="Share conversation" />
+          <Button variant="secondary" handlePress={onShareConversation} text={i18n.t('CONVERSATION.SHARE')} />
         </Animated.View>
       </ScrollView>
       <BottomSheetModal
