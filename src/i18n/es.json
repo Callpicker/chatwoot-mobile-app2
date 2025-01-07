@@ -117,6 +117,26 @@
         }
       }
     },
+    "ATTACHMENTS": {
+      "image": {
+        "CONTENT": "Mensaje de imagen"
+      },
+      "audio": {
+        "CONTENT": "Mensaje de audio"
+      },
+      "video": {
+        "CONTENT": "Mensaje de video"
+      },
+      "file": {
+        "CONTENT": "Mensaje de archivo"
+      },
+      "location": {
+        "CONTENT": "Ubicación"
+      },
+      "fallback": {
+        "CONTENT": "ha compartido un url"
+      }
+    },
     "DEFAULT_HEADER_TITLE": "Conversaciones",
     "UPDATING": "Actualizando...",
     "MINE": "Para mí",
@@ -154,6 +174,7 @@
     "UNDEFINED_VARIABLES_CLOSE": "Cerrar",
     "DELETE_MESSAGE_TITLE": "¿Está seguro que desea eliminar este mensaje?",
     "DELETE_MESSAGE_SUB_TITLE": "Esta acción no se puede deshacer.",
+    "NO_CONTENT": "Sin contenido disponible",
     "COPY_MESSAGE": "Mensaje copiado al portapapeles",
     "PRIORITY": {
       "TITLE": "Prioridad",
