@@ -345,6 +345,7 @@ const SettingsScreen = () => {
         // TODO: Fix this later
         // bottomInset={bottom === 0 ? 12 : bottom}
         enablePanDownToClose
+        enableContentPanningGesture
         animationConfigs={animationConfigs}
         handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
         style={tailwind.style('rounded-[26px] overflow-hidden')}
@@ -361,14 +362,15 @@ const SettingsScreen = () => {
         // TODO: Fix this later
         // bottomInset={bottom === 0 ? 12 : bottom}
         enablePanDownToClose
+        enableContentPanningGesture
         animationConfigs={animationConfigs}
         handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
         style={tailwind.style('rounded-[26px] overflow-hidden')}
         snapPoints={['52%']}>
-        <BottomSheetWrapper>
+        <BottomSheetScrollView showsVerticalScrollIndicator={false}>
           <BottomSheetHeader headerText={i18n.t('SETTINGS.NOTIFICATION_PREFERENCES')} />
           <NotificationPreferences />
-        </BottomSheetWrapper>
+        </BottomSheetScrollView>
       </BottomSheetModal>
       <BottomSheetModal
         ref={switchAccountSheetRef}
@@ -377,24 +379,26 @@ const SettingsScreen = () => {
         // TODO: Fix this later
         // bottomInset={bottom === 0 ? 12 : bottom}
         enablePanDownToClose
+        enableContentPanningGesture
         animationConfigs={animationConfigs}
         handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
         style={tailwind.style('rounded-[26px] overflow-hidden')}
         snapPoints={['50%']}>
-        <BottomSheetWrapper>
+        <BottomSheetScrollView showsVerticalScrollIndicator={false}>
           <BottomSheetHeader headerText={i18n.t('SETTINGS.SWITCH_ACCOUNT')} />
           <SwitchAccount
             currentAccountId={activeAccountId}
             changeAccount={changeAccount}
             accounts={accounts}
           />
-        </BottomSheetWrapper>
+        </BottomSheetScrollView>
       </BottomSheetModal>
       <BottomSheetModal
         ref={debugActionsSheetRef}
         backdropComponent={BottomSheetBackdrop}
         handleIndicatorStyle={tailwind.style('overflow-hidden bg-blackA-A6 w-8 h-1 rounded-[11px]')}
         enablePanDownToClose
+        enableContentPanningGesture
         animationConfigs={animationConfigs}
         handleStyle={tailwind.style('p-0 h-4 pt-[5px]')}
         style={tailwind.style('rounded-[26px] overflow-hidden')}
