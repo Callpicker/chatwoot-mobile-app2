@@ -30,9 +30,9 @@ export const SortOptions: Record<SortTypes, string> = {
 };
 
 export const PriorityOptions: Record<string, string> = {
-  none: i18n.t('CONVERSATION.PRIORITY.OPTIONS.NONE'),
-  low: i18n.t('CONVERSATION.PRIORITY.OPTIONS.LOW'),
-  medium: i18n.t('CONVERSATION.PRIORITY.OPTIONS.MEDIUM'),
-  high: i18n.t('CONVERSATION.PRIORITY.OPTIONS.HIGH'),
-  urgent: i18n.t('CONVERSATION.PRIORITY.OPTIONS.URGENT'),
+  none: 'None',
+  low: 'Low',
+  medium: 'Medium',
+  high: 'High',
+  urgent: 'Urgent',
 };
