@@ -111,16 +111,17 @@ const MessageContent = ({
       </NativeView>
     );
   } else if (message.attachments) {
+    const fileType = lastMessageFileType || 'file';
     return (
       <NativeView style={tailwind.style('flex-row gap-1 items-center')}>
-        <Icon icon={getAttachmentIcon(lastMessageFileType)} />
+        <Icon icon={getAttachmentIcon(fileType)} />
         <MessageType message={message} />
         <Text
           numberOfLines={1}
           style={tailwind.style(
             'text-md flex-1 font-inter-420-20 tracking-[0.32px] leading-[21px] text-gray-900',
           )}>
-          {i18n.t(`CONVERSATION.ATTACHMENTS.${lastMessageFileType}.CONTENT`)}
+          {i18n.t(`CONVERSATION.ATTACHMENTS.${fileType}.CONTENT`)}
         </Text>
       </NativeView>
     );

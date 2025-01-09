@@ -218,7 +218,7 @@
     }
   },
   "FILTER": {
-    "ALL_INBOXES": "Todas las bandejas",
+    "ALL_INBOXES": "Todas",
     "FILTER_BY_ASSIGNEE_TYPE": "Filtrar por tipo de asignado",
     "FILTER_BY_CONVERSATION_STATUS": "Filtrar por estado de conversación",
     "SORT_BY": "Ordenar por",
@@ -275,7 +275,16 @@
           "DESC": "Más reciente"
         }
       }
-    }
+    },
+    "ALERTS": {
+      "MARK_AS_READ": "Notificación marcada como leída",
+      "MARK_AS_UNREAD": "Notificación marcada como no leída",
+      "SNOOZE": "Notificación pospuesta",
+      "DELETE": "Notificación eliminada",
+      "MARK_ALL_READ": "Todas las notificaciones marcadas como leídas",
+      "DELETE_ALL": "Todas las notificaciones eliminadas",
+      "DELETE_ALL_READ": "Todas las notificaciones leídas eliminadas"
+    }    
   },
   "AVAILABILITY": {
     "ONLINE": "En línea",

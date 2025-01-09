@@ -22,7 +22,7 @@ type InboxCellProps = {
 
 const defaultInbox: Inbox = {
   id: 0,
-  name: 'All Inboxes',
+  name: i18n.t('FILTER.ALL_INBOXES'),
   channelType: 'Channel::All',
   avatarUrl: '',
   channelId: 0,
