@@ -29,7 +29,7 @@ type PriorityCellProps = {
 };
 
 const PriorityList = [
-  { id: 'none', icon: null },
+  { id: null, icon: null },
   { id: 'low', icon: getPriorityIcon('low') },
   { id: 'medium', icon: getPriorityIcon('medium') },
   { id: 'high', icon: getPriorityIcon('high') },
@@ -50,7 +50,7 @@ const PriorityCell = (props: PriorityCellProps) => {
           style={tailwind.style(
             'text-base text-gray-950 font-inter-420-20 leading-[21px] tracking-[0.16px] capitalize',
           )}>
-          {i18n.t(`CONVERSATION.PRIORITY.OPTIONS.${PriorityOptions[value.id].toUpperCase()}`)}
+          {i18n.t(`CONVERSATION.PRIORITY.OPTIONS.${(PriorityOptions[value.id] || 'none').toUpperCase()}`)}
         </Animated.Text>
         {selectedPriority === value.id ? <Icon icon={<TickIcon />} size={20} /> : null}
       </Animated.View>
