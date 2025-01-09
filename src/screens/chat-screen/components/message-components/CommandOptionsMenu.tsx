@@ -16,6 +16,7 @@ import { MAXIMUM_FILE_UPLOAD_SIZE } from '@/constants';
 import i18n from '@/i18n';
 import { showToast } from '@/helpers/ToastHelper';
 import { findFileSize } from '@/helpers/FileHelper';
+import { ScrollView } from 'react-native';
 
 export const handleOpenPhotosLibrary = async dispatch => {
   if (Platform.OS === 'ios') {
@@ -26,15 +27,15 @@ export const handleOpenPhotosLibrary = async dispatch => {
     ).then(async result => {
       if (RESULTS.BLOCKED === result) {
         Alert.alert(
-          'Permission Denied',
-          'The permission to access the photo library has been denied and cannot be requested again. Please enable it in your device settings if you wish to access photos from your library.',
+          i18n.t('CONVERSATION.PERMISSION_DENIED_TITLE'),
+          i18n.t('CONVERSATION.PHOTO_LIBRARY_PERMISSION_DENIED'),
           [
             {
-              text: 'Cancel',
+              text: i18n.t('CONVERSATION.CANCEL'),
               style: 'cancel',
             },
             {
-              text: 'Open Settings',
+              text: i18n.t('CONVERSATION.OPEN_SETTINGS'),
               onPress: () => {
                 // Open app settings
                 Linking.openSettings();
@@ -64,15 +65,15 @@ export const handleOpenPhotosLibrary = async dispatch => {
     request(PERMISSIONS.ANDROID.ACCESS_MEDIA_LOCATION).then(async result => {
       if (RESULTS.BLOCKED === result) {
         Alert.alert(
-          'Permission Denied',
-          'The permission to access the photo library has been denied and cannot be requested again. Please enable it in your device settings if you wish to access photos from your library.',
+          i18n.t('CONVERSATION.PERMISSION_DENIED_TITLE'),
+          i18n.t('CONVERSATION.PHOTO_LIBRARY_PERMISSION_DENIED'),
           [
             {
-              text: 'Cancel',
+              text: i18n.t('CONVERSATION.CANCEL'),
               style: 'cancel',
             },
             {
-              text: 'Open Settings',
+              text: i18n.t('CONVERSATION.OPEN_SETTINGS'),
               onPress: () => {
                 // Open app settings
                 Linking.openSettings();
@@ -106,15 +107,15 @@ const handleLaunchCamera = async dispatch => {
     async result => {
       if (RESULTS.BLOCKED === result) {
         Alert.alert(
-          'Permission Denied',
-          'The permission to access the camera has been denied and cannot be requested again. Please enable it in your device settings if you wish to use the camera feature.',
+          i18n.t('CONVERSATION.PERMISSION_DENIED_TITLE'),
+          i18n.t('CONVERSATION.CAMERA_PERMISSION_DENIED'),
           [
             {
-              text: 'Cancel',
+              text: i18n.t('CONVERSATION.CANCEL'),
               style: 'cancel',
             },
             {
-              text: 'Open Settings',
+              text: i18n.t('CONVERSATION.OPEN_SETTINGS'),
               onPress: () => {
                 // Open app settings
                 Linking.openSettings();
@@ -193,17 +194,17 @@ const handleAttachFile = async dispatch => {
 const ADD_MENU_OPTIONS = [
   {
     icon: <PhotosIcon />,
-    title: 'Photos',
+    title: i18n.t('CONVERSATION.MENU_PHOTOS'),
     handlePress: handleOpenPhotosLibrary,
   },
   {
     icon: <CameraIcon />,
-    title: 'Camera',
+    title: i18n.t('CONVERSATION.MENU_CAMERA'),
     handlePress: handleLaunchCamera,
   },
   {
     icon: <AttachFileIcon />,
-    title: 'Attach File',
+    title: i18n.t('CONVERSATION.MENU_ATTACH_FILE'),
     handlePress: handleAttachFile,
   },
 ];
@@ -265,9 +266,13 @@ export const CommandOptionsMenu = () => {
       entering={SlideInDown.springify().damping(38).stiffness(240)}
       exiting={SlideOutDown.springify().damping(38).stiffness(240)}
       style={tailwind.style('mx-1 pt-2 items-start', `h-[${containerHeight}px]`)}>
-      {ADD_MENU_OPTIONS.map((menuOption, index) => {
-        return <MenuOption key={menuOption.title} {...{ menuOption, index }} />;
-      })}
+      <ScrollView
+        contentContainerStyle={tailwind.style('pb-3')}
+        showsVerticalScrollIndicator={false}>
+        {ADD_MENU_OPTIONS.map((menuOption, index) => {
+          return <MenuOption key={menuOption.title} {...{ menuOption, index }} />;
+        })}
+      </ScrollView>
     </Animated.View>
   );
 };

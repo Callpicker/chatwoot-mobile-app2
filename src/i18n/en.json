@@ -167,6 +167,14 @@
     "PARTICIPANT_CHANGE": "Conversation Participant changed",
     "CHANGE_STATUS": "Change status",
     "SEARCH_TEAM": "Search teams",
+    "PERMISSION_DENIED_TITLE": "Permission Denied",
+    "PHOTO_LIBRARY_PERMISSION_DENIED": "The permission to access the photo library has been denied and cannot be requested again. Please enable it in your device settings if you wish to access photos from your library.",
+    "CAMERA_PERMISSION_DENIED": "The permission to access the camera has been denied and cannot be requested again. Please enable it in your device settings if you wish to use the camera feature.",
+    "CANCEL": "Cancel",
+    "OPEN_SETTINGS": "Open Settings",
+    "MENU_PHOTOS": "Photos",
+    "MENU_CAMERA": "Camera",
+    "MENU_ATTACH_FILE": "Attach File",
     "PRIORITY": {
       "TITLE": "Priority",
       "OPTIONS": {

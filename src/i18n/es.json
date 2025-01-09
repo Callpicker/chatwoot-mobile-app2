@@ -176,6 +176,14 @@
     "DELETE_MESSAGE_SUB_TITLE": "Esta acción no se puede deshacer.",
     "NO_CONTENT": "Sin contenido disponible",
     "COPY_MESSAGE": "Mensaje copiado al portapapeles",
+    "PERMISSION_DENIED_TITLE": "Permiso denegado",
+    "PHOTO_LIBRARY_PERMISSION_DENIED": "El permiso para acceder a la biblioteca de fotos ha sido denegado y no puede solicitarse nuevamente. Habilítelo en la configuración de su dispositivo si desea acceder a las fotos de su biblioteca.",
+    "CAMERA_PERMISSION_DENIED": "El permiso para acceder a la cámara ha sido denegado y no puede solicitarse nuevamente. Habilítelo en la configuración de su dispositivo si desea usar la función de cámara.",
+    "CANCEL": "Cancelar",
+    "OPEN_SETTINGS": "Abrir configuración",
+    "MENU_PHOTOS": "Fotos",
+    "MENU_CAMERA": "Cámara",
+    "MENU_ATTACH_FILE": "Adjuntar archivo",
     "PRIORITY": {
       "TITLE": "Prioridad",
       "OPTIONS": {
