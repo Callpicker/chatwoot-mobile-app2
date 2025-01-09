@@ -11,17 +11,17 @@ export const ConversationFilterOptions: BaseFilterOption[] = [
   {
     type: 'assignee_type',
     options: AssigneeOptions,
-    defaultFilter: 'All',
+    defaultFilter: i18n.t('CONVERSATION.FILTERS.ASSIGNEE_TYPE.OPTIONS.ALL'),
   },
   {
     type: 'status',
     options: StatusOptions,
-    defaultFilter: 'Open',
+    defaultFilter: i18n.t('CONVERSATION.FILTERS.STATUS.OPTIONS.OPEN'),
   },
   {
     type: 'sort_by',
     options: SortOptions,
-    defaultFilter: 'Latest',
+    defaultFilter: i18n.t('CONVERSATION.FILTERS.SORT_BY.OPTIONS.LATEST'),
   },
 ];
 
