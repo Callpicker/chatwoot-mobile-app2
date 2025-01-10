@@ -1,4 +1,5 @@
 import i18n from '@/i18n';
+
 export type ConversationStatus = 'open' | 'resolved' | 'pending' | 'snoozed' | 'all';
 
 export type AllStatusTypes = ConversationStatus | 'all';
