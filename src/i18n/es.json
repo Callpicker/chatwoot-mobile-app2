@@ -137,6 +137,19 @@
         "CONTENT": "ha compartido un url"
       }
     },
+    "LONG_PRESS_ACTIONS": {
+      "COPY": "Copiar",
+      "REPLY": "Responder",
+      "DELETE_MESSAGE": "Eliminar mensaje"
+    },
+    "EMAIL_HEADER": {
+      "FROM": "De",
+      "TO": "Para",
+      "BCC": "Cco",
+      "CC": "Cc",
+      "SUBJECT": "Asunto",
+      "EXPAND": "Expandir correo"
+    },    
     "DEFAULT_HEADER_TITLE": "Conversaciones",
     "UPDATING": "Actualizando...",
     "MINE": "Para mí",

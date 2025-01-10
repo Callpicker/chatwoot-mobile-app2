@@ -107,7 +107,8 @@ export const MessageMenu = (props: PropsWithChildren<MessageMenuProps>) => {
                 return (
                   <Pressable
                     key={option.title + index}
-                    style={tailwind.style('flex flex-row items-center')}>
+                    style={tailwind.style('flex flex-row items-center')}
+                    onPress = {option.handleOnPressMenuOption}>
                     <Animated.View>
                       <Icon icon={option.icon} size={24} />
                     </Animated.View>
@@ -147,7 +148,7 @@ export const MessageMenu = (props: PropsWithChildren<MessageMenuProps>) => {
         {menuOptions?.map(option => {
           return (
             <ContextMenu.Item
-              onSelect={option.handleOnPressMenuOption}
+              // onSelect={option.handleOnPressMenuOption}
               key={option.title}
               destructive={option.destructive}>
               <ContextMenu.ItemTitle>{option.title}</ContextMenu.ItemTitle>
