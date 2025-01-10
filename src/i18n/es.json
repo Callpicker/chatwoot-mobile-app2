@@ -320,7 +320,22 @@
     "OPERATING_SYSTEM": "Sistema operativo",
     "INITIATED_AT": "Iniciado a las",
     "INITIATED_FROM": "Iniciado desde",
-    "IP_ADDRESS": "Dirección IP"
+    "IP_ADDRESS": "Dirección IP",
+    "CLIPBOARD_SUCCESS": "Copiado al portapapeles"
+  },
+  "CONTACT_DETAILS": {
+    "TITLE": "Detalles de contacto",
+    "EMAIL": "Email",
+    "PHONE_NUMBER": "Número de teléfono",
+    "CALL": "Llamar",
+    "CONTACT_ATTRIBUTES": "Atributos de contacto",
+    "VALUE_UNAVAILABLE": "No disponible",
+    "USER_DETAILS": {
+      "LOCATION": "Ubicación",
+      "PHONE": "Teléfono",
+      "EMAIL": "Email",
+      "COMPANY": "Empresa"
+    }
   },
   "CONVERSATION_PARTICIPANTS": {
     "TITLE": "Participantes de la conversación",
