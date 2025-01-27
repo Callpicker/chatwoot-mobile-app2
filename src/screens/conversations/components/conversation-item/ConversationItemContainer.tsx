@@ -2,6 +2,8 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import Animated, { SharedValue } from 'react-native-reanimated';
+import { BackHandler } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { useRefsContext } from '@/context';
 import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -122,6 +124,22 @@ export const ConversationItemContainer = memo((props: ConversationItemContainerP
     dispatch(clearSelection());
     dispatch(setCurrentState('Select'));
   }, [dispatch]);
+
+  const handleBackPress = useCallback(() => {
+    if (currentState === 'Select') {
+      dispatch(clearSelection());
+      dispatch(setCurrentState('none'));
+      return true;
+    }
+    return false;
+  }, [currentState, dispatch]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+      return () => backHandler.remove();
+    }, [handleBackPress])
+  );
 
   const onPressAction = useCallback(() => {
     if (currentState === 'Select') {
