@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pressable, Text, Animated, View } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
+import i18n from '@/i18n';
 
 import { showToast } from '@/helpers/ToastHelper';
 import { tailwind } from '@/theme';
@@ -61,7 +62,7 @@ const DebugActionCell = ({ item, index, isLastItem }: DebugActionCellProps) => {
     hapticSelection?.();
     if (value) {
       Clipboard.setString(value);
-      showToast({ message: `${item.label} copied to clipboard` });
+      showToast({ message: i18n.t('CONVERSATION.COPY', { title: item.label }) });
     }
   };
 

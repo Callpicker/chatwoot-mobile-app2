@@ -1,6 +1,7 @@
 import type { RootState } from '@/store';
 
 import { createSelector } from '@reduxjs/toolkit';
+import i18n from '@/i18n';
 
 export const selectAssignableAgentsState = (state: RootState) => state.assignableAgents;
 
@@ -26,7 +27,7 @@ export const selectAssignableAgentsByInboxId = createSelector(
     const agentsList = [
       {
         confirmed: true,
-        name: 'None',
+        name: i18n.t('CONVERSATION.SELECT_PLACEHOLDER'),
         id: 0,
         role: 'agent',
         accountId: 0,

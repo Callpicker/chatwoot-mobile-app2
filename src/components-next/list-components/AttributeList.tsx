@@ -8,6 +8,7 @@ import { tailwind } from '@/theme';
 import { AttributeListType } from '@/types';
 import { Icon } from '@/components-next/common';
 import { showToast } from '@/helpers/ToastHelper';
+import i18n from '@/i18n';
 
 type AttributeItemProps = {
   listItem: AttributeListType;
@@ -21,7 +22,7 @@ const AttributeItem = (props: AttributeItemProps) => {
   const handlePress = () => {
     if (formattedValue) {
       Clipboard.setString(formattedValue);
-      showToast({ message: `${listItem.title} copied to clipboard` });
+      showToast({ message: i18n.t('CONVERSATION.COPY', { title: listItem.title }) });
     }
   };
 
