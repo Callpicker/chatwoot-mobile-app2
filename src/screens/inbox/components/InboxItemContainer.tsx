@@ -2,6 +2,7 @@
 import React from 'react';
 import { SharedValue } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
+import { useState } from 'react';
 
 import { notificationActions } from '@/store/notification/notificationAction';
 import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -57,11 +58,15 @@ export const InboxItemContainer = (props: InboxItemContainerProps) => {
   const dispatch = useAppDispatch();
 
   const navigation = useNavigation();
+  const [isNavigating, setIsNavigating] = useState(false);
   const meta = item.primaryActor?.meta;
   const inboxId = item.primaryActor?.inboxId;
   const isRead = !!item.readAt;
 
   const onPressAction = async () => {
+    if (isNavigating) return;
+    setIsNavigating(true);
+
     markNotificationAsRead({
       shouldShowToast: false,
     });
@@ -72,6 +77,7 @@ export const InboxItemContainer = (props: InboxItemContainerProps) => {
         isConversationOpenedExternally: false,
       });
       navigation.dispatch(pushToChatScreen);
+      setIsNavigating(false);
     }
   };
 
