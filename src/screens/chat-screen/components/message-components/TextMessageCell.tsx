@@ -116,7 +116,9 @@ export const TextMessageCell = (props: TextMessageCellProps) => {
               src={
                 isTemplate || isSentByBot
                   ? require('../../../../assets/local/bot-avatar.png')
-                  : { uri: sender?.thumbnail }
+                  : sender?.thumbnail
+                  ? { uri: sender.thumbnail }
+                  : undefined
               }
               name={sender?.name || ''}
             />

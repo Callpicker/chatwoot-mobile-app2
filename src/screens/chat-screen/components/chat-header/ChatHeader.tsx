@@ -53,6 +53,8 @@ export const ChatHeader = ({
     }
   };
 
+  const safeSrc = imageSrc?.uri ? imageSrc : undefined;
+
   return (
     <Animated.View style={[tailwind.style('border-b-[1px] border-b-blackA-A3')]}>
       <Animated.View
@@ -66,7 +68,7 @@ export const ChatHeader = ({
           <Pressable
             onPress={onContactDetailsPress}
             style={tailwind.style('flex flex-row items-center flex-1')}>
-            <Avatar size="md" src={imageSrc} name={name} />
+            <Avatar size="md" src={safeSrc} name={name} />
             <Animated.View style={tailwind.style('pl-2')}>
               <Animated.Text
                 numberOfLines={1}

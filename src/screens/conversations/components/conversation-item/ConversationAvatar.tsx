@@ -22,11 +22,12 @@ const checkIfPropsAreSame = (prev: ConversationAvatarProps, next: ConversationAv
 // eslint-disable-next-line react/display-name
 export const ConversationAvatar = memo((props: ConversationAvatarProps) => {
   const { src, name, status } = props;
+  const safeSrc = src?.uri ? src : undefined;
   return (
     <AnimatedNativeView
       style={tailwind.style('')}
       layout={LinearTransition.springify().damping(28).stiffness(200)}>
-      <Avatar size="4xl" {...{ src, name, status: status as AvatarStatusType }} />
+      <Avatar size="4xl" src={safeSrc} {...{ name, status: status as AvatarStatusType }} />
     </AnimatedNativeView>
   );
 }, checkIfPropsAreSame);

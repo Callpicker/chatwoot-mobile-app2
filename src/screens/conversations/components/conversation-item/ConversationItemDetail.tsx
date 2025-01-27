@@ -80,6 +80,8 @@ export const ConversationItemDetail = memo((props: ConversationDetailSubCellProp
 
   const hasSLA = !!slaPolicyId && shouldShowSLA;
 
+  const safeSrc = assignee?.thumbnail ? { uri: assignee.thumbnail } : undefined;
+
   if (!lastMessage) {
     return null;
   }
@@ -153,7 +155,7 @@ export const ConversationItemDetail = memo((props: ConversationDetailSubCellProp
                 <Avatar
                   size="sm"
                   name={assignee.name as string}
-                  src={{ uri: assignee.thumbnail } as ImageURISource}
+                  src={safeSrc}
                 />
               </AnimatedNativeView>
             ) : null}
@@ -173,7 +175,7 @@ export const ConversationItemDetail = memo((props: ConversationDetailSubCellProp
                 <Avatar
                   size="sm"
                   name={assignee.name as string}
-                  src={{ uri: assignee.thumbnail } as ImageURISource}
+                  src={safeSrc}
                 />
               </NativeView>
             ) : null}
