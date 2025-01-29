@@ -77,7 +77,9 @@ export const InboxItemContainer = (props: InboxItemContainerProps) => {
         isConversationOpenedExternally: false,
       });
       navigation.dispatch(pushToChatScreen);
-      setIsNavigating(false);
+      setTimeout(() => {
+        setIsNavigating(false);
+      }, 300);
     }
   };
 
