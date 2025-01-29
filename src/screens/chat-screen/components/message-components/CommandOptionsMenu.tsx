@@ -48,7 +48,7 @@ export const handleOpenPhotosLibrary = async dispatch => {
       if (result === RESULTS.GRANTED || result === RESULTS.LIMITED) {
         const pickedAssets = await launchImageLibrary({
           quality: 1,
-          selectionLimit: 4,
+          selectionLimit: 1,
           mediaType: 'mixed',
           presentationStyle: 'formSheet',
         });
@@ -181,7 +181,10 @@ const handleAttachFile = async dispatch => {
       ], // You can specify the file types you want to allow
       presentationStyle: 'formSheet',
     });
-    validateFileAndSetAttachments(dispatch, mapObject(result[0]));
+
+    const res = mapObject(result[0])[0];
+    
+    validateFileAndSetAttachments(dispatch, res);
   } catch (err) {
     if (DocumentPicker.isCancel(err)) {
       // User cancelled the picker
@@ -194,17 +197,17 @@ const handleAttachFile = async dispatch => {
 const ADD_MENU_OPTIONS = [
   {
     icon: <PhotosIcon />,
-    title: i18n.t('CONVERSATION.MENU_PHOTOS'),
+    title: () => i18n.t('CONVERSATION.MENU_PHOTOS'),
     handlePress: handleOpenPhotosLibrary,
   },
   {
     icon: <CameraIcon />,
-    title: i18n.t('CONVERSATION.MENU_CAMERA'),
+    title: () => i18n.t('CONVERSATION.MENU_CAMERA'),
     handlePress: handleLaunchCamera,
   },
   {
     icon: <AttachFileIcon />,
-    title: i18n.t('CONVERSATION.MENU_ATTACH_FILE'),
+    title: () => i18n.t('CONVERSATION.MENU_ATTACH_FILE'),
     handlePress: handleAttachFile,
   },
 ];
@@ -234,7 +237,7 @@ const MenuOption = (props: MenuOptionProps) => {
   const handlePress = () => {
     hapticSelection?.();
     menuOption?.handlePress(dispatch);
-    if (menuOption.title === 'Macros') {
+    if (menuOption.title() === 'Macros') {
       macrosListSheetRef.current?.present();
     }
   };
@@ -250,7 +253,7 @@ const MenuOption = (props: MenuOptionProps) => {
             style={tailwind.style(
               'text-base font-inter-normal-20 leading-[18px] tracking-[0.24px] text-gray-950 pl-5',
             )}>
-            {menuOption.title}
+            {menuOption.title()}
           </Text>
         </Animated.View>
       </Pressable>
@@ -270,7 +273,7 @@ export const CommandOptionsMenu = () => {
         contentContainerStyle={tailwind.style('pb-3')}
         showsVerticalScrollIndicator={false}>
         {ADD_MENU_OPTIONS.map((menuOption, index) => {
-          return <MenuOption key={menuOption.title} {...{ menuOption, index }} />;
+          return <MenuOption key={menuOption.title()} {...{ menuOption, index }} />;
         })}
       </ScrollView>
     </Animated.View>
