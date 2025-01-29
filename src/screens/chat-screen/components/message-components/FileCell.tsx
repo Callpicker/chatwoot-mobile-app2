@@ -3,6 +3,8 @@ import { Alert, Pressable, StyleSheet } from 'react-native';
 import FileViewer from 'react-native-file-viewer';
 import Animated, { Easing, FadeIn } from 'react-native-reanimated';
 import RNFetchBlob from 'rn-fetch-blob';
+import { showToast } from '@/helpers/ToastHelper';
+import i18n from '@/i18n';
 
 import { FileIcon } from '@/svg-icons';
 import { tailwind } from '@/theme';
@@ -29,11 +31,13 @@ export const FilePreview = (props: FilePreviewProps) => {
   const localFilePath = dirs.DocumentDir + `/${fileName}`;
 
   const previewFile = () => {
-    try {
-      FileViewer.open(localFilePath).catch(e => Alert.alert(e));
-    } catch (e) {
-      Alert.alert('Not able to preview file' + e);
-    }
+    FileViewer.open(localFilePath, { showOpenWithDialog: true })
+      .catch((error) => {
+        console.log("FileViewer Error: ", error);
+        showToast({
+          message: i18n.t('CONVERSATION.FILE_NOT_OPENABLE')
+        });
+      });
   };
 
   useEffect(() => {
@@ -52,11 +56,12 @@ export const FilePreview = (props: FilePreviewProps) => {
             .then(_result => {
               setFileDownload(false);
             })
-            .catch(() => {
+            .catch((err) => {
               Alert.alert('File load error');
             });
         }
-      });
+      })
+      .catch(err => console.error("File does not exist or is inaccessible:", err));;
     };
     asyncFileDownload();
     // eslint-disable-next-line react-hooks/exhaustive-deps
