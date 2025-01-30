@@ -20,6 +20,97 @@
       <category android:name="android.intent.category.BROWSABLE" />
       <data android:scheme="https" />
     </intent>
+
+    <!-- Generic application files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="application/*" />
+    </intent>
+
+    <!-- Image files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="image/*" />
+    </intent>
+
+    <!-- Plain text files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="text/plain" />
+    </intent>
+
+    <!-- Audio files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="audio/*" />
+    </intent>
+
+    <!-- PDF files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="application/pdf" />
+    </intent>
+
+    <!-- ZIP files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="application/zip" />
+    </intent>
+
+    <!-- CSV files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="text/csv" />
+    </intent>
+
+    <!-- DOC files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="application/msword" />
+    </intent>
+
+    <!-- DOCX files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+    </intent>
+
+    <!-- PPT files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="application/vnd.ms-powerpoint" />
+    </intent>
+
+    <!-- PPTX files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="application/vnd.openxmlformats-officedocument.presentationml.presentation" />
+    </intent>
+
+    <!-- XLS files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="application/vnd.ms-excel" />
+    </intent>
+
+    <!-- XLSX files -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.DEFAULT" />
+      <data android:mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+    </intent>
   </queries>
 
   <application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="false" android:theme="@style/AppTheme">
