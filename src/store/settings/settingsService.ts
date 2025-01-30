@@ -29,7 +29,7 @@ export class SettingsService {
   }
 
   static async getChatwootVersion(installationUrl: string): Promise<{ version: string }> {
-    const response = await axios.get(`${installationUrl}api`);
+    const response = await axios.get(`https://${installationUrl}/api`);
     return response.data;
   }
 
