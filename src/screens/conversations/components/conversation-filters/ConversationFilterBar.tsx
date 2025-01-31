@@ -8,26 +8,20 @@ import { AssigneeOptions, StatusOptions, SortOptions } from '@/types/common/Conv
 import { ScrollView } from 'react-native';
 import i18n from '@/i18n';
 
-const translateOptions = (type: string, options: Record<string, string>) => {
-  return Object.fromEntries(
-    Object.entries(options).map(([key, value]) => [key, i18n.t(`CONVERSATION.FILTERS.${type.toUpperCase()}.OPTIONS.${value.toUpperCase()}`)])
-  );
-};
-
 export const ConversationFilterOptions: BaseFilterOption[] = [
   {
     type: 'assignee_type',
-    options: translateOptions('assignee_type',AssigneeOptions),
+    options: AssigneeOptions,
     defaultFilter: i18n.t('CONVERSATION.FILTERS.ASSIGNEE_TYPE.OPTIONS.ALL'),
   },
   {
     type: 'status',
-    options: translateOptions('status',StatusOptions),
+    options: StatusOptions,
     defaultFilter: i18n.t('CONVERSATION.FILTERS.STATUS.OPTIONS.OPEN'),
   },
   {
     type: 'sort_by',
-    options: translateOptions('sort_by',SortOptions),
+    options: SortOptions,
     defaultFilter: i18n.t('CONVERSATION.FILTERS.SORT_BY.OPTIONS.LATEST'),
   },
 ];
@@ -63,8 +57,8 @@ export const ConversationFilterBar = () => {
   return (
     <ScrollView
       horizontal
-      showsHorizontalScrollIndicator={false} // Hides the scrollbar for a cleaner look
-      contentContainerStyle={{ paddingHorizontal: 10 }} // Optional: Adds spacing on sides
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingHorizontal: 10 }}
     >
       <FilterBar
         allFilters={dynamicFilterOptions}
