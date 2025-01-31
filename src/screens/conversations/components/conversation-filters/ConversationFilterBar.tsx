@@ -5,22 +5,29 @@ import { BottomSheetType, setBottomSheetState } from '@/store/conversation/conve
 import { selectFilters } from '@/store/conversation/conversationFilterSlice';
 import { BaseFilterOption, FilterBar } from '@/components-next';
 import { AssigneeOptions, StatusOptions, SortOptions } from '@/types/common/ConversationStatus';
+import { ScrollView } from 'react-native';
 import i18n from '@/i18n';
+
+const translateOptions = (type: string, options: Record<string, string>) => {
+  return Object.fromEntries(
+    Object.entries(options).map(([key, value]) => [key, i18n.t(`CONVERSATION.FILTERS.${type.toUpperCase()}.OPTIONS.${value.toUpperCase()}`)])
+  );
+};
 
 export const ConversationFilterOptions: BaseFilterOption[] = [
   {
     type: 'assignee_type',
-    options: AssigneeOptions,
+    options: translateOptions('assignee_type',AssigneeOptions),
     defaultFilter: i18n.t('CONVERSATION.FILTERS.ASSIGNEE_TYPE.OPTIONS.ALL'),
   },
   {
     type: 'status',
-    options: StatusOptions,
+    options: translateOptions('status',StatusOptions),
     defaultFilter: i18n.t('CONVERSATION.FILTERS.STATUS.OPTIONS.OPEN'),
   },
   {
     type: 'sort_by',
-    options: SortOptions,
+    options: translateOptions('sort_by',SortOptions),
     defaultFilter: i18n.t('CONVERSATION.FILTERS.SORT_BY.OPTIONS.LATEST'),
   },
 ];
@@ -54,10 +61,16 @@ export const ConversationFilterBar = () => {
   };
 
   return (
-    <FilterBar
-      allFilters={dynamicFilterOptions}
-      selectedFilters={selectedFilters}
-      onFilterPress={handleFilterButtonPress}
-    />
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false} // Hides the scrollbar for a cleaner look
+      contentContainerStyle={{ paddingHorizontal: 10 }} // Optional: Adds spacing on sides
+    >
+      <FilterBar
+        allFilters={dynamicFilterOptions}
+        selectedFilters={selectedFilters}
+        onFilterPress={handleFilterButtonPress}
+      />
+    </ScrollView>
   );
 };

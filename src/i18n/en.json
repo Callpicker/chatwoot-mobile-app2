@@ -124,6 +124,7 @@
     "ATTACHMENT_CONTENT": "File Attachment",
     "DOWNLOAD": "Download",
     "TODAY": "Today",
+    "FILE_NOT_OPENABLE": "No application found to open this file",
     "YESTERDAY": "Yesterday",
     "TYPE_MESSAGE": "Type message",
     "TYPING": "typing",
