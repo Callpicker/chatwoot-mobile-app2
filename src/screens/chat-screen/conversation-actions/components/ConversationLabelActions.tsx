@@ -149,7 +149,7 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
           onSubmitEditing={handleOnSubmitEditing}
           autoFocus
           onChangeText={handleChangeText}
-          placeholder="Search labels"
+          placeholder={i18n.t("CONVERSATION.ASSIGNEE.LABELS.SEARCH_LABELS")}
           returnKeyLabel="done"
           returnKeyType="done"
         />

@@ -20,16 +20,16 @@ type InboxCellProps = {
   isLastItem: boolean;
 };
 
-const defaultInbox: Inbox = {
-  id: 0,
-  name: i18n.t('FILTER.ALL_INBOXES'),
-  channelType: 'Channel::All',
-  avatarUrl: '',
-  channelId: 0,
-  phoneNumber: '',
-  medium: 'Channel::All',
-  provider: ''
-};
+// const defaultInbox: Inbox = {
+//   id: 0,
+//   name: i18n.t('FILTER.ALL_INBOXES'),
+//   channelType: 'Channel::All',
+//   avatarUrl: '',
+//   channelId: 0,
+//   phoneNumber: '',
+//   medium: 'Channel::All',
+//   provider: ''
+// };
 
 const InboxCell = (props: InboxCellProps) => {
   const { filtersModalSheetRef } = useRefsContext();
@@ -91,6 +91,16 @@ const InboxStack = (props: InboxStackProps) => {
 
 export const InboxFilters = () => {
   const inboxes = useAppSelector(selectAllInboxes);
+  const defaultInbox: Inbox = {
+    id: 0,
+    name: i18n.t('FILTER.ALL_INBOXES'),
+    channelType: 'Channel::All',
+    avatarUrl: '',
+    channelId: 0,
+    phoneNumber: '',
+    medium: 'Channel::All',
+    provider: ''
+  };
   const inboxList = [defaultInbox, ...inboxes].map(inbox => ({
     id: inbox.id,
     name: inbox.name,
