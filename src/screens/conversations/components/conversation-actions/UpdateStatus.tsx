@@ -1,5 +1,5 @@
-import React from 'react';
-import { Pressable } from 'react-native';
+import React, { useEffect } from 'react';
+import { Pressable, BackHandler } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 
@@ -93,6 +93,22 @@ export const UpdateStatus = () => {
       actionsModalSheetRef.current?.dismiss({ overshootClamping: true });
     }
   };
+
+  useEffect(() => {
+    const onBackPress = () => {
+      if (actionsModalSheetRef.current) {
+        actionsModalSheetRef.current.dismiss({ overshootClamping: true });
+        return true;
+      }
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    };
+  }, []);
 
   return (
     <BottomSheetView>

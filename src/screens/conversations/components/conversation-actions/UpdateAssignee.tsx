@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, ImageSourcePropType, Pressable } from 'react-native';
+import { ActivityIndicator, ImageSourcePropType, Pressable, BackHandler } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
@@ -84,6 +84,22 @@ export const UpdateAssignee = () => {
 
   const isFetching = useAppSelector(isAssignableAgentFetching);
 
+  useEffect(() => {
+    const onBackPress = () => {
+      if (actionsModalSheetRef.current) {
+        actionsModalSheetRef.current.dismiss({ overshootClamping: true });
+        return true;
+      }
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    };
+  }, []);
+
   const handleFocus = () => {
     actionsModalSheetRef.current?.expand();
   };
@@ -122,6 +138,16 @@ export const UpdateAssignee = () => {
   };
 
   const selfAgent = agents.find(agent => agent.id === userId);
+
+  if (agents.length > 0) {
+    agents[0] = {
+      confirmed: true,
+      name: i18n.t('CONVERSATION.SELECT_PLACEHOLDER'),
+      id: 0,
+      role: 'agent',
+      accountId: 0,
+    };
+  }
 
   return (
     <React.Fragment>

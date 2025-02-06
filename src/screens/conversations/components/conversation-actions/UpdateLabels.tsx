@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
+import { BackHandler } from 'react-native';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
 import { useRefsContext } from '@/context';
@@ -48,6 +49,22 @@ export const UpdateLabels = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
 
   const allLabels = useAppSelector(state => filterLabels(state, searchTerm));
+
+  useEffect(() => {
+    const onBackPress = () => {
+      if (actionsModalSheetRef.current) {
+        actionsModalSheetRef.current.dismiss({ overshootClamping: true });
+        return true;
+      }
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    };
+  }, []);
 
   const handleFocus = () => {
     actionsModalSheetRef.current?.expand();
