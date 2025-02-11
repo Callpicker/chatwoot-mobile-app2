@@ -151,13 +151,14 @@ export const VideoCell = (props: VideoCellProps) => {
       <Animated.View style={tailwind.style('flex flex-row')}>
         {isIncoming && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end mr-1')}>
-            <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name || ''} />
+            <Avatar size={'md'} src={sender?.thumbnail ? { uri: sender.thumbnail } : undefined} name={sender?.name || ''} />
           </Animated.View>
         ) : null}
         <MessageMenu menuOptions={menuOptions}>
           <Animated.View
             style={tailwind.style(
-              'relative w-[300px] aspect-video rounded-[14px] overflow-hidden',
+              'relative w-[300px] aspect-video rounded-[14px] bg-black pl-3 pr-2.5 py-2 overflow-hidden',
+              isPrivate ? 'bg-amber-100' : '',
               shouldRenderAvatar
                 ? isOutgoing
                   ? 'rounded-br-none'
@@ -210,7 +211,7 @@ export const VideoCell = (props: VideoCellProps) => {
         </MessageMenu>
         {sender?.name && isOutgoing && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end ml-1')}>
-            <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name} />
+            <Avatar size={'md'} src={sender?.thumbnail ? { uri: sender.thumbnail } : undefined} name={sender?.name} />
           </Animated.View>
         ) : null}
       </Animated.View>
