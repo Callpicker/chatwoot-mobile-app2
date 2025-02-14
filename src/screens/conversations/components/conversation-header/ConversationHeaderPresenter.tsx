@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text } from 'react-native';
+import { Pressable, Text, Dimensions } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { Icon } from '@/components-next/common';
 import { CheckedIcon, CloseIcon, FilterIcon, UncheckedIcon } from '@/svg-icons';
@@ -39,11 +39,13 @@ type RightSectionProps = {
 };
 
 const HeaderTitle = () => (
-  <Animated.View style={tailwind.style('flex-1')}>
+  <Animated.View style={[tailwind.style('items-center'), { maxWidth: Dimensions.get('window').width * 0.6 }]}>
     <Text
       style={tailwind.style(
         'text-[17px] font-inter-medium-24 tracking-[0.32px] leading-[17px] text-center text-gray-950',
-      )}>
+      )}
+      numberOfLines={1}
+      adjustsFontSizeToFit={true}>
       {i18n.t('CONVERSATION.HEADER.TITLE')}
     </Text>
   </Animated.View>
