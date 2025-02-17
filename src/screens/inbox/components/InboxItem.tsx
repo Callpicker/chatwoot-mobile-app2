@@ -52,9 +52,13 @@ export const InboxItem = (props: InboxItemProps) => {
         <AnimatedNativeView
           style={tailwind.style('flex flex-row justify-between items-center h-[24px]')}>
           <AnimatedNativeView
-            style={tailwind.style('flex flex-row items-center h-[24px] gap-[5px]')}>
+            style={[
+              tailwind.style('flex flex-row items-center h-[24px] gap-[5px]'),
+              { width: '60%' }
+            ]}>
             <Animated.Text
               numberOfLines={1}
+              ellipsizeMode="tail"
               style={tailwind.style(
                 'text-base font-inter-medium-24 tracking-[0.24px] text-gray-950 capitalize',
               )}>
