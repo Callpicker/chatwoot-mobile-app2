@@ -6,6 +6,8 @@ import { CaretRight } from '@/svg-icons';
 import { tailwind } from '@/theme';
 import { GenericListType } from '@/types';
 import { Icon } from '@/components-next';
+import i18n from '@/i18n';
+import { LANGUAGES } from '@/constants';
 
 type GenericListProps = {
   sectionTitle?: string;
@@ -20,6 +22,14 @@ type ListItemProps = {
 
 const ListItem = (props: ListItemProps) => {
   const { listItem, index, isLastItem } = props;
+
+  const languageKey = Object.keys(LANGUAGES).find(
+    key => LANGUAGES[key as keyof typeof LANGUAGES] === listItem.subtitle
+  ) as keyof typeof LANGUAGES | undefined;
+
+  const translatedSubtitle = languageKey
+    ? i18n.t(`LANGUAGES.${languageKey}`, { defaultValue: listItem.subtitle })
+    : listItem.subtitle;
 
   return (
     <Pressable
@@ -52,13 +62,15 @@ const ListItem = (props: ListItemProps) => {
               {listItem.title}
             </Animated.Text>
           </Animated.View>
-          <Animated.View style={tailwind.style('flex flex-row items-center pr-3')}>
+          <Animated.View style={tailwind.style('flex flex-row items-center pr-3 text-right')}>
             <Animated.Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
               style={tailwind.style(
-                'text-base font-inter-normal-20 leading-[22px] tracking-[0.16px]',
+                'text-base font-inter-normal-20 leading-[22px] tracking-[0.16px] max-w-[80%]',
                 listItem.subtitleType === 'light' ? 'text-gray-900' : 'text-gray-950',
               )}>
-              {listItem.subtitle}
+              {translatedSubtitle}
             </Animated.Text>
             {listItem.hasChevron ? <Icon icon={<CaretRight />} size={20} /> : null}
           </Animated.View>

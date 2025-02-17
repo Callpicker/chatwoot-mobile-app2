@@ -7,6 +7,7 @@ import { TickIcon } from '@/svg-icons';
 import { tailwind } from '@/theme';
 import { useHaptic } from '@/utils';
 import { Icon } from '@/components-next/common';
+import i18n from '@/i18n';
 
 export type LanguageItemType = {
   title: string;
@@ -22,7 +23,7 @@ type LanguageCellProps = {
 
 const languagesList = Object.keys(LANGUAGES).map(languageCode => {
   return {
-    title: LANGUAGES[languageCode as keyof typeof LANGUAGES],
+    title: i18n.t(`LANGUAGES.${languageCode}`, { defaultValue: LANGUAGES[languageCode as keyof typeof LANGUAGES] }),
     key: languageCode,
   };
 });
