@@ -27,6 +27,17 @@ export const NotificationPreferences = () => {
     selected_push_flags,
   } = useAppSelector(selectNotificationSettings);
 
+  console.log("Selected push flags ",selected_push_flags);
+
+  // delete this const to return SLA notifications
+  const filteredPushFlags = (allPushFlags as NotificationPreferenceType[]).filter(
+    item => ![
+      'push_sla_missed_first_response',
+      'push_sla_missed_next_response',
+      'push_sla_missed_resolution',
+    ].includes(item)
+  );
+
   const dispatch = useAppDispatch();
 
   const [selectedPushFlags, setPushFlags] = useState(selected_push_flags);
@@ -57,7 +68,8 @@ export const NotificationPreferences = () => {
     );
   };
 
-  const typedPushFlags = allPushFlags as NotificationPreferenceType[];
+  // change filteredPushFlags to allPushFlags to return SLA notifications
+  const typedPushFlags = filteredPushFlags as NotificationPreferenceType[];
 
   return (
     <Animated.View style={tailwind.style('py-4 px-3')}>
