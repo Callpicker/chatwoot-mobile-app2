@@ -156,6 +156,7 @@
     "EMPTY": "There are no active conversations in this group.",
     "PICTURE_CONTENT": "Picture message",
     "ATTACHMENT_CONTENT": "File Attachment",
+    "EMPTY_CONTENT": "Cannot send an empty message.",
     "DOWNLOAD": "Download",
     "TODAY": "Today",
     "FILE_NOT_OPENABLE": "No application found to open this file",

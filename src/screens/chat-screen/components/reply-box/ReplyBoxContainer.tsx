@@ -63,6 +63,8 @@ import {
 import { ReplyEmailHead } from './ReplyEmailHead';
 import { getLastEmailInSelectedChat } from '@/store/conversation/conversationSelectors';
 import { selectAssignableParticipantsByInboxId } from '@/store/assignable-agent/assignableAgentSelectors';
+import { showToast } from '@/helpers/ToastHelper';
+import i18n from '@/i18n';
 
 const SHEET_APPEAR_SPRING_CONFIG = {
   damping: 20,
@@ -264,6 +266,11 @@ const BottomSheetContent = () => {
 
   const confirmOnSendReply = () => {
     hapticSelection?.();
+    if (!messageContent.trim()) {
+      dispatch(setMessageContent(''));
+      showToast({ message: i18n.t('CONVERSATION.EMPTY_CONTENT') });
+      return;
+    }
     if (textInputRef && 'current' in textInputRef && textInputRef.current) {
       (textInputRef.current as TextInput).clear();
     }

@@ -193,6 +193,7 @@
     "EMPTY": "No hay conversaciones activas en este grupo.",
     "PICTURE_CONTENT": "Mensaje de imagen",
     "ATTACHMENT_CONTENT": "Archivo adjunto",
+    "EMPTY_CONTENT": "No es posible enviar un mensaje vacío.",
     "DOWNLOAD": "Descargar",
     "TODAY": "Hoy",
     "YESTERDAY": "Ayer",
