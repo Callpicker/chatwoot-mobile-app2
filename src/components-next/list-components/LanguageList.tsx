@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Pressable } from 'react-native';
 import Animated from 'react-native-reanimated';
 
@@ -21,22 +21,14 @@ type LanguageCellProps = {
   onChangeLanguage: (locale: string) => void;
 };
 
-const languagesList = Object.keys(LANGUAGES).map(languageCode => {
-  return {
-    title: i18n.t(`LANGUAGES.${languageCode}`, { defaultValue: LANGUAGES[languageCode as keyof typeof LANGUAGES] }),
-    key: languageCode,
-  };
-});
-
-const LanguageCell = (props: LanguageCellProps) => {
-  const { item, index, currentLanguage, onChangeLanguage } = props;
+const LanguageCell = ({ item, index, currentLanguage, onChangeLanguage }: LanguageCellProps) => {
   const hapticSelection = useHaptic();
   const handlePress = () => {
     hapticSelection?.();
     onChangeLanguage(item.key);
   };
 
-  const isLastItem = index === languagesList.length - 1;
+  const isLastItem = index ===  Object.keys(LANGUAGES).length - 1;
   const isSelected = currentLanguage === item.key;
 
   return (
@@ -67,11 +59,20 @@ export const LanguageList = ({
   currentLanguage: string;
   onChangeLanguage: (locale: string) => void;
 }) => {
+  const languagesList = useMemo(() => {
+    return Object.keys(LANGUAGES).map((languageCode) => ({
+      title: i18n.t(`LANGUAGES.${languageCode}`, {
+        defaultValue: LANGUAGES[languageCode as keyof typeof LANGUAGES],
+      }),
+      key: languageCode,
+    }));
+  }, [i18n.language]);
+
   return (
     <Animated.View style={tailwind.style('pt-1 pb-4 pl-2')}>
-      {languagesList.map((item, index) => {
-        return <LanguageCell key={index} {...{ item, index, currentLanguage, onChangeLanguage }} />;
-      })}
+      {languagesList.map((item, index) => (
+        <LanguageCell key={item.key} {...{ item, index, currentLanguage, onChangeLanguage }} />
+      ))}
     </Animated.View>
   );
 };
