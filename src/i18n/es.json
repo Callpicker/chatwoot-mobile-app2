@@ -463,15 +463,9 @@
     "OK": "De acuerdo"
   },
   "BANNER": {
-    "TWILIO_WHATSAPP": {
-      "TEXT": "Solo puede responder a esta conversación usando un mensaje de plantilla debido a ",
-      "HREF_TEXT": "Restricción de la ventana de mensajes de 24 horas",
-      "HREF_LINK": "https://www.twilio.com/docs/whatsapp/tutorial/send-whatsapp-notification-messages-templates#sending-non-template-messages-within-a-24-hour-session"
-    },
-    "FACEBOOK": {
-      "TEXT": "No puedes responder debido a ",
-      "HREF_TEXT": "Restricción de la ventana de mensajes de 24 horas",
-      "HREF_LINK": "https://developers.facebook.com/docs/messenger-platform/policy/policy-overview/"
-    }
+    "TWILIO_WHATSAPP_CAN_REPLY": "Solo puede responder a esta conversación usando un mensaje de plantilla debido a",
+    "TWILIO_WHATSAPP_24_HOURS_WINDOW": "Restricción de la ventana de mensajes de 24 horas",
+    "24_HOURS_WINDOW": "Restricción de la ventana de mensajes de 24 horas",
+    "CANNOT_REPLY": "No puedes responder debido a"
   }
 }
