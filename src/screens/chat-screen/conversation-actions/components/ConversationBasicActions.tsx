@@ -146,7 +146,9 @@ const ConversationActionOption = (props: ConversationActionOptionProps) => {
         <Animated.Text
           style={tailwind.style(
             'text-md font-inter-normal-20 leading-[17px] tracking-[0.32px] text-center pt-5 capitalize text-gray-950 ',
-          )}>
+          )}
+          numberOfLines={1}
+          adjustsFontSizeToFit={true}>
           {i18n.t(`CONVERSATION.FILTERS.STATUS.OPTIONS.${mapActionTextToKey(conversationAction.actionText)}`)}
         </Animated.Text>
       </Pressable>
