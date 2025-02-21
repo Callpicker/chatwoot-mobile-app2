@@ -56,6 +56,7 @@ import { authActions } from '@/store/auth/authActions';
 import { selectLocale, selectIsChatwootCloud } from '@/store/settings/settingsSelectors';
 import { settingsActions } from '@/store/settings/settingsActions';
 import { setLocale } from '@/store/settings/settingsSlice';
+import { resetFilters } from '@/store/conversation/conversationFilterSlice';
 
 import AnalyticsHelper from '@/helpers/AnalyticsHelper';
 import { PROFILE_EVENTS } from '@/constants/analyticsEvents';
@@ -168,6 +169,7 @@ const SettingsScreen = () => {
   const changeAccount = (accountId: number) => {
     dispatch(clearAllContacts());
     dispatch(clearAllConversations());
+    dispatch(resetFilters());
     dispatch(setAccount(accountId));
     dispatch(authActions.setActiveAccount({ profile: { account_id: accountId } }));
     navigation.dispatch(StackActions.replace('Tab'));
