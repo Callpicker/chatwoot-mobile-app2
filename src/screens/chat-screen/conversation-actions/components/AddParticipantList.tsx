@@ -40,6 +40,11 @@ const ListItem = (props: ListItemProps) => {
 };
 
 const ParticipantOverflowCell = ({ count }: { count: number }) => {
+  const translationKey =
+    count === 1
+      ? 'CONVERSATION_PARTICIPANTS.TOTAL_PARTICIPANT_TEXT'
+      : 'CONVERSATION_PARTICIPANTS.TOTAL_PARTICIPANTS_TEXT';
+
   return (
     <Pressable style={({ pressed }) => [tailwind.style(pressed ? 'bg-gray-100' : '')]}>
       <Animated.View style={tailwind.style('flex flex-row items-center ml-3')}>
@@ -52,7 +57,7 @@ const ParticipantOverflowCell = ({ count }: { count: number }) => {
             style={tailwind.style(
               'text-base font-inter-420-20 leading-[22px] tracking-[0.16px] text-gray-950',
             )}>
-            {count} participants
+            {i18n.t(translationKey, { count })}
           </Animated.Text>
         </Animated.View>
       </Animated.View>
