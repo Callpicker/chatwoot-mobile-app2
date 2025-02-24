@@ -20,7 +20,7 @@ export const ReplyWarning = ({ inbox, conversation }: ReplyWarningProps) => {
   const channel = conversation?.meta?.channel;
   const isAPIChannel = channel === INBOX_TYPES.API;
   const isAWhatsappChannel = channel === INBOX_TYPES.WHATSAPP;
-  const isGupshupAPIChannel = isAPIChannel && settings.typeApi === 'gupshup';
+  const isGupshupAPIChannel = isAPIChannel && settings.typeApi === INBOX_TYPES.GUPSHUP;
 
   const replyBannerMessage = () => {
     if (isAWhatsappChannel || isGupshupAPIChannel) {

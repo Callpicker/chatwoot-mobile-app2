@@ -94,7 +94,7 @@ export const FilePreview = (props: FilePreviewProps) => {
             ellipsizeMode={'middle'}
             style={[
               tailwind.style(
-                isComposed ? 'max-w-[248px]' : 'max-w-[170px]',
+                isComposed ? 'max-w-[248px]' : 'max-w-[160px]',
                 isIncoming || isOutgoing
                   ? 'text-base tracking-[0.32px] leading-[22px] font-inter-normal-20'
                   : '',
@@ -132,6 +132,7 @@ type FileCellProps = {
   sourceId?: string | null;
   menuOptions: MenuOption[];
   errorMessage?: string;
+  typeApi: string;
 };
 
 export const FileCell = (props: FileCellProps) => {
@@ -147,6 +148,7 @@ export const FileCell = (props: FileCellProps) => {
     channel,
     sourceId,
     errorMessage,
+    typeApi,
   } = props;
 
   const isIncoming = messageType === MESSAGE_TYPES.INCOMING;
@@ -188,7 +190,7 @@ export const FileCell = (props: FileCellProps) => {
             ]}>
             <FilePreview {...{ fileSrc, isIncoming, isOutgoing }} />
             <Animated.View
-              style={tailwind.style('h-[21px] pt-[5px] pb-0.5 flex flex-row items-center pl-1.5')}>
+              style={tailwind.style('min-h-[21px] pt-[5px] pb-0.5 flex flex-row items-center pl-1.5')}>
               <Animated.Text
                 style={tailwind.style(
                   'text-xs font-inter-420-20 tracking-[0.32px] leading-[14px] pr-1',
@@ -206,6 +208,7 @@ export const FileCell = (props: FileCellProps) => {
                 errorMessage={errorMessage || ''}
                 deliveredColor="text-gray-700"
                 sentColor="text-gray-700"
+                typeApi={typeApi}
               />
             </Animated.View>
           </Animated.View>

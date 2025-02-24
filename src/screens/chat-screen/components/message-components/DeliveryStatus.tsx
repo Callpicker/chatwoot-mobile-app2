@@ -22,6 +22,7 @@ type DeliveryStatusProps = {
   readColor?: string;
   sentColor?: string;
   errorMessage: string;
+  typeApi: string;
 };
 
 export const DeliveryStatus = (props: DeliveryStatusProps) => {
@@ -34,6 +35,7 @@ export const DeliveryStatus = (props: DeliveryStatusProps) => {
     deliveredColor,
     sentColor,
     errorMessage,
+    typeApi,
   } = props;
 
   const { deliveryStatusSheetRef } = useRefsContext();
@@ -48,6 +50,7 @@ export const DeliveryStatus = (props: DeliveryStatusProps) => {
   const isATwilioChannel = channel === INBOX_TYPES.TWILIO;
   const isAFacebookChannel = channel === INBOX_TYPES.FB;
   const isAWebWidgetChannel = channel === INBOX_TYPES.WEB;
+  const isAGupShupChannel = typeApi === INBOX_TYPES.GUPSHUP;
   const isTemplate = messageType === MESSAGE_TYPES.TEMPLATE;
   const isASmsInbox = channel === INBOX_TYPES.SMS;
   const isAPIChannel = channel === INBOX_TYPES.API;
@@ -82,7 +85,7 @@ export const DeliveryStatus = (props: DeliveryStatusProps) => {
       return sourceId && isSent;
     }
     // There is no source id for the line channel
-    if (isALineChannel) {
+    if (isALineChannel || isAGupShupChannel) {
       return true;
     }
 
@@ -98,11 +101,11 @@ export const DeliveryStatus = (props: DeliveryStatusProps) => {
     }
 
     // We will consider messages as delivered for web widget inbox and API inbox if they are sent
-    if (isAWebWidgetChannel || isAPIChannel) {
+    if (isAWebWidgetChannel || (isAPIChannel && !isAGupShupChannel)) {
       return isSent;
     }
 
-    if (isALineChannel) {
+    if (isALineChannel || isAGupShupChannel) {
       return isDelivered;
     }
 
@@ -113,7 +116,7 @@ export const DeliveryStatus = (props: DeliveryStatusProps) => {
     if (!shouldShowStatusIndicator) {
       return false;
     }
-    if (isAWebWidgetChannel || isAPIChannel) {
+    if (isAWebWidgetChannel || isAPIChannel  || isAGupShupChannel) {
       return isRead;
     }
 
@@ -188,7 +191,7 @@ export const DeliveryStatus = (props: DeliveryStatusProps) => {
   if (showSentIndicator()) {
     return (
       <Icon
-        icon={<DoubleCheckIcon stroke={tailwind.color(sentColor || 'text-whiteA-A12')} />}
+        icon={<DoubleCheckIcon renderSecondTick={false} stroke={tailwind.color(sentColor || 'text-whiteA-A12')} />}
         size={14}
       />
     );

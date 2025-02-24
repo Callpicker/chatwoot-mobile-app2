@@ -126,6 +126,7 @@ export const INBOX_TYPES = {
   TELEGRAM: 'Channel::Telegram',
   LINE: 'Channel::Line',
   SMS: 'Channel::Sms',
+  GUPSHUP: 'gupshup',
 };
 
 export const INBOX_FEATURES = {

@@ -29,6 +29,7 @@ type ComposedCellProps = {
   messageData: Message;
   channel?: Channel;
   menuOptions: MenuOption[];
+  typeApi: string;
 };
 
 const isMessageCreatedAtLessThan24HoursOld = (messageTimestamp: number) => {
@@ -51,7 +52,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
     createdAt,
     contentAttributes,
   } = props.messageData as Message;
-  const { channel, menuOptions } = props;
+  const { channel, typeApi, menuOptions } = props;
   const { conversationId } = useChatWindowContext();
 
   const messages = useAppSelector(state => getMessagesByConversationId(state, { conversationId }));
@@ -97,7 +98,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
       <Animated.View style={tailwind.style('flex flex-row')}>
         {sender?.name && isIncoming && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end mr-1')}>
-            <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name || ''} />
+            <Avatar size={'md'} src={sender?.thumbnail ? { uri: sender.thumbnail } : undefined} name={sender?.name || ''} />
           </Animated.View>
         ) : null}
 
@@ -200,7 +201,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
                   })}
                 <Animated.View
                   style={tailwind.style(
-                    'h-[21px] pt-[5px] pb-0.5 flex flex-row items-center justify-end',
+                    'min-h-[21px] pt-[5px] pb-0.5 flex flex-row items-center justify-end',
                     // singleLineShortText ? "pl-1.5" : "",
                     // singleLineLongText || isMultiLine ? "justify-end" : "",
                     // multiLineShortText ? " absolute bottom-0.5 right-2.5" : "",
@@ -224,6 +225,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
                     errorMessage={errorMessage || ''}
                     deliveredColor="text-gray-700"
                     sentColor="text-gray-700"
+                    typeApi={typeApi}
                   />
                 </Animated.View>
               </Animated.View>

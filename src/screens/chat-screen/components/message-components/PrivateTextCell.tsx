@@ -73,7 +73,7 @@ export const PrivateTextCell = (props: PrivateTextCellProps) => {
       </Animated.View>
       <Animated.View
         style={tailwind.style(
-          'h-[21px] pt-[5px] pb-0.5 flex flex-row items-center justify-end',
+          'min-h-[21px] pt-[5px] pb-0.5 flex flex-row items-center justify-end',
           // singleLineShortText ? "pl-1.5" : "",
           // singleLineLongText || isMultiLine ? "justify-end" : "",
           // multiLineShortText ? " absolute bottom-0.5 right-2.5" : "",

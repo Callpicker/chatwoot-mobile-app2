@@ -5,6 +5,7 @@ import { selectConversationById } from '@/store/conversation/conversationSelecto
 import { useChatWindowContext } from '@/context';
 // import { setQuoteMessage } from '@/store/conversation/sendMessageSlice';
 import { conversationActions } from '@/store/conversation/conversationActions';
+import { selectInboxById } from '@/store/inbox/inboxSelectors';
 import { useHaptic } from '@/utils';
 // import { inboxHasFeature, is360DialogWhatsAppChannel, useHaptic } from '@/utils';
 // import { INBOX_FEATURES } from '@/constants';
@@ -27,6 +28,7 @@ export const MessageItemContainer = (props: MessageItemContainerProps) => {
 
   const hapticSelection = useHaptic();
   const conversation = useAppSelector(state => selectConversationById(state, conversationId));
+  const inbox = useAppSelector(state => (conversation?.inboxId ? selectInboxById(state, conversation?.inboxId) : undefined));
 
   // const handleQuoteReplyAttachment = () => {
   //   dispatch(setQuoteMessage(props.item as Message));
@@ -103,6 +105,7 @@ export const MessageItemContainer = (props: MessageItemContainerProps) => {
     <MessageItem
       item={props.item}
       channel={conversation?.channel || conversation?.meta?.channel}
+      typeApi={inbox?.settings?.typeApi ?? ''}
       getMenuOptions={getMenuOptions}
     />
   );

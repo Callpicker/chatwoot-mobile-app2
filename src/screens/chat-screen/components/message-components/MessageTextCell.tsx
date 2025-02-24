@@ -22,6 +22,7 @@ type MessageTextCellProps = {
   sourceId?: string;
   isPrivate: boolean;
   errorMessage: string;
+  typeApi: string;
 };
 
 export const MessageTextCell = (props: MessageTextCellProps) => {
@@ -37,6 +38,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
     sourceId,
     isPrivate,
     errorMessage,
+    typeApi,
   } = props;
 
   // const [singleLineLongText, setSingleLineLongText] = useState(false);
@@ -105,7 +107,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
       </Text> */}
       <Animated.View
         style={tailwind.style(
-          'h-[21px] pt-[5px] pb-0.5 flex flex-row items-center justify-end',
+          'min-h-[21px] pt-[5px] pb-0.5 flex flex-row items-center justify-end',
           // singleLineShortText ? "pl-1.5" : "",
           // singleLineLongText || isMultiLine ? "justify-end" : "",
           // multiLineShortText ? " absolute bottom-0.5 right-2.5" : "",
@@ -128,6 +130,7 @@ export const MessageTextCell = (props: MessageTextCellProps) => {
           errorMessage={errorMessage}
           deliveredColor="text-gray-700"
           sentColor="text-gray-700"
+          typeApi={typeApi}
         />
       </Animated.View>
     </Animated.View>

@@ -50,6 +50,7 @@ type AudioCellProps = {
   sourceId?: string | null;
   menuOptions: MenuOption[];
   errorMessage?: string;
+  typeApi: string;
 };
 
 type AudioPlayerProps = Pick<AudioCellProps, 'audioSrc'> & {
@@ -196,6 +197,7 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
     sourceId,
     menuOptions,
     errorMessage,
+    typeApi,
   } = props;
   const isIncoming = messageType === MESSAGE_TYPES.INCOMING;
   const isOutgoing = messageType === MESSAGE_TYPES.OUTGOING;
@@ -214,14 +216,14 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
       <Animated.View style={tailwind.style('flex flex-row')}>
         {sender?.name && isIncoming && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end mr-1')}>
-            <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name} />
+            <Avatar size={'md'} src={sender?.thumbnail ? { uri: sender.thumbnail } : undefined} name={sender?.name} />
           </Animated.View>
         ) : null}
         <MessageMenu menuOptions={menuOptions}>
           <Animated.View
             style={[
               tailwind.style(
-                'relative flex flex-row items-center w-[300px] pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
+                'relative flex flex-row items-center min-w-[65%] pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
                 isIncoming ? 'bg-blue-700' : '',
                 isOutgoing ? 'bg-gray-100' : '',
                 shouldRenderAvatar
@@ -236,7 +238,7 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
             <AudioPlayer {...{ audioSrc, isIncoming, isOutgoing }} />
             <Animated.View
               style={tailwind.style(
-                'h-[21px] pt-[5px] pb-0.5 flex flex-row items-center self-end pl-1.5',
+                'min-h-[21px] pt-[5px] pb-0.5 flex flex-row items-center items-end pl-1.5',
               )}>
               <Text
                 style={tailwind.style(
@@ -255,13 +257,14 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
                 errorMessage={errorMessage || ''}
                 deliveredColor="text-gray-700"
                 sentColor="text-gray-700"
+                typeApi={typeApi}
               />
             </Animated.View>
           </Animated.View>
         </MessageMenu>
         {sender?.name && isOutgoing && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end ml-1')}>
-            <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name} />
+            <Avatar size={'md'} src={sender?.thumbnail ? { uri: sender.thumbnail } : undefined} name={sender?.name} />
           </Animated.View>
         ) : null}
       </Animated.View>

@@ -31,6 +31,7 @@ type VideoCellProps = {
   sourceId?: string | null;
   menuOptions: MenuOption[];
   errorMessage?: string;
+  typeApi: string;
 };
 
 type VideoPlayerProps = Pick<VideoCellProps, 'videoSrc'> & {
@@ -132,6 +133,7 @@ export const VideoCell = (props: VideoCellProps) => {
     channel,
     sourceId,
     errorMessage,
+    typeApi,
   } = props;
 
   const isIncoming = messageType === MESSAGE_TYPES.INCOMING;
@@ -203,6 +205,7 @@ export const VideoCell = (props: VideoCellProps) => {
                     channel={channel}
                     errorMessage={errorMessage || ''}
                     sourceId={sourceId}
+                    typeApi={typeApi}
                   />
                 </Animated.View>
               </ImageBackground>

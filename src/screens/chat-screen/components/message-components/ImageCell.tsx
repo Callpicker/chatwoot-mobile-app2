@@ -27,6 +27,7 @@ type ImageCellProps = {
   sourceId?: string | null;
   menuOptions: MenuOption[];
   errorMessage?: string;
+  typeApi: string;
 };
 
 type ImageContainerProps = Pick<ImageCellProps, 'imageSrc'> &
@@ -62,6 +63,7 @@ export const ImageCell = (props: ImageCellProps) => {
     status,
     menuOptions,
     errorMessage,
+    typeApi,
   } = props;
 
   const isIncoming = messageType === MESSAGE_TYPES.INCOMING;
@@ -141,6 +143,7 @@ export const ImageCell = (props: ImageCellProps) => {
                       isPrivate={isPrivate}
                       sourceId={sourceId}
                       errorMessage={errorMessage || ''}
+                      typeApi={typeApi}
                     />
                   </Animated.View>
                 </ImageBackground>

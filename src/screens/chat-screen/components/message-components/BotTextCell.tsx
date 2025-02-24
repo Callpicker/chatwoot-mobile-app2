@@ -19,6 +19,7 @@ type BotTextCellProps = {
   sourceId?: string;
   isPrivate: boolean;
   errorMessage?: string;
+  typeApi: string;
 };
 export const BotTextCell = (props: BotTextCellProps) => {
   const {
@@ -31,6 +32,7 @@ export const BotTextCell = (props: BotTextCellProps) => {
     sourceId,
     isPrivate,
     errorMessage,
+    typeApi,
   } = props;
 
   // const [singleLineLongText, setSingleLineLongText] = useState(false);
@@ -86,7 +88,7 @@ export const BotTextCell = (props: BotTextCellProps) => {
 
       <Animated.View
         style={tailwind.style(
-          'h-[21px] pt-[5px] pb-0.5 flex flex-row items-center justify-end',
+          'min-h-[21px] pt-[5px] pb-0.5 flex flex-row items-center justify-end',
           // singleLineShortText ? "pl-1.5" : "",
           // singleLineLongText || isMultiLine ? "justify-end" : "",
           // multiLineShortText ? " absolute bottom-0.5 right-2.5" : "",
@@ -104,7 +106,8 @@ export const BotTextCell = (props: BotTextCellProps) => {
           errorMessage={errorMessage || ''}
           deliveredColor="text-gray-700"
           sentColor="text-gray-700"
-        />
+          typeApi={typeApi}
+          />
       </Animated.View>
     </Animated.View>
   );

@@ -25,6 +25,7 @@ type LocationCellProps = {
   errorMessage?: string;
   latitude: number | 0;
   longitude: number | 0;
+  typeApi: string;
 };
 
 export const LocationCell: React.FC<LocationCellProps> = props => {
@@ -41,6 +42,7 @@ export const LocationCell: React.FC<LocationCellProps> = props => {
     errorMessage,
     latitude,
     longitude,
+    typeApi,
   } = props;
   const isIncoming = messageType === MESSAGE_TYPES.INCOMING;
   const isOutgoing = messageType === MESSAGE_TYPES.OUTGOING;
@@ -62,7 +64,7 @@ export const LocationCell: React.FC<LocationCellProps> = props => {
       <Animated.View style={tailwind.style('flex flex-row')}>
         {sender?.name && isIncoming && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end mr-1')}>
-            <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name} />
+            <Avatar size={'md'} src={sender?.thumbnail ? { uri: sender.thumbnail } : undefined} name={sender?.name} />
           </Animated.View>
         ) : null}
         <MessageMenu menuOptions={menuOptions}>
@@ -121,13 +123,14 @@ export const LocationCell: React.FC<LocationCellProps> = props => {
                 errorMessage={errorMessage || ''}
                 deliveredColor="text-gray-700"
                 sentColor="text-gray-700"
+                typeApi={typeApi}
               />
             </Animated.View>
           </Animated.View>
         </MessageMenu>
         {sender?.name && isOutgoing && shouldRenderAvatar ? (
           <Animated.View style={tailwind.style('flex items-end justify-end ml-1')}>
-            <Avatar size={'md'} src={{ uri: sender?.thumbnail }} name={sender?.name} />
+            <Avatar size={'md'} src={sender?.thumbnail ? { uri: sender.thumbnail } : undefined} name={sender?.name} />
           </Animated.View>
         ) : null}
       </Animated.View>
