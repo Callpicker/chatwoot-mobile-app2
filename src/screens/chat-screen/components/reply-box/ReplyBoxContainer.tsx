@@ -266,7 +266,7 @@ const BottomSheetContent = () => {
 
   const confirmOnSendReply = () => {
     hapticSelection?.();
-    if (!messageContent.trim()) {
+    if (!messageContent.trim() && attachedFiles.length === 0) {
       dispatch(setMessageContent(''));
       showToast({ message: i18n.t('CONVERSATION.EMPTY_CONTENT') });
       return;
