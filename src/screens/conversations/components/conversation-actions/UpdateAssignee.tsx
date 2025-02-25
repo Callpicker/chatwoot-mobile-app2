@@ -74,6 +74,8 @@ export const UpdateAssignee = () => {
     selectAssignableAgentsByInboxId(state, inboxIds, searchTerm),
   );
 
+  console.log("Assignable agents ",agents);
+
   const assigneeId = selectedConversation?.meta?.assignee?.id;
 
   const userId = useAppSelector(selectUserId);
@@ -138,16 +140,12 @@ export const UpdateAssignee = () => {
   };
 
   const selfAgent = agents.find(agent => agent.id === userId);
+  console.log("Self agent ",selfAgent);
 
-  if (agents.length > 0) {
-    agents[0] = {
-      confirmed: true,
-      name: i18n.t('CONVERSATION.SELECT_PLACEHOLDER'),
-      id: 0,
-      role: 'agent',
-      accountId: 0,
-    };
-  }
+  const agentsWithPlaceholder = [
+    { confirmed: true, name: i18n.t('CONVERSATION.SELECT_PLACEHOLDER'), id: 0, role: 'agent', accountId: 0 },
+    ...agents.filter(agent => agent.id !== 0),
+  ];  
 
   return (
     <React.Fragment>
@@ -189,7 +187,7 @@ export const UpdateAssignee = () => {
               </Pressable>
             )}
 
-            {agents.map((agent, index) => {
+            {agentsWithPlaceholder.map((agent, index) => {
               return (
                 <AssigneeCell
                   key={agent.id}
