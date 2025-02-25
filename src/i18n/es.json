@@ -464,7 +464,7 @@
     "OK": "De acuerdo"
   },
   "BANNER": {
-    "TWILIO_WHATSAPP_CAN_REPLY": "Solo puede responder a esta conversación usando un mensaje de plantilla debido a",
+    "TWILIO_WHATSAPP_CAN_REPLY": "Solo puede responder a esta conversación usando una plantilla de mensaje debido a",
     "TWILIO_WHATSAPP_24_HOURS_WINDOW": "Restricción de la ventana de mensajes de 24 horas",
     "24_HOURS_WINDOW": "Restricción de la ventana de mensajes de 24 horas",
     "CANNOT_REPLY": "No puedes responder debido a"
