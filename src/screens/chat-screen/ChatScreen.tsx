@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { BackHandler } from 'react-native';
 import PagerView, { PagerViewOnPageSelectedEvent } from 'react-native-pager-view';
 import Animated from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -35,11 +37,33 @@ export const ChatWindow = (props: ChatScreenProps) => {
 type ChatScreenProps = NativeStackScreenProps<TabBarExcludedScreenParamList, 'ChatScreen'>;
 
 const ConversationPagerView = (props: ChatScreenProps) => {
+  const navigation = useNavigation();
   const { chatPagerView } = useRefsContext();
   const { setPagerViewIndex } = useChatWindowContext();
+  const [currentPage, setCurrentPage] = useState(0);
+
   const onPageSelected = (e: PagerViewOnPageSelectedEvent) => {
-    setPagerViewIndex(e.nativeEvent.position);
+    const position = e.nativeEvent.position;
+    setCurrentPage(position);
+    setPagerViewIndex(position);
   };
+
+  useEffect(() => {
+    const onBackPress = () => {
+      if (currentPage !== 0) {
+        chatPagerView.current?.setPage(0);
+        return true;
+      }
+
+      navigation.goBack();
+      return true;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+    return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+  }, [currentPage, navigation, chatPagerView]);
+
   return (
     <PagerView
       ref={chatPagerView}
