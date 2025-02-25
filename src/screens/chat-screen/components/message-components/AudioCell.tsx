@@ -56,6 +56,7 @@ type AudioCellProps = {
 type AudioPlayerProps = Pick<AudioCellProps, 'audioSrc'> & {
   isIncoming: boolean;
   isOutgoing: boolean;
+  isComposed?: boolean;
 };
 
 export const AudioPlayer = (props: AudioPlayerProps) => {
@@ -141,7 +142,11 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
   }, []);
 
   return (
-    <View style={tailwind.style('flex flex-row items-center flex-1')}>
+    <View
+    style={[
+      tailwind.style('flex flex-row items-center', !props.isComposed && 'flex-1'),
+      props.isComposed && { minWidth: 250 },
+    ]}>
       <Pressable disabled={isSoundLoading} hitSlop={10} onPress={togglePlayback}>
         {isSoundLoading ? (
           <Animated.View>
@@ -223,7 +228,7 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
           <Animated.View
             style={[
               tailwind.style(
-                'relative flex flex-row items-center min-w-[65%] pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
+                'relative flex flex-row items-center min-w-[70%] pl-3 pr-2.5 py-2 rounded-2xl overflow-hidden',
                 isIncoming ? 'bg-blue-700' : '',
                 isOutgoing ? 'bg-gray-100' : '',
                 shouldRenderAvatar

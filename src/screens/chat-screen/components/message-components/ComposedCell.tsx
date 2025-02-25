@@ -142,6 +142,7 @@ export const ComposedCell = (props: ComposedCellProps) => {
                           style={tailwind.style('flex-1 py-3 px-2 rounded-xl my-2')}>
                           <AudioPlayer
                             audioSrc={attachment.dataUrl}
+                            isComposed
                             {...{ isIncoming, isOutgoing }}
                           />
                         </Animated.View>
