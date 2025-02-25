@@ -34,7 +34,6 @@ export const selectAssignableAgentsByInboxId = createSelector(
       },
       ...agents,
     ];
-    console.log("Search term ", searchTerm);
     return searchTerm ? agentsList.filter(agent => agent?.name?.toLowerCase().includes(searchTerm.toLowerCase())) : agentsList;
   },
 );

@@ -74,8 +74,6 @@ export const UpdateAssignee = () => {
     selectAssignableAgentsByInboxId(state, inboxIds, searchTerm),
   );
 
-  console.log("Assignable agents ",agents);
-
   const assigneeId = selectedConversation?.meta?.assignee?.id;
 
   const userId = useAppSelector(selectUserId);
@@ -140,7 +138,6 @@ export const UpdateAssignee = () => {
   };
 
   const selfAgent = agents.find(agent => agent.id === userId);
-  console.log("Self agent ",selfAgent);
 
   const agentsWithPlaceholder = [
     { confirmed: true, name: i18n.t('CONVERSATION.SELECT_PLACEHOLDER'), id: 0, role: 'agent', accountId: 0 },
