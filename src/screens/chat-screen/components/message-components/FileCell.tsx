@@ -33,7 +33,6 @@ export const FilePreview = (props: FilePreviewProps) => {
   const previewFile = () => {
     FileViewer.open(localFilePath, { showOpenWithDialog: true })
       .catch((error) => {
-        console.log("FileViewer Error: ", error);
         showToast({
           message: i18n.t('CONVERSATION.FILE_NOT_OPENABLE')
         });

@@ -27,8 +27,6 @@ export const NotificationPreferences = () => {
     selected_push_flags,
   } = useAppSelector(selectNotificationSettings);
 
-  console.log("Selected push flags ",selected_push_flags);
-
   // delete this const to return SLA notifications
   const filteredPushFlags = (allPushFlags as NotificationPreferenceType[]).filter(
     item => ![
