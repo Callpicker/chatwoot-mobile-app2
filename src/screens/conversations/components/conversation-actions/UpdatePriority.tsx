@@ -1,5 +1,5 @@
-import React from 'react';
-import { Pressable } from 'react-native';
+import React, { useEffect } from 'react';
+import { Pressable, BackHandler } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
 
@@ -65,6 +65,22 @@ export const UpdatePriority = () => {
   const selectedConversation = useAppSelector(selectSelectedConversation);
 
   const hapticSelection = useHaptic();
+
+  useEffect(() => {
+    const onBackPress = () => {
+      if (actionsModalSheetRef.current) {
+        actionsModalSheetRef.current.dismiss({ overshootClamping: true });
+        return true; // Prevent default back action
+      }
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    };
+  }, []);
 
   const handlePriorityPress = async (priority: ConversationPriority) => {
     hapticSelection?.();

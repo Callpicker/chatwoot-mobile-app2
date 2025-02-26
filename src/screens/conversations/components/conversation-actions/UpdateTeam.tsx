@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ActivityIndicator, Pressable } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Pressable, BackHandler } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
@@ -96,6 +96,22 @@ export const UpdateTeam = () => {
   const teams = useAppSelector(state => filterTeams(state, searchTerm));
 
   const teamId = selectedConversation?.meta?.team?.id;
+
+  useEffect(() => {
+    const onBackPress = () => {
+      if (actionsModalSheetRef.current) {
+        actionsModalSheetRef.current.dismiss({ overshootClamping: true });
+        return true; // Prevents default back navigation
+      }
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    };
+  }, []);
 
   const handleFocus = () => {
     actionsModalSheetRef.current?.expand();

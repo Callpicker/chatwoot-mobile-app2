@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, ImageSourcePropType, Pressable } from 'react-native';
+import { ActivityIndicator, ImageSourcePropType, Pressable, BackHandler } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
@@ -135,6 +135,22 @@ export const UpdateParticipant = (props: UpdateParticipantProps) => {
 
   const selectAgents = useAppSelector(selectAssignableParticipantsByInboxId);
   const allAgents = inboxId ? selectAgents(inboxId, searchTerm) : [];
+
+  useEffect(() => {
+    const onBackPress = () => {
+      if (updateParticipantSheetRef.current) {
+        updateParticipantSheetRef.current.dismiss({ overshootClamping: true });
+        return true; // Prevent default back navigation
+      }
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    };
+  }, []);
 
   const handleFocus = () => {
     updateParticipantSheetRef.current?.expand();
