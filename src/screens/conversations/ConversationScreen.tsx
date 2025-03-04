@@ -51,6 +51,10 @@ import { clearAssignableAgents } from '@/store/assignable-agent/assignableAgentS
 
 import i18n from '@/i18n';
 import ActionBottomSheet from '@/navigation/tabs/ActionBottomSheet';
+import {
+  selectSelectedConversation,
+  selectSelectedIds,
+} from '@/store/conversation/conversationSelectedSlice';
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
@@ -217,6 +221,9 @@ const ConversationList = () => {
 const ConversationScreen = () => {
   const currentBottomSheet = useAppSelector(selectBottomSheetState);
   const dispatch = useAppDispatch();
+  const selectedIds = useAppSelector(selectSelectedIds);
+  const selectedConversation = useAppSelector(selectSelectedConversation);
+  const shouldShowActionBottomSheet = selectedIds.length > 0 || selectedConversation !== null;
 
   const animationConfigs = useBottomSheetSpringConfigs({
     mass: 1,
@@ -280,7 +287,7 @@ const ConversationScreen = () => {
             {currentBottomSheet === 'inbox_id' ? <InboxFilters /> : null}
           </BottomSheetWrapper>
         </BottomSheetModal>
-        <ActionBottomSheet />
+        {shouldShowActionBottomSheet && <ActionBottomSheet />}
         <ActionTabs />
       </ConversationListStateProvider>
     </SafeAreaView>
