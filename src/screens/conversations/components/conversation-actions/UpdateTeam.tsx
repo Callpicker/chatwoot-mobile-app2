@@ -34,16 +34,18 @@ const TeamCell = (props: TeamCellProps) => {
 
   const handleAssigneePress = async () => {
     if (!selectedConversation?.id) return;
-    await dispatch(
+    const result = await dispatch(
       conversationActions.assignConversation({
         conversationId: selectedConversation?.id,
         teamId: value.id === teamId ? undefined : value.id,
       }),
     );
-    AnalyticsHelper.track(CONVERSATION_EVENTS.TEAM_CHANGED);
-    showToast({
-      message: i18n.t('CONVERSATION.TEAM_CHANGE'),
-    });
+    if(result.meta?.requestStatus === "fulfilled"){
+      AnalyticsHelper.track(CONVERSATION_EVENTS.TEAM_CHANGED);
+      showToast({
+        message: i18n.t('CONVERSATION.TEAM_CHANGE'),
+      });
+    }
     actionsModalSheetRef.current?.dismiss({ overshootClamping: true });
   };
 
