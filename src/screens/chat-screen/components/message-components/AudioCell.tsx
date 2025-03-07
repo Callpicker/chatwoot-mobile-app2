@@ -20,6 +20,7 @@ import { MESSAGE_TYPES } from '@/constants';
 import { DeliveryStatus } from './DeliveryStatus';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/hooks';
+import { convertOggToMp3 } from '@/utils/audioConverter';
 
 export const PlayIcon = ({ fill, fillOpacity }: IconProps) => {
   return (
@@ -64,6 +65,7 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
 
   const [isSoundLoading, setIsSoundLoading] = useState(false);
   const [isAudioPlaying, setAudioPlaying] = useState(false);
+  const [convertedAudioSrc, setConvertedAudioSrc] = useState(audioSrc);
 
   const dispatch = useDispatch();
   const currentPlayingAudioSrc = useAppSelector(selectCurrentPlayingAudioSrc);
@@ -76,7 +78,7 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
     if (playBackData) {
       currentPosition.value = playBackData.currentPosition;
       totalDuration.value = playBackData.duration;
-      if (playBackData.currentPosition === playBackData.duration) {
+      if (playBackData.currentPosition === playBackData.duration || playBackData.isFinished) {
         currentPosition.value = 0;
         totalDuration.value = 0;
         setAudioPlaying(false);
@@ -86,7 +88,7 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
   };
 
   const togglePlayback = () => {
-    if (audioSrc === currentPlayingAudioSrc) {
+    if (convertedAudioSrc === currentPlayingAudioSrc) {
       // The current playing audio file is same as the component audio src so
       // we will have to just toggle the audio playing
       if (isAudioPlaying) {
@@ -98,13 +100,30 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
     } else {
       setIsSoundLoading(true);
 
-      startPlayer(audioSrc, audioPlayBackStatus).then(() => {
+      startPlayer(convertedAudioSrc, audioPlayBackStatus).then(() => {
         setIsSoundLoading(false);
         setAudioPlaying(true);
-        dispatch(setCurrentPlayingAudioSrc(audioSrc));
+        dispatch(setCurrentPlayingAudioSrc(convertedAudioSrc));
       });
     }
   };
+
+  useEffect(() => {
+    const prepareAudio = async () => {
+      if (audioSrc.toLowerCase().endsWith('.ogg') || audioSrc.toLowerCase().endsWith('.oga')) {
+        setIsSoundLoading(true);
+        try {
+          const convertedSrc = await convertOggToMp3(audioSrc);
+          setConvertedAudioSrc(convertedSrc);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsSoundLoading(false);
+        }
+      }
+    };
+    prepareAudio();
+  }, [audioSrc]);
 
   const manualSeekTo = async (manualSeekPosition: number) => {
     seekTo(manualSeekPosition).then(() => {
@@ -117,8 +136,8 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
   };
 
   const isCurrentAudioSrcPlaying = useMemo(
-    () => currentPlayingAudioSrc === audioSrc && isAudioPlaying,
-    [audioSrc, currentPlayingAudioSrc, isAudioPlaying],
+    () => currentPlayingAudioSrc === convertedAudioSrc && isAudioPlaying,
+    [convertedAudioSrc, currentPlayingAudioSrc, isAudioPlaying],
   );
 
   useEffect(() => {
@@ -126,8 +145,7 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
       currentPosition.value = 0;
       totalDuration.value = 0;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPlayingAudioSrc]);
+  }, [currentPlayingAudioSrc, audioSrc, currentPosition, totalDuration]);
 
   useEffect(() => {
     return () => {
@@ -138,9 +156,8 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
           dispatch(setCurrentPlayingAudioSrc(''));
         });
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  }, [dispatch]);
+  
   return (
     <View
     style={[
@@ -212,10 +229,10 @@ export const AudioCell: React.FC<AudioCellProps> = props => {
       entering={FadeIn.duration(300).easing(Easing.ease)}
       style={tailwind.style(
         'w-full my-[1px]',
-        isIncoming ? 'items-start ml-3' : '',
-        isOutgoing ? 'items-end pr-3' : '',
-        !shouldRenderAvatar && isIncoming ? 'ml-10' : '',
-        !shouldRenderAvatar && isOutgoing ? 'pr-10' : '',
+        isIncoming && 'items-start',
+        isOutgoing && 'items-end',
+        !shouldRenderAvatar && isIncoming ? 'ml-7' : '',
+        !shouldRenderAvatar && isOutgoing ? 'pr-7' : '',
         shouldRenderAvatar ? 'pb-2' : '',
       )}>
       <Animated.View style={tailwind.style('flex flex-row')}>
