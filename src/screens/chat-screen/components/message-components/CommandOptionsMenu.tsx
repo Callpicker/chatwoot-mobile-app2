@@ -86,7 +86,7 @@ export const handleOpenPhotosLibrary = async dispatch => {
       if (result === RESULTS.GRANTED) {
         const pickedAssets = await launchImageLibrary({
           quality: 1,
-          selectionLimit: 4,
+          selectionLimit: 1,
           mediaType: 'mixed',
           presentationStyle: 'formSheet',
         });
