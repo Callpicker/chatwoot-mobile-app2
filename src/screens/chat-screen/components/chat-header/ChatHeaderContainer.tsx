@@ -89,7 +89,9 @@ export const ChatHeaderContainer = (props: ChatScreenHeaderProps) => {
 
   const handleBackPress = () => {
     dispatch(resetSentMessage());
-    if (navigation.canGoBack()) {
+    if (pagerViewIndex !== 0) {
+      chatPagerView.current?.setPage(0);
+    } else if (navigation.canGoBack()) {
       navigation.dispatch(StackActions.pop());
     } else {
       navigation.dispatch(StackActions.replace('Tab'));
