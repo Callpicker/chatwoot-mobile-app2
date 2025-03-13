@@ -85,20 +85,16 @@ export const UpdateLabels = () => {
       const updatedLabels = prevLabels.includes(_selectedLabel)
         ? prevLabels.filter(item => item !== _selectedLabel)
         : [...prevLabels, _selectedLabel];
-
-      // If label is already selected, return current labels without changes
-      if (prevLabels.includes(_selectedLabel)) {
-        return prevLabels;
-      }
-
+  
       const payload = {
         type: 'Conversation',
         ids: selectedIds,
-        labels: { add: [_selectedLabel] },
+        labels: {
+          add: updatedLabels.filter(label => !prevLabels.includes(label)),
+          remove: prevLabels.filter(label => !updatedLabels.includes(label)),
+        },
       };
-      dispatch(conversationActions.bulkAction(payload));
-      // actionsModalSheetRef.current?.dismiss({ overshootClamping: true });
-      // dispatch(setCurrentState('none'));
+      dispatch(conversationActions.bulkAction(payload));      
       return updatedLabels;
     });
   };
