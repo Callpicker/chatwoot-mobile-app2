@@ -43,8 +43,8 @@ export const ImageContainer = (props: ImageContainerProps) => {
       tapToClose={false}>
       <AnimatedExpoImage
         source={{ uri: imageSrc }}
-        contentFit="cover"
-        style={[tailwind.style('h-full w-full bg-gray-100 overflow-hidden')]}
+        contentFit="contain"
+        style={[tailwind.style('h-full w-full bg-gray-100 overflow-hidden',{ backgroundColor: 'transparent' })]}
       />
     </LightBox>
   );
