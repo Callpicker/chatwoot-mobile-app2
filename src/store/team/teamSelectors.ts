@@ -24,6 +24,6 @@ export const filterTeams = createSelector(
       ...teams,
     ];
 
-    return searchTerm ? teamsList.filter(team => team?.name?.includes(searchTerm)) : teamsList;
+    return searchTerm ? teamsList.filter(team => team?.name?.toLowerCase().includes(searchTerm.toLowerCase())) : teamsList;
   },
 );
