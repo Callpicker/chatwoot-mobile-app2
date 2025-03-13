@@ -12,6 +12,7 @@ import { SelfAssign, TickIcon } from '@/svg-icons';
 import { assignableAgentActions } from '@/store/assignable-agent/assignableAgentActions';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { selectAssignableAgentsByInboxId } from '@/store/assignable-agent/assignableAgentSelectors';
+import { clearAssignableAgents } from '@/store/assignable-agent/assignableAgentSlice';
 import {
   selectSelectedIds,
   selectSelectedInboxes,
@@ -108,6 +109,7 @@ export const UpdateAssignee = () => {
   };
 
   useEffect(() => {
+    dispatch(clearAssignableAgents());
     dispatch(assignableAgentActions.fetchAgents({ inboxIds }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
