@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pressable, BackHandler } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { BottomSheetView } from '@gorhom/bottom-sheet';
@@ -66,9 +66,11 @@ export const UpdateStatus = () => {
   const selectedIds = useAppSelector(selectSelectedIds);
   const selectedConversation = useAppSelector(selectSelectedConversation);
   const isMultipleConversationsSelected = selectedIds.length !== 0;
-  const statusList = isMultipleConversationsSelected
-    ? StatusList
-    : filterStatusList(selectedConversation?.status || 'open');
+  const [statusList, setStatusList] = useState<StatusCollection[]>(
+    isMultipleConversationsSelected
+      ? StatusList
+      : filterStatusList(selectedConversation?.status || 'open')
+  );
 
   const hapticSelection = useHaptic();
 
@@ -109,6 +111,14 @@ export const UpdateStatus = () => {
       BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     };
   }, []);
+
+  useEffect(() => {
+    setStatusList(
+      isMultipleConversationsSelected
+        ? StatusList
+        : filterStatusList(selectedConversation?.status || 'open')
+    );
+  }, [isMultipleConversationsSelected, selectedConversation]);
 
   return (
     <BottomSheetView>
