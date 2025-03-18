@@ -131,7 +131,7 @@
       "LABELS": {
         "SEARCH_LABELS": "Search labels",
         "TITLE": "Labels",
-        "ACTION": "Add"
+        "ACTION": "Assign"
       },
       "AGENTS": {
         "SEARCH_AGENT": "Search agents"
