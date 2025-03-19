@@ -11,6 +11,7 @@ import { Label } from '@/types/common/Label';
 import { selectSelectedIds } from '@/store/conversation/conversationSelectedSlice';
 import { conversationActions } from '@/store/conversation/conversationActions';
 import { LabelCell } from '@/components-next/label-section';
+import { labelActions } from '@/store/label/labelActions';
 import i18n from '@/i18n';
 
 type LabelStackProps = {
@@ -73,12 +74,9 @@ export const UpdateLabels = () => {
     actionsModalSheetRef.current?.dismiss({ overshootClamping: true });
   };
 
-  // The selected label text is received
-  /**
-   * The handleLabelPress function dismisses a modal sheet with overshoot clamping.
-   * @param {string} _selectedLabel - The _selectedLabel parameter is a string that represents the label
-   * that was selected.
-   */
+  useEffect(() => {
+    dispatch(labelActions.fetchLabels());
+  }, [dispatch]);
 
   const handleLabelPress = (_selectedLabel: string) => {
     setSelectedLabels(prevLabels => {

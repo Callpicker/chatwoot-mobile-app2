@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Pressable, StyleSheet, BackHandler } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 
@@ -8,10 +8,10 @@ import { LabelTag } from '@/svg-icons';
 import { tailwind } from '@/theme';
 import { Label } from '@/types';
 import { BottomSheetBackdrop, Icon, SearchBar } from '@/components-next';
-import { useAppSelector } from '@/hooks';
+import { useAppSelector, useAppDispatch } from '@/hooks';
 import { filterLabels } from '@/store/label/labelSelectors';
-import { useAppDispatch } from '@/hooks';
 import { conversationActions } from '@/store/conversation/conversationActions';
+import { labelActions } from '@/store/label/labelActions'; // Import the labelActions
 import i18n from '@/i18n';
 
 import { LabelCell, LabelItem } from '@/components-next/label-section';
@@ -22,6 +22,7 @@ type LabelStackProps = {
   handleLabelPress: (label: string) => void;
   isStandAloneComponent?: boolean;
 };
+
 const LabelStack = (props: LabelStackProps) => {
   const { filteredLabels, selectedLabels, isStandAloneComponent = true, handleLabelPress } = props;
 
@@ -56,16 +57,25 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
 
   const { addLabelSheetRef } = useRefsContext();
 
+  useEffect(() => {
+    const onBackPress = () => {
+      if (addLabelSheetRef.current) {
+        addLabelSheetRef.current.dismiss({ overshootClamping: true });
+        return true;
+      }
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    };
+  }, []);
+
   const allLabels = useAppSelector(state => filterLabels(state, ''));
 
   const filteredLabels = useAppSelector(state => filterLabels(state, searchTerm));
-
-  const conversationLabels =
-    allLabels && selectedLabels
-      ? allLabels.filter(({ title }) => {
-          return selectedLabels?.includes(title);
-        })
-      : [];
 
   const handleAddLabelPress = () => {
     addLabelSheetRef.current?.present();
@@ -82,6 +92,7 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
   const handleChange = (index: number) => {
     if (index === -1) {
       setSearchTerm('');
+      dispatch(labelActions.fetchLabels());
     }
   };
 
@@ -101,6 +112,14 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
       return updatedLabels;
     });
   };
+
+  const conversationLabels =
+    allLabels && selectedLabels
+      ? allLabels.filter(({ title }) => {
+          return selectedLabels?.includes(title);
+        })
+      : [];
+
   return (
     <Animated.View>
       <Animated.View style={tailwind.style('pl-4')}>
@@ -147,21 +166,18 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
         <SearchBar
           isInsideBottomSheet
           onSubmitEditing={handleOnSubmitEditing}
-          autoFocus
           onChangeText={handleChangeText}
           placeholder={i18n.t("CONVERSATION.ASSIGNEE.LABELS.SEARCH_LABELS")}
           returnKeyLabel="done"
           returnKeyType="done"
         />
-        <BottomSheetScrollView showsVerticalScrollIndicator={false}>
-          <LabelStack
-            filteredLabels={filteredLabels}
-            selectedLabels={selectedLabels}
-            isStandAloneComponent={allLabels.length > 3}
-            handleLabelPress={handleAddOrUpdateLabels}
-          />
-          <Animated.View style={tailwind.style('items-start')}></Animated.View>
-        </BottomSheetScrollView>
+        <LabelStack
+          filteredLabels={filteredLabels}
+          selectedLabels={selectedLabels}
+          isStandAloneComponent={allLabels.length > 3}
+          handleLabelPress={handleAddOrUpdateLabels}
+        />
+        <Animated.View style={tailwind.style('items-start')}></Animated.View>
       </BottomSheetModal>
     </Animated.View>
   );
@@ -169,8 +185,6 @@ export const ConversationLabelActions = (props: LabelSectionProps) => {
 
 const styles = StyleSheet.create({
   labelShadow: {
-    // box-shadow: 0px 0.15000000596046448px 2px 0px #00000040;
-    // box-shadow: [horizontal offset] [vertical offset] [blur radius] [optional spread radius] [color];
     shadowColor: '#00000040',
     shadowOffset: { width: 0, height: 0.15 },
     shadowRadius: 2,
