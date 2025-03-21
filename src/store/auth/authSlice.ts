@@ -47,6 +47,12 @@ export const authSlice = createSlice({
         });
       }
     },
+    setUpdateAuth: (state, action ) => {
+      if(state.user){
+        state.user = action.payload
+        state.user.avatar_url = action.payload.avatar_url
+      }
+    },
     setAccount: (state, action) => {
       if (state.user) {
         state.user.account_id = action.payload;
@@ -94,5 +100,5 @@ export const authSlice = createSlice({
       });
   },
 });
-export const { logout, setAccount, resetAuth, setCurrentUserAvailability } = authSlice.actions;
+export const { logout, setAccount, resetAuth, setCurrentUserAvailability, setUpdateAuth } = authSlice.actions;
 export default authSlice.reducer;

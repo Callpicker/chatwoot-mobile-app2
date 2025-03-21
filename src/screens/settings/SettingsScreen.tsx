@@ -3,7 +3,7 @@ import { StatusBar, Text, Platform, View, Pressable } from 'react-native';
 import Animated from 'react-native-reanimated';
 // import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StackActions, useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
@@ -19,7 +19,6 @@ import * as Application from 'expo-application';
 import { Account, AvailabilityStatus } from '@/types';
 import { clearAllConversations } from '@/store/conversation/conversationSlice';
 import { clearAllContacts } from '@/store/contact/contactSlice';
-
 import i18n from 'i18n';
 import { HELP_URL } from '@/constants/url';
 import { tailwind } from '@/theme';
@@ -53,6 +52,9 @@ import {
 } from '@/store/auth/authSelectors';
 import { logout, setAccount, setCurrentUserAvailability } from '@/store/auth/authSlice';
 import { authActions } from '@/store/auth/authActions';
+import { setUpdateAuth } from '@/store/auth/authSlice';
+import { AuthService } from '@/store/auth/authService';
+import { SettingsService } from '@/store/settings/settingsService';
 import { selectLocale, selectIsChatwootCloud } from '@/store/settings/settingsSelectors';
 import { settingsActions } from '@/store/settings/settingsActions';
 import { setLocale } from '@/store/settings/settingsSlice';
@@ -69,7 +71,6 @@ const appVersion = Application.nativeApplicationVersion;
 
 const buildNumber = Application.nativeBuildVersion;
 const appVersionDetails = buildNumber ? `${appVersion} (${buildNumber})` : appVersion;
-
 const SettingsScreen = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
@@ -119,7 +120,7 @@ const SettingsScreen = () => {
 
   const chatwootInstance = isChatwootCloud ? `${appName} cloud` : `${appName} self-hosted`;
 
-  const accounts = useSelector(selectAccounts) || [];
+  let accounts = useSelector(selectAccounts) || [];
 
   const activeAccountName = accounts.length
     ? accounts.find((account: Account) => account.id === activeAccountId)?.name || ''
@@ -136,6 +137,34 @@ const SettingsScreen = () => {
     debugActionsSheetRef,
   } = useRefsContext();
 
+
+  useEffect(() => {
+    dispatch(authActions.getProfile());
+  }, [dispatch]);
+
+
+
+  useFocusEffect(
+    React.useCallback(() => {
+      async function fetchData() {
+        let profile_response = await AuthService.getProfile();
+        if(profile_response){
+          profile_response.account_id = user.account_id;
+          dispatch(setUpdateAuth(profile_response))
+
+        
+          accounts = profile_response?.accounts;
+          let profile_status = accounts.length ? accounts.find((account: Account) => account.id === activeAccountId)?.availability || '': '';
+          changeAvailabilityStatus(profile_status);
+        }
+      }
+      fetchData();
+
+      return () => {
+
+      };
+    }, [])
+  );
   const hapticSelection = useHaptic();
 
   const animationConfigs = useBottomSheetSpringConfigs({
@@ -149,7 +178,14 @@ const SettingsScreen = () => {
     userAvailabilityStatusSheetRef.current?.present();
   };
 
-  const changeAvailabilityStatus = (updatedStatus: string) => {
+  const openPreferences = async () => {
+    let data = await dispatch(settingsActions.getNotificationSettings());
+    if(!data?.error){
+      notificationPreferencesSheetRef.current?.present()
+    }
+  }
+
+  const changeAvailabilityStatus = async (updatedStatus: string) => {
     AnalyticsHelper.track(PROFILE_EVENTS.TOGGLE_AVAILABILITY_STATUS, {
       from: availabilityStatus,
       to: updatedStatus,
@@ -157,9 +193,16 @@ const SettingsScreen = () => {
     const payload = { profile: { availability: updatedStatus, account_id: activeAccountId } };
     const usersPayload = { users: {[Number(user?.id)] : updatedStatus}};
     dispatch(setCurrentUserAvailability(usersPayload));
-    // TODO: Fix this later
-    // @ts-expect-error TODO: Fix typing for dispatch
-    dispatch(authActions.updateAvailability(payload));
+    
+    let response = await dispatch(authActions.updateAvailability(payload));
+    if(response?.error){
+      AnalyticsHelper.track(PROFILE_EVENTS.TOGGLE_AVAILABILITY_STATUS, {
+        from: updatedStatus,
+        to: availabilityStatus,
+      });
+      const usersPayload_restore = { users: {[Number(user?.id)] : availabilityStatus}};
+      dispatch(setCurrentUserAvailability(usersPayload_restore));
+    }
   };
 
   const onChangeLanguage = (locale: string) => {
@@ -175,12 +218,12 @@ const SettingsScreen = () => {
     navigation.dispatch(StackActions.replace('Tab'));
   };
 
-  useEffect(() => {
-    userAvailabilityStatusSheetRef.current?.dismiss({
-      overshootClamping: true,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [availabilityStatus]);
+  // useEffect(() => {
+  //   userAvailabilityStatusSheetRef.current?.dismiss({
+  //     overshootClamping: true,
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [availabilityStatus]);
 
   useEffect(() => {
     languagesModalSheetRef.current?.dismiss({
@@ -223,7 +266,7 @@ const SettingsScreen = () => {
       subtitle: '',
       subtitleType: 'light',
       disabled: !hasConversationPermission,
-      onPressListItem: () => notificationPreferencesSheetRef.current?.present(),
+      onPressListItem: () => openPreferences()
       // onPressListItem: openSystemSettings,
     },
     {
