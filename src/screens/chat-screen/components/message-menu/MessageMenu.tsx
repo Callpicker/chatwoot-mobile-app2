@@ -55,7 +55,9 @@ export const MessageMenu = (props: PropsWithChildren<MessageMenuProps>) => {
 
   const contextMenuSheetRef = useRef<BottomSheetModal>(null);
   const openSheet = () => {
-    contextMenuSheetRef.current?.present();
+    if(menuOptions.length > 0){
+      contextMenuSheetRef.current?.present();
+    }
   };
   const longPressGesture = Gesture.LongPress()
     .minDuration(500)

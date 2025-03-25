@@ -16,6 +16,7 @@ import { MESSAGE_TYPES } from '@/constants';
 import { CopyIcon, Trash } from '@/svg-icons';
 import { MenuOption } from '../message-menu';
 import { MessageItem } from './MessageItem';
+import { useBottomSheetModal } from '@gorhom/bottom-sheet';
 
 type MessageItemContainerProps = {
   item: { date: string } | Message;
@@ -23,6 +24,8 @@ type MessageItemContainerProps = {
 };
 
 export const MessageItemContainer = (props: MessageItemContainerProps) => {
+  const { dismiss, dismissAll } = useBottomSheetModal();
+
   const dispatch = useAppDispatch();
   const { conversationId } = useChatWindowContext();
 
@@ -39,12 +42,14 @@ export const MessageItemContainer = (props: MessageItemContainerProps) => {
     if (content) {
       Clipboard.setString(content);
       showToast({ message: i18n.t('CONVERSATION.COPY_MESSAGE') });
+      dismiss();
     }
   };
 
   const handleDeleteMessage = async (messageId: number) => {
     await dispatch(conversationActions.deleteMessage({ conversationId, messageId }));
     showToast({ message: i18n.t('CONVERSATION.DELETE_MESSAGE_SUCCESS') });
+    dismiss();
   };
 
   // const inboxSupportsReplyTo = (channel: string) => {
