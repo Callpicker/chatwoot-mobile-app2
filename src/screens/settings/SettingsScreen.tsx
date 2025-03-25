@@ -55,7 +55,7 @@ import { authActions } from '@/store/auth/authActions';
 import { setUpdateAuth } from '@/store/auth/authSlice';
 import { AuthService } from '@/store/auth/authService';
 import { SettingsService } from '@/store/settings/settingsService';
-import { selectLocale, selectIsChatwootCloud } from '@/store/settings/settingsSelectors';
+import { selectLocale, selectIsChatwootCloud,selectPushToken } from '@/store/settings/settingsSelectors';
 import { settingsActions } from '@/store/settings/settingsActions';
 import { setLocale } from '@/store/settings/settingsSlice';
 import { resetFilters } from '@/store/conversation/conversationFilterSlice';
@@ -92,6 +92,8 @@ const SettingsScreen = () => {
   useEffect(() => {
     dispatch(settingsActions.getNotificationSettings());
   }, [dispatch]);
+
+  const pushToken = useAppSelector(selectPushToken);
 
   const userPermissions = getUserPermissions(user, activeAccountId);
 
@@ -246,7 +248,7 @@ const SettingsScreen = () => {
 
   const onClickLogout = useCallback(async () => {
     await AsyncStorage.removeItem('cwCookie');
-    // TODO: Add action to remove FCM token
+    await dispatch(settingsActions.removeDevice({ pushToken }));
     dispatch(logout());
   }, [dispatch]);
 
