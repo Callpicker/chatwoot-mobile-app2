@@ -42,7 +42,10 @@ const ListItem = (props: ListItemProps) => {
           isLastItem ? 'rounded-b-[13px]' : '',
         ),
       ]}>
-      <Animated.View style={tailwind.style('flex flex-row items-center pl-3')}>
+      <Animated.View style={tailwind.style(
+        'flex flex-row items-center pl-3'
+        
+        )}>
         {listItem.icon ? (
           <Animated.View>
             <Icon icon={listItem.icon} size={24} />
@@ -50,11 +53,11 @@ const ListItem = (props: ListItemProps) => {
         ) : null}
         <Animated.View
           style={tailwind.style(
-            'flex-1 flex-row items-center justify-between py-[11px]',
+            'flex flex-row items-center justify-between py-[11px]',
             listItem.icon ? 'ml-3' : '',
             !isLastItem ? 'border-b-[1px] border-b-blackA-A3' : '',
           )}>
-          <Animated.View>
+          <Animated.View style={tailwind.style('w-40 flex-none  pl-3')}>
             <Animated.Text
               style={tailwind.style(
                 'text-base font-inter-420-20 leading-[22px] tracking-[0.16px] text-gray-950',
@@ -62,7 +65,7 @@ const ListItem = (props: ListItemProps) => {
               {listItem.title}
             </Animated.Text>
           </Animated.View>
-          <Animated.View style={tailwind.style('flex flex-row items-center pr-3 text-right')}>
+          <Animated.View style={tailwind.style('w-28 flex-none ')}>
             <Animated.Text
               numberOfLines={1}
               ellipsizeMode="tail"
@@ -72,7 +75,9 @@ const ListItem = (props: ListItemProps) => {
               )}>
               {translatedSubtitle}
             </Animated.Text>
-            {listItem.hasChevron ? <Icon icon={<CaretRight />} size={20} /> : null}
+          </Animated.View>
+          <Animated.View style={tailwind.style('w-8 flex-none text-right')}>
+          {listItem.hasChevron ? <Icon icon={<CaretRight />} size={20} /> : null}
           </Animated.View>
         </Animated.View>
       </Animated.View>
