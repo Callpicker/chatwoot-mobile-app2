@@ -71,15 +71,19 @@ export const InboxItemContainer = (props: InboxItemContainerProps) => {
       shouldShowToast: false,
     });
     if (item.primaryActor?.id) {
-      await dispatch(conversationActions.fetchConversation(item.primaryActor?.id));
-      const pushToChatScreen = StackActions.push('ChatScreen', {
-        conversationId: item.primaryActor?.id,
-        isConversationOpenedExternally: false,
-      });
-      navigation.dispatch(pushToChatScreen);
-      setTimeout(() => {
-        setIsNavigating(false);
-      }, 300);
+      const response = await dispatch(conversationActions.fetchConversation(item.primaryActor?.id));
+      if (response.error){
+        return;
+      }else{
+        const pushToChatScreen = StackActions.push('ChatScreen', {
+          conversationId: item.primaryActor?.id,
+          isConversationOpenedExternally: false,
+        });
+        navigation.dispatch(pushToChatScreen);
+        setTimeout(() => {
+          setIsNavigating(false);
+        }, 300);
+      }
     }
   };
 

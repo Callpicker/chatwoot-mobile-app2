@@ -447,7 +447,8 @@
     "OfFLINE": "Debe conectarse a Wi-Fi o a una red móvil para conectarse de nuevo",
     "CANNOT_FETCH": "Hubo un error al recuperar la información, por favor inténtalo de nuevo",
     "AUTH": "Nombre de usuario / Contraseña incorrecto. Inténtalo de nuevo",
-    "NO_ACCOUNTS_MESSAGE": "No tienes acceso a ninguna cuenta de chatwoot"
+    "NO_ACCOUNTS_MESSAGE": "No tienes acceso a ninguna cuenta de chatwoot",
+    "NO_AUTH": "No tienes autorización para realizar esta acción"
   },
   "SUCCESS": {
     "AUTH": "Inicio de sesión exitoso"

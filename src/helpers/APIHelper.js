@@ -13,7 +13,8 @@ const parseErrorCode = error => {
   Sentry.captureException(error);
   if (error.response) {
     if (error.response.status === 401) {
-      handleLogout();
+      // handleLogout();
+      showToast({ message: I18n.t('ERRORS.NO_AUTH') });
     }
   } else {
     showToast({ message: I18n.t('ERRORS.COMMON_ERROR') });

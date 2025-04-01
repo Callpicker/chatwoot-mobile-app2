@@ -50,6 +50,17 @@ class APIService {
         const state = store.getState();
         config.baseURL = state.settings?.installationUrl;
         const accountId = state.auth.user?.account_id;
+
+        if (config.url === 'auth/sign_in') {
+          return {
+            ...config,
+            headers: {
+              ...config.headers,
+              ...headers,
+            },
+          } as InternalAxiosRequestConfig;
+        }
+
         if (accountId && config.url && !nonAccountRoutes.includes(config.url)) {
           config.url = `api/v1/accounts/${accountId}/${config.url}`;
         } else if (nonAccountRoutes.includes(config.url || '')) {
@@ -70,7 +81,8 @@ class APIService {
       (response: AxiosResponse) => response,
       async (error: AxiosError) => {
         if (error.response?.status === 401) {
-          store.dispatch({ type: 'auth/logout' });
+          // store.dispatch({ type: 'auth/logout' });
+          showToast({ message: I18n.t('ERRORS.NO_AUTH') });
         } else {
           showToast({ message: I18n.t('ERRORS.COMMON_ERROR') });
         }
