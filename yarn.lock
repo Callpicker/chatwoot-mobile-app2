@@ -2631,6 +2631,13 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-4.5.5.tgz#d70fc5870477760033769bbd6625d57e7d7678b2"
   integrity sha512-x2N415pg4ZxIltArOKczPwn7JEYh+1OxQ4+hTnafomnMsqs65HZuEWcX+Ch8c5r8V83DiunuQUf5hWGWlw8hQQ==
 
+"@react-native-firebase/analytics@^21.12.3":
+  version "21.12.3"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-21.12.3.tgz#49daee903ee56b5d1f018e89715eb3ff5a73d5a5"
+  integrity sha512-YYytd3fuW/hRHU0J5I6WgTuZ8u5k1Bmn2l30PvsHv56jkUcfB59O1KdgNxqWBXRZEfnwEeaBmzTbbG7vkzyl/Q==
+  dependencies:
+    superstruct "^2.0.2"
+
 "@react-native-firebase/app@^21.0.0":
   version "21.6.1"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-21.6.1.tgz#2f3a5f9bc9436ba3a0a76b9d32eb685e0a379340"
@@ -10471,6 +10478,11 @@ sudo-prompt@^9.0.0:
   version "9.2.1"
   resolved "https://registry.yarnpkg.com/sudo-prompt/-/sudo-prompt-9.2.1.tgz#77efb84309c9ca489527a4e749f287e6bdd52afd"
   integrity sha512-Mu7R0g4ig9TUuGSxJavny5Rv0egCEtpZRNMrZaYS1vxkiIxGiGUwoezU3LazIQ+KE04hTrTfNPgxU5gzi7F5Pw==
+
+superstruct@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/superstruct/-/superstruct-2.0.2.tgz#3f6d32fbdc11c357deff127d591a39b996300c54"
+  integrity sha512-uV+TFRZdXsqXTL2pRvujROjdZQ4RAlBUS5BTh9IGm+jTqQntYThciG/qu57Gs69yjnVUSqdxF9YLmSnpupBW9A==
 
 supports-color@^5.3.0:
   version "5.5.0"
