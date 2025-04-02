@@ -46,6 +46,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         'android.permission.RECORD_AUDIO',
         'android.permission.ACCESS_MEDIA_LOCATION',
         'android.permission.READ_MEDIA_IMAGES',
+        'android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS',
       ],
       // Please use the relative path to the google-services.json file
       googleServicesFile: process.env.EXPO_PUBLIC_ANDROID_GOOGLE_SERVICES_FILE,

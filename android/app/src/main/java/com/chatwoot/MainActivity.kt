@@ -1,7 +1,13 @@
 package com.chatwoot
 
 import android.os.Build
+import android.content.Intent
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
+import android.net.Uri
+import android.app.Activity
+import android.content.Context
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
@@ -15,8 +21,30 @@ class MainActivity : ReactActivity() {
     // Set the theme to AppTheme BEFORE onCreate to support
     // coloring the background, status bar, and navigation bar.
     // This is required for expo-splash-screen.
-    setTheme(R.style.AppTheme);
-    super.onCreate(null)
+    setTheme(R.style.AppTheme)
+    super.onCreate(savedInstanceState)
+
+    requestBatteryOptimizationExemption()  // Add this line to request exemption
+  }
+
+  /**
+    * Request battery optimization exemption from the user.
+    */
+  private fun requestBatteryOptimizationExemption() {
+    val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+    val packageName = packageName
+    val prefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+    val hasAskedBefore = prefs.getBoolean("hasAskedBatteryOptimization", false)
+
+    // Check if the app is ignoring battery optimizations
+    if (!pm.isIgnoringBatteryOptimizations(packageName) && !hasAskedBefore) {
+      val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+      intent.data = Uri.parse("package:$packageName")
+      startActivity(intent)
+
+      // Save that we have asked the user
+      prefs.edit().putBoolean("hasAskedBatteryOptimization", true).apply()
+    }
   }
 
   /**
