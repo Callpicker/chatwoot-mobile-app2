@@ -43,8 +43,8 @@ const middlewares: Middleware[] = [contactListenerMiddleware.middleware];
 const rootReducer = (state: ReturnType<typeof appReducer>, action: AnyAction) => {
   if (action.type === 'auth/logout') {
     const initialState = appReducer(undefined, { type: 'INIT' });
-    const updatedSettings = {...state.settings, notificationSettings: undefined};
-    return { ...initialState, settings: updatedSettings };
+    const preservedSettings = { ...initialState.settings, localeValue: state.settings.localeValue, uiFlags: state.settings.uiFlags };
+    return { ...initialState, settings: preservedSettings };
   }
   return appReducer(state, action);
 };
