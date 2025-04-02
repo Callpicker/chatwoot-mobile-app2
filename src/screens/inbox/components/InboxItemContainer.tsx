@@ -64,6 +64,8 @@ export const InboxItemContainer = (props: InboxItemContainerProps) => {
   const isRead = !!item.readAt;
 
   const onPressAction = async () => {
+    console.log("On press");
+    console.log("Is navigating? ",isNavigating);
     if (isNavigating) return;
     setIsNavigating(true);
 
@@ -72,7 +74,10 @@ export const InboxItemContainer = (props: InboxItemContainerProps) => {
     });
     if (item.primaryActor?.id) {
       const response = await dispatch(conversationActions.fetchConversation(item.primaryActor?.id));
-      if (response.error){
+      console.log(response);
+      if (response.error || response.payload?.error === "You are not authorized to do this action") {
+        showToast({ message: i18n.t('ERRORS.NO_AUTH') });
+        setIsNavigating(false);
         return;
       }else{
         const pushToChatScreen = StackActions.push('ChatScreen', {

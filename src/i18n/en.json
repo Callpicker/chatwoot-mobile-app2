@@ -452,7 +452,7 @@
     "CANNOT_FETCH": "There was an error fetching the information, please try again",
     "AUTH": "Username / Password Incorrect. Please try again",
     "NO_ACCOUNTS_MESSAGE": "You don't have access to any chatwoot accounts",
-    "NO_AUTH": "You are not authorized to do this action"
+    "NO_AUTH": "Your user has been removed from this inbox, please contact your administrator to corroborate this"
   },
   "SUCCESS": {
     "AUTH": "Login Successful"

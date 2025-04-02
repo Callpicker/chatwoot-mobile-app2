@@ -14,7 +14,7 @@ const parseErrorCode = error => {
   if (error.response) {
     if (error.response.status === 401) {
       // handleLogout();
-      showToast({ message: I18n.t('ERRORS.NO_AUTH') });
+      // showToast({ message: I18n.t('ERRORS.NO_AUTH') });
     }
   } else {
     showToast({ message: I18n.t('ERRORS.COMMON_ERROR') });

@@ -448,7 +448,7 @@
     "CANNOT_FETCH": "Hubo un error al recuperar la información, por favor inténtalo de nuevo",
     "AUTH": "Nombre de usuario / Contraseña incorrecto. Inténtalo de nuevo",
     "NO_ACCOUNTS_MESSAGE": "No tienes acceso a ninguna cuenta de chatwoot",
-    "NO_AUTH": "No tienes autorización para realizar esta acción"
+    "NO_AUTH": "Tu usuario ha sido removido de esta bandeja de entrada, favor de contactar a tu administrador para corroborarlo"
   },
   "SUCCESS": {
     "AUTH": "Inicio de sesión exitoso"
