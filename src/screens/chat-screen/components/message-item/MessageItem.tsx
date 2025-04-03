@@ -77,7 +77,7 @@ export const MessageItem = ({ item, channel, typeApi, getMenuOptions }: MessageI
       case ATTACHMENT_TYPES.IMAGE:
         return <ImageCell {...commonProps} imageSrc={attachments[0].dataUrl} />;
       case ATTACHMENT_TYPES.AUDIO:
-        return <AudioCell {...commonProps} audioSrc={attachments[0].dataUrl} />;
+        return <AudioCell {...commonProps} key={`${item.id}-${attachments[0].dataUrl}`} audioSrc={attachments[0].dataUrl} />;
       case ATTACHMENT_TYPES.VIDEO:
         return <VideoCell {...commonProps} videoSrc={attachments[0].dataUrl} />;
       case ATTACHMENT_TYPES.FILE:

@@ -3,7 +3,7 @@ import { FFmpegKit } from 'ffmpeg-kit-react-native';
 import * as Sentry from '@sentry/react-native';
 
 export const convertOggToMp3 = async (oggUrl: string): Promise<string> => {
-  const tempOggPath = `${RNFS.CachesDirectoryPath}/temp.ogg`;
+  const tempOggPath = `${RNFS.CachesDirectoryPath}/temp_${Date.now()}.ogg`;
   const fileName = `converted_${Date.now()}.mp3`;
   const outputPath = `${RNFS.CachesDirectoryPath}/${fileName}`;
 
@@ -16,12 +16,14 @@ export const convertOggToMp3 = async (oggUrl: string): Promise<string> => {
 
     // Verify download was successful
     if (downloadResult.statusCode !== 200) {
+      console.log(`Download failed with status ${downloadResult.statusCode}`);
       throw new Error(`Download failed with status ${downloadResult.statusCode}`);
     }
 
     // Verify file exists before conversion
     const fileExists = await RNFS.exists(tempOggPath);
     if (!fileExists) {
+      console.log('Downloaded file not found');
       throw new Error('Downloaded file not found');
     }
 
@@ -38,12 +40,14 @@ export const convertOggToMp3 = async (oggUrl: string): Promise<string> => {
     // Verify output file exists
     const outputExists = await RNFS.exists(outputPath);
     if (!outputExists) {
+      console.log('Conversion failed - output file not found');
       throw new Error('Conversion failed - output file not found');
     }
 
     return `file://${outputPath}`;
   } catch (error) {
     Sentry.captureException(error);
+    console.log("Some error during conversion ",error);
     // Clean up any temporary files in case of error
     try {
       if (await RNFS.exists(tempOggPath)) {

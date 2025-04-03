@@ -100,10 +100,13 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
     } else {
       setIsSoundLoading(true);
 
-      startPlayer(convertedAudioSrc, audioPlayBackStatus).then(() => {
-        setIsSoundLoading(false);
-        setAudioPlaying(true);
-        dispatch(setCurrentPlayingAudioSrc(convertedAudioSrc));
+      // Stop any currently playing audio before starting new one
+      stopPlayer().then(() => {
+        startPlayer(convertedAudioSrc, audioPlayBackStatus).then(() => {
+          setIsSoundLoading(false);
+          setAudioPlaying(true);
+          dispatch(setCurrentPlayingAudioSrc(convertedAudioSrc));
+        });
       });
     }
   };
@@ -145,7 +148,11 @@ export const AudioPlayer = (props: AudioPlayerProps) => {
       currentPosition.value = 0;
       totalDuration.value = 0;
     }
-  }, [currentPlayingAudioSrc, audioSrc, currentPosition, totalDuration]);
+    if (currentPlayingAudioSrc !== convertedAudioSrc) {
+      currentPosition.value = 0;
+      totalDuration.value = 0;
+    }
+  }, [currentPlayingAudioSrc, audioSrc, convertedAudioSrc, currentPosition, totalDuration]);
 
   useEffect(() => {
     return () => {
