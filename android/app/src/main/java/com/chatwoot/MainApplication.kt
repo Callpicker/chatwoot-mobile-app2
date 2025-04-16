@@ -1,4 +1,4 @@
-package com.chatwoot
+package com.callpicker.chat
 
 import android.app.Application
 import android.content.res.Configuration

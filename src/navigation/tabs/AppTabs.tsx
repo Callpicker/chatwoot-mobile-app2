@@ -49,7 +49,7 @@ export type TabParamList = {
   Inbox: undefined;
   Settings: undefined;
   Login: undefined;
-  ConfigInstallationURL: "https://chatdev6.callpicker.com/";
+  ConfigInstallationURL: "https://chat.callpicker.com/";
   ForgotPassword: undefined;
   Search: undefined;
   Notifications: undefined;

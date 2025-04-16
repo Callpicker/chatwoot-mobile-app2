@@ -1,4 +1,4 @@
-package com.chatwoot
+package com.callpicker.chat
 
 import android.os.Build
 import android.content.Intent

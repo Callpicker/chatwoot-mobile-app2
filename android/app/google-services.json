@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "731906824541",
-    "project_id": "callpicker-chat-app",
-    "storage_bucket": "callpicker-chat-app.firebasestorage.app"
+    "project_number": "394010766028",
+    "project_id": "callpicker-chat-app-d29f7",
+    "storage_bucket": "callpicker-chat-app-d29f7.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:731906824541:android:3c8461247f703b541af0b4",
+        "mobilesdk_app_id": "1:394010766028:android:5c15ba752f1c2f0be7f069",
         "android_client_info": {
-          "package_name": "com.chatwoot"
+          "package_name": "com.callpicker.chat"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAT0mFc9XksgSMOUdpPjBFXM0yIfbXZec8"
+          "current_key": "AIzaSyAbJo6zk58FeExHrcV5XQEyvypV9pqoN-M"
         }
       ],
       "services": {
