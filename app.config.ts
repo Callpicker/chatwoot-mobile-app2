@@ -42,10 +42,12 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         'android.permission.CAMERA',
         'android.permission.READ_EXTERNAL_STORAGE',
         'android.permission.WRITE_EXTERNAL_STORAGE',
-        'android.permission.MANAGE_EXTERNAL_STORAGE',
+        // 'android.permission.MANAGE_EXTERNAL_STORAGE',
         'android.permission.RECORD_AUDIO',
         'android.permission.ACCESS_MEDIA_LOCATION',
         'android.permission.READ_MEDIA_IMAGES',
+        'android.permission.READ_MEDIA_AUDIO',
+        'android.permission.READ_MEDIA_VIDEO',
         'android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS',
       ],
       // Please use the relative path to the google-services.json file
